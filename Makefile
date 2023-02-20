@@ -13,28 +13,29 @@
 
 NAME	= mlx_test
 VPATH	= src
-HEADERS	= -I ./include -I $(LIBMLX)/include
+HEADERS	= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
 CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
-UNAME := $(shell uname)
-
+LIBFT	= ./lib/the_library
+UNAME	= $(shell uname)
 
 ifeq ($(UNAME), Darwin)
-LIBS	= $(LIBMLX)/glfw_lib/libglfw3.a $(LIBMLX)/builds/libmlx42.a -framework Cocoa -framework OpenGL -framework IOKit
+LIBS	= $(LIBMLX)/glfw_lib/libglfw3.a $(LIBMLX)/build/libmlx42.a \
+			$(LIBFT)/lib_extended.a -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
-SRCS	= main.c raytracing.c vector.c color.c ray.c
+SRCS	= main.c scene.c validation.c vector.c debug_und_test.c
 OBJS	= $(addprefix obj/,$(SRCS:.c=.o))
 
 BOLD	= \033[1m
 GREEN	= \033[32;1m
 RESET	= \033[0m
 
-all: libmlx $(NAME)
-	@curl -s https://themushroomkingdom.net/sounds/wav/smb/smb_world_clear.wav -o sound.wav && afplay sound.wav && rm sound.wav &
-	@-curl --fail --silent --show-error -m 7 parrot.live 2> /dev/null ; true
-	@printf "$(GREEN)$(BOLD)\tminiRT compiled successfully\n$(RESET)"
-	@say MLX Done
+all: libmlx libft $(NAME)
+	# @curl -s https://themushroomkingdom.net/sounds/wav/smb/smb_world_clear.wav -o sound.wav && afplay sound.wav && rm sound.wav &
+	# @-curl --fail --silent --show-error -m 7 parrot.live 2> /dev/null ; true
+	# @printf "$(GREEN)$(BOLD)\tminiRT compiled successfully\n$(RESET)"
+	# @say MLX compiled successfully bitch
 
 libmlx:
 	@if [ -d ./lib/MLX42 ]; \
@@ -49,9 +50,12 @@ libmlx:
 	mv glfw-3.3.8.bin.MACOS/glfw_lib ./lib/MLX42/ && \
 	rm -rf glfw-3.3.8.bin.MACOS && \
 	cd lib/MLX42 && \
-	cmake -B builds && \
-	cmake --build builds; \
+	cmake -B build && \
+	cmake --build build -j4; \
 	fi
+
+libft:
+	@$(MAKE) -C $(LIBFT)
 
 obj/%.o: %.c | obj
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(GREEN)$(BOLD)\rCompiling: $(notdir $<)\r\e[35C[OK]\n$(RESET)"
@@ -64,9 +68,11 @@ $(NAME): $(OBJS)
 
 clean:
 	@rm -rf obj
+	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
 	@rm -f $(NAME)
+	@$(MAKE) -C $(LIBFT) fclean
 
 re: clean all
 
