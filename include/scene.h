@@ -1,8 +1,7 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-# include "vector.h"
-# include "stdbool.h"
+# include "minirt.h"
 
 typedef struct s_camera
 {
@@ -13,8 +12,8 @@ typedef struct s_camera
 
 typedef struct s_amb_light
 {
-	double	ratio;
-	t_color	rgb;
+	double		ratio;
+	t_color		rgb;
 }				t_amb_light;
 
 typedef struct s_light
