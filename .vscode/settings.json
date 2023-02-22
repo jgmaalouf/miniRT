@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"minirt.h": "c",
+		"elem_count.h": "c",
+		"limits.h": "c",
+		"fcntl.h": "c",
+		"validate_elem.h": "c",
+		"lib.h": "c",
+		"sstream": "c"
+	}
+}

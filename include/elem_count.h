@@ -25,6 +25,6 @@ t_elem_count	*elem_count(void);
 
 int	get_count(enum type e_type);
 
-void	set_count(enum type e_type, int size);
+void	incr_count(enum type e_type);
 
 #endif

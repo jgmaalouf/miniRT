@@ -6,14 +6,14 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/02/21 18:52:56 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/02/22 19:15:18 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= mlx_test
+NAME	= miniRT
 VPATH	= src
 HEADERS	= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
-CFLAGS	= -Wall -Wextra -Werror -O3
+CFLAGS	= -g -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
 UNAME	= $(shell uname)
@@ -23,7 +23,7 @@ LIBS	= $(LIBMLX)/glfw_lib/libglfw3.a $(LIBMLX)/build/libmlx42.a \
 			$(LIBFT)/lib_extended.a -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
-SRCS	= main.c elem_count.c scene.c errors.c vector.c validate_elem.c
+SRCS	= main.c elem_count.c scene.c errors.c vector.c validate_elem.c validate_elem_2.c
 OBJS	= $(addprefix obj/,$(SRCS:.c=.o))
 
 BOLD	= \033[1m
