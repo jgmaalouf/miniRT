@@ -59,4 +59,6 @@ typedef struct s_scene
 
 t_scene	parse_scene(char *file);
 
+void	populate_scene(t_scene *scene, char *file);
+
 #endif

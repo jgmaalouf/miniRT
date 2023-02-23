@@ -18,22 +18,16 @@ bool	valid_elem(char *str)
 {
 	if (ft_strncmp("A", str, 1) == 0 && ft_isspace(*(str + 1)))
 		return (valid_amb_light(str));
-
 	if (ft_strncmp("C", str, 1) == 0 && ft_isspace(*(str + 1)))
 		return (valid_camera(str));
-
 	if (ft_strncmp("L", str, 1) == 0 && ft_isspace(*(str + 1)))
 		return (valid_light(str));
-
 	if (ft_strncmp("sp", str, 2) == 0 && ft_isspace(*(str + 2)))
 		return (valid_sphere(str));
-
 	if (ft_strncmp("pl", str, 2) == 0 && ft_isspace(*(str + 2)))
 		return (valid_plane(str));
-
 	if (ft_strncmp("cy", str, 2) == 0 && ft_isspace(*(str + 2)))
 		return (valid_cylinder(str));
-
 	if (ft_strncmp("\n", str, 1) == 0)
 		return (true);
 

@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/02/23 14:41:37 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/02/23 15:00:54 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBS	= $(LIBMLX)/glfw_lib/libglfw3.a $(LIBMLX)/build/libmlx42.a \
 			$(LIBFT)/lib_extended.a -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
-SRCS	= main.c elem_count.c scene.c errors.c vector.c validate_elem.c validate_elem_2.c
+SRCS	= main.c elem_count.c check_scene.c populate_scene.c errors.c vector.c validate_elem.c validate_elem_2.c
 OBJS	= $(addprefix obj/,$(SRCS:.c=.o))
 
 BOLD	= \033[1m

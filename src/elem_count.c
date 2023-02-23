@@ -45,3 +45,22 @@ void	incr_count(enum type e_type)
 	else if (e_type == cylinders)
 		count->cy_count++;
 }
+
+void	decr_count(enum type e_type)
+{
+	t_elem_count *count;
+
+	count = elem_count();
+	if (e_type == cameras)
+		count->cam_count--;
+	else if (e_type == amb_lights)
+		count->a_li_count--;
+	else if (e_type == lights)
+		count->li_count--;
+	else if (e_type == spheres)
+		count->sp_count--;
+	else if (e_type == planes)
+		count->pl_count--;
+	else if (e_type == cylinders)
+		count->cy_count--;
+}
