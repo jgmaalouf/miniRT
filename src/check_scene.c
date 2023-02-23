@@ -80,6 +80,7 @@ t_scene	parse_scene(char *file)
 {
 	t_scene	scene;
 
+	scene.error = false;
 	if (scene_valid(&scene, file))
 		populate_scene(&scene, file);
 	return (scene);

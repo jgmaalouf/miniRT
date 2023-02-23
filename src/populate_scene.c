@@ -61,16 +61,16 @@ void	fill_sphere(char *str, t_scene *scene)
 {
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->spheres[get_count(spheres)].pos);
+	fill_triple_val(str, &scene->spheres[get_count(spheres) - 1].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	scene->spheres[get_count(spheres)].diameter = ft_atod(str);
+	scene->spheres[get_count(spheres) - 1].diameter = ft_atod(str);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->spheres[get_count(spheres)].rgb);
+	fill_triple_val(str, &scene->spheres[get_count(spheres) - 1].rgb);
 	decr_count(spheres);
 }
 
@@ -78,16 +78,16 @@ void	fill_plane(char *str, t_scene *scene)
 {
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[get_count(planes)].pos);
+	fill_triple_val(str, &scene->planes[get_count(planes) - 1].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[get_count(planes)].orient);
+	fill_triple_val(str, &scene->planes[get_count(planes) - 1].orient);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[get_count(planes)].rgb);
+	fill_triple_val(str, &scene->planes[get_count(planes) - 1].rgb);
 	decr_count(planes);
 }
 
@@ -95,23 +95,24 @@ void	fill_cylinder(char *str, t_scene *scene)
 {
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[get_count(cylinders)].pos);
+	fill_triple_val(str, &scene->cylinders[get_count(cylinders) - 1].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[get_count(cylinders)].orient);
+	fill_triple_val(str, &scene->cylinders[get_count(cylinders) - 1].orient);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	scene->cylinders[get_count(cylinders)].diameter = ft_atod(str);
+	scene->cylinders[get_count(cylinders) - 1].diameter = ft_atod(str);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	scene->cylinders[get_count(cylinders)].height = ft_atod(str);
+	scene->cylinders[get_count(cylinders) - 1].height = ft_atod(str);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
-	fill_triple_val(str, &scene->cylinders[get_count(cylinders)].rgb);
+	skip_spaces(&str);
+	fill_triple_val(str, &scene->cylinders[get_count(cylinders) - 1].rgb);
 	decr_count(cylinders);
 }
 

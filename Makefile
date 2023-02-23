@@ -6,14 +6,14 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/02/23 15:00:54 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/02/23 18:06:45 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
 VPATH	= src
 HEADERS	= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
-CFLAGS	= -g -Wall -Wextra -Werror -O3
+CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
 UNAME	= $(shell uname)
