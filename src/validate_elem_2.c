@@ -16,13 +16,16 @@ int ft_isdouble(char *s)
 		s++;
 	while (ft_isdigit(*s))
 		s++;
+	if (*s == '\0' || ft_isspace(*s) || *s == ',')
+		return (1);
 	if (*s == '.')
 	{
 		s++;
 		while (ft_isdigit(*s++))
+		{
 			if (*s == '\0' || ft_isspace(*s) || *s == ',')
 				return (1);
-		return (0);
+		}
 	}
 	return (0);
 }
