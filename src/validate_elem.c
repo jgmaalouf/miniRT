@@ -2,7 +2,6 @@
 
 bool	valid_amb_light(char *str)
 {
-	incr_count(amb_lights);
 	str++;
 	skip_spaces(&str);
 	if (!valid_ratio(&str))
@@ -12,12 +11,12 @@ bool	valid_amb_light(char *str)
 		return (inval_arg(RGB, "ambient light"));
 	if (!valid_eol(&str))
 		return (inval_arg(ELEM, "ambient light"));
+	incr_count(amb_lights);
 	return (true);
 }
 
 bool	valid_camera(char *str)
 {
-	incr_count(cameras);
 	str++;
 	skip_spaces(&str);
 	if (!valid_coord(&str))
@@ -30,12 +29,12 @@ bool	valid_camera(char *str)
 		return (inval_arg(FOV, "camera"));
 	if (!valid_eol(&str))
 		return (inval_arg(ELEM, "camera"));
+	incr_count(cameras);
 	return (true);
 }
 
 bool	valid_light(char *str)
 {
-	incr_count(lights);
 	str++;
 	skip_spaces(&str);
 	if (!valid_coord(&str))
@@ -48,12 +47,12 @@ bool	valid_light(char *str)
 		return (inval_arg(RGB, "light"));
 	if (!valid_eol(&str))
 		return (inval_arg(ELEM, "light"));
+	incr_count(lights);
 	return (true);
 }
 
 bool	valid_sphere(char *str)
 {
-	incr_count(spheres);
 	str += 2;
 	skip_spaces(&str);
 	if (!valid_coord(&str))
@@ -66,12 +65,12 @@ bool	valid_sphere(char *str)
 		return (inval_arg(RGB, "sphere"));
 	if (!valid_eol(&str))
 		return (inval_arg(ELEM, "sphere"));
+	incr_count(spheres);
 	return (true);
 }
 
 bool	valid_plane(char *str)
 {
-	incr_count(planes);
 	str += 2;
 	skip_spaces(&str);
 	if (!valid_coord(&str))
@@ -84,12 +83,12 @@ bool	valid_plane(char *str)
 		return (inval_arg(RGB, "plane"));
 	if (!valid_eol(&str))
 		return (inval_arg(ELEM, "plane"));
+	incr_count(planes);
 	return (true);
 }
 
 bool	valid_cylinder(char *str)
 {
-	incr_count(cylinders);
 	str += 2;
 	skip_spaces(&str);
 	if (!valid_coord(&str))
@@ -108,5 +107,6 @@ bool	valid_cylinder(char *str)
 		return (inval_arg(RGB, "cylinder"));
 	if (!valid_eol(&str))
 		return (inval_arg(ELEM, "cylinder"));
+	incr_count(cylinders);
 	return (true);
 }

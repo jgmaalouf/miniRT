@@ -2,22 +2,22 @@
 
 void	fill_triple_val(char *str, t_vec3 *triple_val)
 {
-	triple_val->e[0] = ft_atod(str);
+	ft_atod(str, &triple_val->e[0]);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == '-')
 		str++;
 	str++;
-	triple_val->e[1] = ft_atod(str);
+	ft_atod(str, &triple_val->e[1]);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == '-')
 		str++;
 	str++;
-	triple_val->e[2] = ft_atod(str);
+	ft_atod(str, &triple_val->e[2]);
 }
 
 void	fill_amb_light(char *str, t_scene *scene)
 {
 	str++;
 	skip_spaces(&str);
-	scene->amb_light.ratio = ft_atod(str);
+	ft_atod(str, &scene->amb_light.ratio);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
@@ -50,7 +50,7 @@ void	fill_light(char *str, t_scene *scene)
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	scene->light.ratio = ft_atod(str);
+	ft_atod(str, &scene->light.ratio);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
@@ -59,61 +59,67 @@ void	fill_light(char *str, t_scene *scene)
 
 void	fill_sphere(char *str, t_scene *scene)
 {
+	static int	count;
+
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->spheres[get_count(spheres) - 1].pos);
+	fill_triple_val(str, &scene->spheres[count].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	scene->spheres[get_count(spheres) - 1].diameter = ft_atod(str);
+	ft_atod(str, &scene->spheres[count].diameter);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->spheres[get_count(spheres) - 1].rgb);
-	decr_count(spheres);
+	fill_triple_val(str, &scene->spheres[count].rgb);
+	count++;
 }
 
 void	fill_plane(char *str, t_scene *scene)
 {
+	static int	count;
+
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[get_count(planes) - 1].pos);
+	fill_triple_val(str, &scene->planes[count].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[get_count(planes) - 1].orient);
+	fill_triple_val(str, &scene->planes[count].orient);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[get_count(planes) - 1].rgb);
-	decr_count(planes);
+	fill_triple_val(str, &scene->planes[count].rgb);
+	count++;
 }
 
 void	fill_cylinder(char *str, t_scene *scene)
 {
+	static int	count;
+
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[get_count(cylinders) - 1].pos);
+	fill_triple_val(str, &scene->cylinders[count].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[get_count(cylinders) - 1].orient);
+	fill_triple_val(str, &scene->cylinders[count].orient);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	scene->cylinders[get_count(cylinders) - 1].diameter = ft_atod(str);
+	ft_atod(str, &scene->cylinders[count].diameter);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	scene->cylinders[get_count(cylinders) - 1].height = ft_atod(str);
+	ft_atod(str, &scene->cylinders[count].height);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[get_count(cylinders) - 1].rgb);
-	decr_count(cylinders);
+	fill_triple_val(str, &scene->cylinders[count].rgb);
+	count++;
 }
 
 void	fill_elem(t_scene *scene, char *str)
@@ -134,9 +140,9 @@ void	fill_elem(t_scene *scene, char *str)
 
 void	allocate_scene_elements(t_scene *scene)
 {
-	scene->spheres = ft_calloc(get_count(spheres) + 1, sizeof(t_sphere));
-	scene->planes = ft_calloc(get_count(planes) + 1, sizeof(t_plane));
-	scene->cylinders = ft_calloc(get_count(cylinders) + 1, sizeof(t_cylinder));
+	scene->spheres = malloc((get_count(spheres) + 1) * sizeof(t_sphere));
+	scene->planes = malloc((get_count(planes) + 1) * sizeof(t_plane));
+	scene->cylinders = malloc((get_count(cylinders) + 1) * sizeof(t_cylinder));
 	if (scene->spheres == NULL || scene->planes == NULL
 		|| scene->cylinders == NULL)
 	{

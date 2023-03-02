@@ -30,7 +30,6 @@ bool	valid_elem(char *str)
 		return (valid_cylinder(str));
 	if (ft_strncmp("\n", str, 1) == 0)
 		return (true);
-
 	return (inval_arg(UNKNOWN, "element"));
 }
 
@@ -52,7 +51,6 @@ bool	valid_elem_count()
 		&& get_count(planes) < 1
 		&& get_count(cylinders) < 1)
 		return (inval_amount(LESS, "elements"), false);
-
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/02/23 18:06:45 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/02 14:34:38 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,5 +74,10 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT) fclean
 
 re: clean all
+
+gitadd: fclean
+	rm -rf lib/MLX42
+	rm -rf .vscode
+	git add .
 
 .PHONY: all, clean, fclean, re, libmlx, libft

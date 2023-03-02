@@ -9,6 +9,7 @@ typedef struct s_vec3
 }				t_vec3;
 
 typedef t_vec3	t_point3;
+
 typedef t_vec3	t_color;
 
 t_vec3	vec3_constr(const double e0, const double e1, const double e2);

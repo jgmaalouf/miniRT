@@ -42,7 +42,8 @@ bool	valid_ratio(char **str)
 
 	if (!ft_isdouble(*str))
 		return (false);
-	ratio = ft_atod(*str);
+	if (!ft_atod(*str, &ratio))
+		return (false);
 	while (ft_isdigit(**str) || **str == '.')
 		(*str)++;
 	if (ratio >= 0.0 && ratio <= 1.0)
@@ -53,11 +54,14 @@ bool	valid_ratio(char **str)
 bool	valid_coord(char **str)
 {
 	int	i;
+	double	coord;
 
 	i = 3;
 	while (i > 0)
 	{
 		if (!ft_isdouble(*str))
+			return (false);
+		if (!ft_atod(*str, &coord))
 			return (false);
 		while (ft_isdigit(**str) || **str == '.'
 			|| **str == '+' || **str == '-')
@@ -79,7 +83,8 @@ bool	valid_orient(char **str)
 	{
 		if (!ft_isdouble(*str))
 			return (false);
-		val = ft_atod(*str);
+		if (!ft_atod(*str, &val))
+			return (false);
 		while (ft_isdigit(**str) || **str == '.'
 			|| **str == '+' || **str == '-')
 			(*str)++;
@@ -111,8 +116,9 @@ bool	valid_dbl_size(char **str)
 	double	diam;
 
 	if (!ft_isdouble(*str))
-			return (false);
-	diam = ft_atod(*str);
+		return (false);
+	if (!ft_atod(*str, &diam))
+		return (false);
 	while (ft_isdigit(**str) || **str == '.'
 		|| **str == '+' || **str == '-')
 		(*str)++;
