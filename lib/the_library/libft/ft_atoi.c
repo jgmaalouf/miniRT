@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:55:20 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/06 14:20:39 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/06 14:35:18 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	ft_atoi(const char *str, int *result)
 
 int	ft_atoi_mod(const char *str, int *result)
 {
-	long	n;
-	int		i;
-	int		sign;
+	long		n;
+	size_t		i;
+	int			sign;
 
 	i = 0;
 	n = 0;
