@@ -1,0 +1,7 @@
+pid
+lib/
+.vscode/
+.DS_Store
+obj/
+miniRT
+*.rt

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 19:40:03 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/06 19:45:35 by jmaalouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ERRORS_H
 # define ERRORS_H
 
@@ -18,13 +30,9 @@
 # define MORE			9
 # define LESS			10
 
-
-int	inval_input(int type);
-
-int	inval_amount(int type, char *str);
-
-void	panic(char *str);
-
+int		inval_input(int type);
+int		inval_amount(int type, char *str);
 bool	inval_arg(int type, char *str);
+void	panic(char *str);
 
 #endif

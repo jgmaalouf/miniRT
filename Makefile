@@ -6,12 +6,12 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/02 14:36:32 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/06 19:49:34 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
-VPATH	= src
+VPATH	= src src/graphics src/math src/parse src/utils
 HEADERS	= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
 CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
@@ -23,8 +23,13 @@ LIBS	= $(LIBMLX)/glfw_lib/libglfw3.a $(LIBMLX)/build/libmlx42.a \
 			$(LIBFT)/lib_extended.a -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
-SRCS	= main.c elem_count.c check_scene.c populate_scene.c errors.c vector.c validate_elem.c validate_elem_2.c
-OBJS	= $(addprefix obj/,$(SRCS:.c=.o))
+SRCS	= main.c \
+			display.c \
+			vector1.c vector2.c vector3.c \
+			parse.c populate1.c populate2.c validate1.c validate2.c validate3.c validate4.c \
+			elem_count.c errors.c
+
+OBJS	= $(addprefix obj/,$(patsubst %.c, %.o, $(SRCS)))
 
 BOLD	= \033[1m
 GREEN	= \033[32;1m
@@ -74,11 +79,5 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT) fclean
 
 re: clean all
-
-gitadd: fclean
-	rm pid
-	rm -rf .vscode
-	rm -rf lib/MLX42
-	git add .
 
 .PHONY: all, clean, fclean, re, libmlx, libft

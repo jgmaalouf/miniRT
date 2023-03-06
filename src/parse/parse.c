@@ -1,9 +1,21 @@
-#include "scene.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/06 19:51:05 by jmaalouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parse.h"
 
 bool	open_file(char *file, int *fd)
 {
-	char *extension;
-	
+	char	*extension;
+
 	extension = ft_strnstr(file, ".rt", ft_strlen(file));
 	if (extension != NULL && ft_strcmp(extension, ".rt") == 0)
 	{
@@ -33,7 +45,7 @@ bool	valid_elem(char *str)
 	return (inval_arg(UNKNOWN, "element"));
 }
 
-bool	valid_elem_count()
+bool	valid_elem_count(void)
 {
 	if (get_count(cameras) > 1)
 		return (inval_amount(MORE, "cameras"), false);
@@ -74,12 +86,12 @@ bool	scene_valid(t_scene *scene, char *file)
 	return (true);
 }
 
-t_scene	parse_scene(char *file)
+t_scene	parse(char *file)
 {
 	t_scene	scene;
 
 	scene.error = false;
 	if (scene_valid(&scene, file))
-		populate_scene(&scene, file);
+		scene_populate(&scene, file);
 	return (scene);
 }

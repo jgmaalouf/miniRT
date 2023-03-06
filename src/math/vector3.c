@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   elem_count.h                                       :+:      :+:    :+:   */
+/*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 19:40:00 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:45:11 by jmaalouf         ###   ########.fr       */
+/*   Created: 2023/03/06 19:50:11 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/06 19:50:12 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ELEM_COUNT_H
-# define ELEM_COUNT_H
+#include "vector.h"
 
-typedef enum type
+double	vec3_length(const t_vec3 v)
 {
-	cameras,
-	amb_lights,
-	lights,
-	spheres,
-	planes,
-	cylinders
-}		t_type;
+	return (sqrt(vec3_length_squared(v)));
+}
 
-typedef struct s_elem_count
+t_vec3	vec3_unit(t_vec3 v)
 {
-	int	cam_count;
-	int	a_li_count;
-	int	li_count;
-	int	sp_count;
-	int	pl_count;
-	int	cy_count;
-}				t_elem_count;
-
-t_elem_count	*elem_count(void);
-int				get_count(enum type e_type);
-void			incr_count(enum type e_type);
-
-#endif
+	return (vec3_scale_div(v, vec3_length(v)));
+}

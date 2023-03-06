@@ -1,59 +1,20 @@
-#include "validate_elem.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate3.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 19:40:50 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/06 19:52:30 by jmaalouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	ft_isnumber(char *s)
-{
-	if (*s == '+' || *s == '-')
-		s++;
-	while (ft_isdigit(*s++))
-		if (*s == '\0' || ft_isspace(*s) || *s == ',')
-			return (1);
-	return (0);
-}
-
-int ft_isdouble(char *s)
-{
-	if (*s == '+' || *s == '-')
-		s++;
-	while (ft_isdigit(*s))
-		s++;
-	if (*s == '\0' || ft_isspace(*s) || *s == ',')
-		return (1);
-	if (*s == '.')
-	{
-		s++;
-		while (ft_isdigit(*s++))
-		{
-			if (*s == '\0' || ft_isspace(*s) || *s == ',')
-				return (1);
-		}
-	}
-	return (0);
-}
-
-void	skip_spaces(char **str)
-{
-	while (ft_isspace(**str))
-		(*str)++;
-}
-
-bool	valid_ratio(char **str)
-{
-	double	ratio;
-
-	if (!ft_isdouble(*str))
-		return (false);
-	if (!ft_atod(*str, &ratio))
-		return (false);
-	while (ft_isdigit(**str) || **str == '.')
-		(*str)++;
-	if (ratio >= 0.0 && ratio <= 1.0)
-		return (true);
-	return (false);
-}
+#include "parse.h"
 
 bool	valid_coord(char **str)
 {
-	int	i;
+	int		i;
 	double	coord;
 
 	i = 3;
@@ -64,7 +25,7 @@ bool	valid_coord(char **str)
 		if (!ft_atod(*str, &coord))
 			return (false);
 		while (ft_isdigit(**str) || **str == '.'
-				|| **str == '+' || **str == '-')
+			|| **str == '+' || **str == '-')
 			(*str)++;
 		if (**str == ',')
 			(*str)++;
@@ -106,7 +67,7 @@ bool	valid_fov(char **str)
 	if (ft_atoi_mod(*str, &fov) == 1
 		|| fov > 180 || fov < 0)
 		return (false);
-	while(ft_isdigit(**str))
+	while (ft_isdigit(**str))
 		(*str)++;
 	return (true);
 }
@@ -147,12 +108,4 @@ bool	valid_rgb(char **str)
 		i--;
 	}
 	return (true);
-}
-
-bool	valid_eol(char **str)
-{
-	skip_spaces(str);
-	if (**str == '\0' || **str == '\n')
-		return (true);
-	return (false);
 }

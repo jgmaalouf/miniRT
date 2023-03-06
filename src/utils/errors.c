@@ -1,31 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/06 19:56:52 by jmaalouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "errors.h"
 
-# define RESET "\001\e[0m\002"
-# define BOLD "\001\e[1m\002"
-# define RED "\001\e[31m\002"
+#define RESET "\001\e[0m\002"
+#define BOLD "\001\e[1m\002"
+#define RED "\001\e[31m\002"
 
 int	inval_input(int type)
 {
-	const char* error;
+	const char	*error;
 
 	error = RED BOLD "Error\n" RESET;
 	if (type == INVALID_ARGS)
 		printf("%s%s\n", error, "Not enough args!");
 	if (type == INVALID_FILE)
-		printf("%s%s\n", error, "File is invalid! Make sure the file extension is '.rt'");
-	return(EXIT_FAILURE);
+		printf("%s%s\n", error,
+			"File is invalid! Make sure the file extension is '.rt'");
+	return (EXIT_FAILURE);
 }
 
 int	inval_amount(int type, char *str)
 {
-	const char* error;
+	const char	*error;
 
 	error = RED BOLD "Error\n" RESET;
 	if (type == MORE)
 		printf("%sThere are more %s than required!\n", error, str);
 	else if (type == LESS)
 		printf("%sThere is an insufficient amount of %s!\n", error, str);
-	return(EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
 
 void	panic(char *str)
@@ -36,10 +49,9 @@ void	panic(char *str)
 	exit(EXIT_FAILURE);
 }
 
-
 bool	inval_arg(int type, char *str)
 {
-	const char* error;
+	const char	*error;
 
 	error = RED BOLD "Error\n" RESET;
 	if (type == RATIO)

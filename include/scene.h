@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scene.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/06 19:40:13 by jmaalouf         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SCENE_H
 # define SCENE_H
 
@@ -57,8 +69,6 @@ typedef struct s_scene
 	bool		error;
 }				t_scene;
 
-t_scene	parse_scene(char *file);
-
-void	populate_scene(t_scene *scene, char *file);
+t_scene	parse(char *file);
 
 #endif
