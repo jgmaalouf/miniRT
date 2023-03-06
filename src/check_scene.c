@@ -61,12 +61,12 @@ bool	scene_valid(t_scene *scene, char *file)
 
 	if (!open_file(file, &fd))
 		return (inval_input(INVALID_FILE), scene->error = true, false);
-	line = get_next_line(fd);
+	get_next_line(fd, &line);
 	while (line != NULL)
 	{
 		if (!valid_elem(line))
 			return (close(fd), scene->error = true, false);
-		line = get_next_line(fd);
+		get_next_line(fd, &line);
 	}
 	close(fd);
 	if (!valid_elem_count())
