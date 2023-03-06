@@ -160,11 +160,11 @@ void populate_scene(t_scene *scene, char *file)
 
 	allocate_scene_elements(scene);
 	fd = open(file, O_RDONLY);
-	line = get_next_line(fd);
+	get_next_line(fd, &line);
 	while (line != NULL)
 	{
 		fill_elem(scene, line);
-		line = get_next_line(fd);
+		get_next_line(fd, &line);
 	}
 	close(fd);
 }
