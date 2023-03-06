@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:39:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/20 23:49:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/06 14:19:44 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stdlib.h>
 
 int		ft_atoi(const char *str, int *result);
+int		ft_atoi_mod(const char *str, int *result);
+int		ft_atod(const char *str, double *res);
 int		ft_atoll(const char *str, long long *result);
 char	*ft_itoa(int n);
 char	*ft_xitoa(int n);
