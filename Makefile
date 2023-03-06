@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/02 14:34:38 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/02 14:36:32 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,8 +76,9 @@ fclean: clean
 re: clean all
 
 gitadd: fclean
-	rm -rf lib/MLX42
+	rm pid
 	rm -rf .vscode
+	rm -rf lib/MLX42
 	git add .
 
 .PHONY: all, clean, fclean, re, libmlx, libft

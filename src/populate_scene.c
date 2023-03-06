@@ -152,6 +152,7 @@ void	allocate_scene_elements(t_scene *scene)
 	}
 }
 
+
 void populate_scene(t_scene *scene, char *file)
 {
 	int		fd;

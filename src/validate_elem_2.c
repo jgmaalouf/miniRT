@@ -64,7 +64,7 @@ bool	valid_coord(char **str)
 		if (!ft_atod(*str, &coord))
 			return (false);
 		while (ft_isdigit(**str) || **str == '.'
-			|| **str == '+' || **str == '-')
+				|| **str == '+' || **str == '-')
 			(*str)++;
 		if (**str == ',')
 			(*str)++;
