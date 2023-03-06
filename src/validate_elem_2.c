@@ -103,7 +103,7 @@ bool	valid_fov(char **str)
 
 	if (!ft_isnumber(*str))
 		return (false);
-	if (ft_atoi(*str, &fov) == 1
+	if (ft_atoi_mod(*str, &fov) == 1
 		|| fov > 180 || fov < 0)
 		return (false);
 	while(ft_isdigit(**str))
@@ -137,7 +137,7 @@ bool	valid_rgb(char **str)
 	{
 		if (!ft_isnumber(*str))
 			return (false);
-		if (ft_atoi(*str, &val) == 1 || val > 255 || val < 0)
+		if (ft_atoi_mod(*str, &val) == 1 || val > 255 || val < 0)
 			return (false);
 		while (ft_isdigit(**str)
 			|| **str == '+' || **str == '-')

@@ -38,7 +38,7 @@ void	fill_camera(char *str, t_scene *scene)
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	ft_atoi(str, &scene->camera.fov);
+	ft_atoi_mod(str, &scene->camera.fov);
 }
 
 void	fill_light(char *str, t_scene *scene)
