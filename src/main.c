@@ -6,17 +6,17 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/07 14:08:49 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:56:43 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	cleanup(t_scene scene)
+void	cleanup(t_scene *scene)
 {
-	free(scene.spheres);
-	free(scene.planes);
-	free(scene.cylinders);
+	free(scene->spheres);
+	free(scene->planes);
+	free(scene->cylinders);
 }
 
 int	main(int argc, char *argv[])
@@ -28,7 +28,7 @@ int	main(int argc, char *argv[])
 	scene = parse(argv[1]);
 	if (scene.error == true)
 		return (EXIT_FAILURE);
-	display(scene);
-	cleanup(scene);
+	display(&scene);
+	cleanup(&scene);
 	return (EXIT_SUCCESS);
 }

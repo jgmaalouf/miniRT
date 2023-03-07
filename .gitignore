@@ -5,3 +5,4 @@ lib/MLX42
 obj/
 miniRT
 *.rt
+*.a

@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/07 14:21:08 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:32:52 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ int	inval_amount(int type, char *str)
 }
 
 void	panic(char *str)
+{
+	char	*error;
+
+	error = RED BOLD "Error\n" RESET;
+	ft_putstr_fd(error, 2);
+	ft_putstr_fd(str, 2);
+	ft_putchar_fd('\n', 2);
+}
+
+void	panic_exit(char *str)
 {
 	char	*error;
 
