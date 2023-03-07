@@ -6,13 +6,13 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/06 19:49:34 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/07 14:16:05 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
 VPATH	= src src/graphics src/math src/parse src/utils
-HEADERS	= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
+HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
 CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library

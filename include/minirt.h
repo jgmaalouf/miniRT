@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:40:09 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:14:32 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
+# include "MLX42.h"
 # include "lib.h"
 
 # include "vector.h"
