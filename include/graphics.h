@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:40:06 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:11:02 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "minirt.h"
 
-void	display(t_scene scene);
+# define WIDTH 1920
+# define HEIGHT 1080
+
+void	display(t_scene *scene);
 
 #endif
