@@ -4,5 +4,4 @@ lib/MLX42
 .DS_Store
 obj/
 miniRT
-*.rt
 *.a

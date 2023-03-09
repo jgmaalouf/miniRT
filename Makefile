@@ -6,12 +6,12 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/07 14:16:05 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/09 11:13:30 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
-VPATH	= src src/graphics src/math src/parse src/utils
+VPATH	= src src/graphics src/math src/parse src/utils src/debug
 HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
 CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
@@ -27,7 +27,8 @@ SRCS	= main.c \
 			display.c \
 			vector1.c vector2.c vector3.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c validate3.c validate4.c \
-			elem_count.c errors.c
+			elem_count.c errors.c \
+			print_scene.c
 
 OBJS	= $(addprefix obj/,$(patsubst %.c, %.o, $(SRCS)))
 
