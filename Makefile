@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/09 11:13:30 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/09 12:26:02 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ endif
 
 SRCS	= main.c \
 			display.c \
-			vector1.c vector2.c vector3.c \
+			vector1.c vector2.c vector3.c ray.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c validate3.c validate4.c \
 			elem_count.c errors.c \
 			print_scene.c
