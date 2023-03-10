@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/07 15:10:14 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:38:04 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ t_scene	parse(char *file)
 
 	scene.error = false;
 	if (scene_valid(&scene, file))
+	{
 		scene_populate(&scene, file);
+		scene.img.focal_len = 1.0;
+		scene.img.width = 1920.0;
+		scene.img.height = 1080.0;
+		scene.img.ratio = scene.img.width / scene.img.height;
+	}
 	return (scene);
 }

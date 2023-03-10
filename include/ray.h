@@ -6,14 +6,14 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:32:04 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/09 11:39:29 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:41:41 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
 
-#include "vector.h"
+# include "vector.h"
 
 typedef struct s_ray
 {
