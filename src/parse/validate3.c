@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:50 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:52:30 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 11:34:20 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	valid_dbl_size(char **str)
 	while (ft_isdigit(**str) || **str == '.'
 		|| **str == '+' || **str == '-')
 		(*str)++;
-	if (diam < 0.0 || diam > MAXFLOAT)
+	if (diam < 0.0)
 		return (false);
 	return (true);
 }

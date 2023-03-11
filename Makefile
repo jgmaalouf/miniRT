@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/09 12:26:02 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/11 11:59:50 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ UNAME	= $(shell uname)
 ifeq ($(UNAME), Darwin)
 LIBS	= $(LIBMLX)/glfw_lib/libglfw3.a $(LIBMLX)/build/libmlx42.a \
 			$(LIBFT)/lib_extended.a -framework Cocoa -framework OpenGL -framework IOKit
+endif
+
+ifeq ($(UNAME), Linux)
+LIBS	= $(LIBMLX)/build/libmlx42.a $(LIBFT)/lib_extended.a -ldl -lglfw -pthread -lm
 endif
 
 SRCS	= main.c \
@@ -43,21 +47,7 @@ all: libmlx libft $(NAME)
 	# @say MLX compiled successfully bitch
 
 libmlx:
-	@if [ -d ./lib/MLX42 ]; \
-	then echo "\033[1;33m./lib/MLX42/ Exists\033[0m"; \
-	else \
-	git clone https://github.com/codam-coding-college/MLX42.git && \
-	mv MLX42 ./lib && \
-	curl -LO https://github.com/glfw/glfw/releases/download/3.3.8/glfw-3.3.8.bin.MACOS.zip && \
-	unzip glfw-3.3.8.bin.MACOS.zip && \
-	rm glfw-3.3.8.bin.MACOS.zip && \
-	mv glfw-3.3.8.bin.MACOS/lib-universal glfw-3.3.8.bin.MACOS/glfw_lib && \
-	mv glfw-3.3.8.bin.MACOS/glfw_lib ./lib/MLX42/ && \
-	rm -rf glfw-3.3.8.bin.MACOS && \
-	cd lib/MLX42 && \
-	cmake -B build && \
-	cmake --build build -j4; \
-	fi
+	@bash setup_lib.sh
 
 libft:
 	@$(MAKE) -C $(LIBFT)
