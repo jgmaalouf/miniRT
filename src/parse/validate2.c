@@ -5,39 +5,97 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 19:40:48 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:40:49 by jmaalouf         ###   ########.fr       */
+/*   Created: 2023/03/06 19:40:50 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/11 19:36:28 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdbool.h>
+#include "lib.h"
 #include "parse.h"
+
+bool	valid_rgb(char **str)
+{
+	int		i;
+	int		val;
+	bool	err;
+
+	err = true;
+	skip_spaces(str);
+	i = 3;
+	while (i > 0)
+	{
+		if (!ft_isnumber(*str))
+			err = false;
+		if (ft_atoi_mod(*str, &val) == 1 || val > 255 || val < 0)
+			err = false;
+		while (ft_isdigit(**str)
+			|| **str == '+' || **str == '-')
+			(*str)++;
+		if (**str == ',')
+			(*str)++;
+		i--;
+	}
+	return (err);
+}
 
 bool	valid_ratio(char **str)
 {
 	double	ratio;
+	bool	err;
 
+	err = true;
+	skip_spaces(str);
 	if (!ft_isdouble(*str))
-		return (false);
+		err = false;
 	if (!ft_atod(*str, &ratio))
-		return (false);
+		err = false;
 	while (ft_isdigit(**str) || **str == '.')
 		(*str)++;
-	if (ratio >= 0.0 && ratio <= 1.0)
-		return (true);
-	return (false);
+	if (ratio < 0.0 && ratio > 1.0)
+		err = false;
+	return (err);
 }
 
-bool	valid_amb_light(char *str)
+int	ft_isnumber(char *s)
 {
-	str++;
-	skip_spaces(&str);
-	if (!valid_ratio(&str))
-		return (inval_arg(RATIO, "ambient light"));
-	skip_spaces(&str);
-	if (!valid_rgb(&str))
-		return (inval_arg(RGB, "ambient light"));
-	if (!valid_eol(&str))
-		return (inval_arg(ELEM, "ambient light"));
-	incr_count(amb_lights);
-	return (true);
+	if (*s == '+' || *s == '-')
+		s++;
+	while (ft_isdigit(*s++))
+		if (*s == '\0' || ft_isspace(*s) || *s == ',')
+			return (1);
+	return (0);
+}
+
+int	ft_isdouble(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+	while (ft_isdigit(s[i]))
+		i++;
+	if (i > 10)
+		return (0);
+	if (s[i] == '\0' || ft_isspace(s[i]) || s[i] == ',')
+		return (1);
+	if (s[i] == '.')
+	{
+		i++;
+		while (ft_isdigit(s[i++]))
+		{
+			if (s[i] == '\0' || ft_isspace(s[i]) || s[i] == ',')
+				return (1);
+			if (i > 10)
+				return (0);
+		}
+	}
+	return (0);
+}
+
+void	skip_spaces(char **str)
+{
+	while (ft_isspace(**str))
+		(*str)++;
 }

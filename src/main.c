@@ -6,17 +6,21 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/07 14:56:43 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:43:44 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include <stdlib.h>
+#include "scene.h"
+#include "graphics.h"
+#include "errors.h"
+#include "debug.h"
 
 void	cleanup(t_scene *scene)
 {
-	free(scene->spheres);
-	free(scene->planes);
-	free(scene->cylinders);
+	free(scene->hittable.spheres);
+	free(scene->hittable.planes);
+	free(scene->hittable.cylinders);
 }
 
 int	main(int argc, char *argv[])
@@ -28,6 +32,7 @@ int	main(int argc, char *argv[])
 	scene = parse(argv[1]);
 	if (scene.error == true)
 		return (EXIT_FAILURE);
+	print_scene(scene);
 	display(&scene);
 	cleanup(&scene);
 	return (EXIT_SUCCESS);

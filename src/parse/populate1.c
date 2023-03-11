@@ -6,11 +6,17 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:51:36 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:00:11 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include "elem_count.h"
+#include "lib.h"
 #include "parse.h"
+#include "scene.h"
 
 void	fill_plane(char *str, t_scene *scene)
 {
@@ -18,16 +24,16 @@ void	fill_plane(char *str, t_scene *scene)
 
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[count].pos);
+	fill_triple_val(str, &scene->hittable.planes[count].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[count].orient);
+	fill_triple_val(str, &scene->hittable.planes[count].orient);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->planes[count].rgb);
+	fill_triple_val(str, &scene->hittable.planes[count].rgb);
 	count++;
 }
 
@@ -37,24 +43,24 @@ void	fill_cylinder(char *str, t_scene *scene)
 
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[count].pos);
+	fill_triple_val(str, &scene->hittable.cylinders[count].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[count].orient);
+	fill_triple_val(str, &scene->hittable.cylinders[count].orient);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	ft_atod(str, &scene->cylinders[count].diameter);
+	ft_atod(str, &scene->hittable.cylinders[count].diameter);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	ft_atod(str, &scene->cylinders[count].height);
+	ft_atod(str, &scene->hittable.cylinders[count].height);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->cylinders[count].rgb);
+	fill_triple_val(str, &scene->hittable.cylinders[count].rgb);
 	count++;
 }
 
@@ -76,15 +82,15 @@ void	fill_elem(t_scene *scene, char *str)
 
 void	allocate_scene_elements(t_scene *scene)
 {
-	scene->spheres = malloc((get_count(spheres) + 1) * sizeof(t_sphere));
-	scene->planes = malloc((get_count(planes) + 1) * sizeof(t_plane));
-	scene->cylinders = malloc((get_count(cylinders) + 1) * sizeof(t_cylinder));
-	if (scene->spheres == NULL || scene->planes == NULL
-		|| scene->cylinders == NULL)
+	scene->hittable.spheres = malloc((get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
+	scene->hittable.planes = malloc((get_count(g_plane, scene) + 1) * sizeof(t_plane));
+	scene->hittable.cylinders = malloc((get_count(g_cylinder, scene) + 1) * sizeof(t_cylinder));
+	if (scene->hittable.spheres == NULL || scene->hittable.planes == NULL
+		|| scene->hittable.cylinders == NULL)
 	{
-		free(scene->spheres);
-		free(scene->planes);
-		free(scene->cylinders);
+		free(scene->hittable.spheres);
+		free(scene->hittable.planes);
+		free(scene->hittable.cylinders);
 	}
 }
 

@@ -6,104 +6,119 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:40:46 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:42:49 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "errors.h"
 #include "parse.h"
+#include "lib.h"
 
-bool	valid_camera(char *str)
+void	valid_elem_info(uint8_t elem_type, char **str, bool *ero_bewliun)
 {
-	str++;
-	skip_spaces(&str);
-	if (!valid_coord(&str))
-		return (inval_arg(COORD, "camera"));
-	skip_spaces(&str);
-	if (!valid_orient(&str))
-		return (inval_arg(ORIENT, "camera"));
-	skip_spaces(&str);
-	if (!valid_fov(&str))
-		return (inval_arg(FOV, "camera"));
-	if (!valid_eol(&str))
-		return (inval_arg(ELEM, "camera"));
-	incr_count(cameras);
-	return (true);
+	if (elem_type & TOK_COORD && !valid_coord(str))
+		*ero_bewliun = inval_arg(TOK_COORD, elem_type);
+	if (elem_type & TOK_ORIENT && !valid_orient(str))
+		*ero_bewliun = inval_arg(TOK_ORIENT, elem_type);
+	if (elem_type & TOK_FOV && !valid_fov(str))
+		*ero_bewliun = inval_arg(TOK_FOV, elem_type);
+	if (elem_type & TOK_RATIO && !valid_ratio(str))
+		*ero_bewliun = inval_arg(TOK_RATIO, elem_type);
+	if (elem_type & TOK_DIAMETER && !valid_dbl_size(str))
+		*ero_bewliun = inval_arg(TOK_DIAMETER, elem_type);
+	if (elem_type & TOK_HEIGHT && !valid_dbl_size(str))
+		*ero_bewliun = inval_arg(TOK_HEIGHT, elem_type);
+	if (elem_type & TOK_RGB && !valid_rgb(str))
+		*ero_bewliun = inval_arg(TOK_RGB, elem_type);
+	skip_spaces(str);
 }
 
-bool	valid_light(char *str)
+bool	valid_coord(char **str)
 {
-	str++;
-	skip_spaces(&str);
-	if (!valid_coord(&str))
-		return (inval_arg(COORD, "light"));
-	skip_spaces(&str);
-	if (!valid_ratio(&str))
-		return (inval_arg(RATIO, "light"));
-	skip_spaces(&str);
-	if (!valid_rgb(&str))
-		return (inval_arg(RGB, "light"));
-	if (!valid_eol(&str))
-		return (inval_arg(ELEM, "light"));
-	incr_count(lights);
-	return (true);
+	int		i;
+	double	coord;
+	bool	err;
+
+	err = true;
+	skip_spaces(str);
+	i = 3;
+	while (i > 0)
+	{
+		if (!ft_isdouble(*str))
+			err = false;
+		if (!ft_atod(*str, &coord))
+			err = false;
+		while (ft_isdigit(**str) || **str == '.'
+			|| **str == '+' || **str == '-')
+			(*str)++;
+		if (**str == ',')
+			(*str)++;
+		i--;
+	}
+	return (err);
 }
 
-bool	valid_sphere(char *str)
+bool	valid_orient(char **str)
 {
-	str += 2;
-	skip_spaces(&str);
-	if (!valid_coord(&str))
-		return (inval_arg(COORD, "sphere"));
-	skip_spaces(&str);
-	if (!valid_dbl_size(&str))
-		return (inval_arg(SIZE, "sphere diameter"));
-	skip_spaces(&str);
-	if (!valid_rgb(&str))
-		return (inval_arg(RGB, "sphere"));
-	if (!valid_eol(&str))
-		return (inval_arg(ELEM, "sphere"));
-	incr_count(spheres);
-	return (true);
+	int		i;
+	double	val;
+	bool	err;
+
+	err = true;
+	skip_spaces(str);
+	i = 3;
+	while (i > 0)
+	{
+		if (!ft_isdouble(*str))
+			err = false;
+		if (!ft_atod(*str, &val))
+			err = false;
+		while (ft_isdigit(**str) || **str == '.'
+			|| **str == '+' || **str == '-')
+			(*str)++;
+		if (val < -1.0 || val > 1.0)
+			err = false;
+		if (**str == ',')
+			(*str)++;
+		i--;
+	}
+	return (err);
 }
 
-bool	valid_plane(char *str)
+bool	valid_fov(char **str)
 {
-	str += 2;
-	skip_spaces(&str);
-	if (!valid_coord(&str))
-		return (inval_arg(COORD, "plane"));
-	skip_spaces(&str);
-	if (!valid_orient(&str))
-		return (inval_arg(ORIENT, "plane"));
-	skip_spaces(&str);
-	if (!valid_rgb(&str))
-		return (inval_arg(RGB, "plane"));
-	if (!valid_eol(&str))
-		return (inval_arg(ELEM, "plane"));
-	incr_count(planes);
-	return (true);
+	int	fov;
+	bool	err;
+
+	err = true;
+	skip_spaces(str);
+	if (!ft_isnumber(*str))
+		err = false;
+	if (ft_atoi_mod(*str, &fov) == 1
+		|| fov > 180 || fov < 0)
+		err = false;
+	while (ft_isdigit(**str))
+		(*str)++;
+	return (err);
 }
 
-bool	valid_cylinder(char *str)
+bool	valid_dbl_size(char **str)
 {
-	str += 2;
-	skip_spaces(&str);
-	if (!valid_coord(&str))
-		return (inval_arg(COORD, "cylinder"));
-	skip_spaces(&str);
-	if (!valid_orient(&str))
-		return (inval_arg(ORIENT, "cylinder"));
-	skip_spaces(&str);
-	if (!valid_dbl_size(&str))
-		return (inval_arg(SIZE, "cylinder diameter"));
-	skip_spaces(&str);
-	if (!valid_dbl_size(&str))
-		return (inval_arg(SIZE, "cylinder height"));
-	skip_spaces(&str);
-	if (!valid_rgb(&str))
-		return (inval_arg(RGB, "cylinder"));
-	if (!valid_eol(&str))
-		return (inval_arg(ELEM, "cylinder"));
-	incr_count(cylinders);
-	return (true);
+	double	diam;
+	bool	err;
+
+	err = true;
+	skip_spaces(str);
+	if (!ft_isdouble(*str))
+		err = false;
+	if (!ft_atod(*str, &diam))
+		err = false;
+	while (ft_isdigit(**str) || **str == '.'
+		|| **str == '+' || **str == '-')
+		(*str)++;
+	if (diam < 0.0)
+		err = false;
+	return (err);
 }

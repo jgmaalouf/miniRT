@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/09 12:26:02 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/11 17:32:43 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ endif
 SRCS	= main.c \
 			display.c \
 			vector1.c vector2.c vector3.c ray.c \
-			parse.c populate1.c populate2.c validate1.c validate2.c validate3.c validate4.c \
-			elem_count.c errors.c \
+			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
+			errors.c \
 			print_scene.c
 
 OBJS	= $(addprefix obj/,$(patsubst %.c, %.o, $(SRCS)))
