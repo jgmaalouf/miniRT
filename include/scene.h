@@ -6,14 +6,15 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/10 20:41:10 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/11 20:49:57 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 
-# include "minirt.h"
+# include "vector.h"
+# include <stdbool.h>
 
 typedef struct s_camera
 {
@@ -58,6 +59,18 @@ typedef struct s_cylinder
 	t_color		rgb;
 }				t_cylinder;
 
+typedef struct s_hittable
+{
+	int			sp_count;
+	t_sphere	*spheres;
+
+	int			pl_count;
+	t_plane		*planes;
+
+	int			cy_count;
+	t_cylinder	*cylinders;
+}				t_hittable;
+
 typedef struct s_image
 {
 	double		width;
@@ -73,13 +86,11 @@ typedef struct s_image
 
 typedef struct s_scene
 {
-	t_image		img;
+	t_image		image;
 	t_camera	camera;
 	t_amb_light	amb_light;
 	t_light		light;
-	t_sphere	*spheres;
-	t_plane		*planes;
-	t_cylinder	*cylinders;
+	t_hittable	hittable;
 	bool		error;
 }				t_scene;
 

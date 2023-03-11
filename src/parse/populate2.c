@@ -6,11 +6,14 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:43 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:51:49 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:00:56 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lib.h"
 #include "parse.h"
+#include "scene.h"
+#include "vector.h"
 
 void	fill_triple_val(char *str, t_vec3 *triple_val)
 {
@@ -75,15 +78,15 @@ void	fill_sphere(char *str, t_scene *scene)
 
 	str += 2;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->spheres[count].pos);
+	fill_triple_val(str, &scene->hittable.spheres[count].pos);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+'
 		|| *str == '-' || *str == ',')
 		str++;
 	skip_spaces(&str);
-	ft_atod(str, &scene->spheres[count].diameter);
+	ft_atod(str, &scene->hittable.spheres[count].diameter);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->spheres[count].rgb);
+	fill_triple_val(str, &scene->hittable.spheres[count].rgb);
 	count++;
 }
