@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:41:55 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:22:09 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include "lib.h"
 #include "elem_count.h"
 #include "scene.h"
 #include "parse.h"
 #include "errors.h"
+
+#include <stdbool.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 bool	open_file(char *file, int *fd)
 {
@@ -119,6 +120,12 @@ t_scene	parse(char *file)
 	scene_init(&scene);
 	scene_validate(&scene, file);
 	if (scene.error == false)
+	{
 		scene_populate(&scene, file);
+		scene.image.focal_len = 1.0;
+		scene.image.width = 1920.0;
+		scene.image.height = 1080.0;
+		scene.image.ratio = scene.image.width / scene.image.height;
+	}
 	return (scene);
 }

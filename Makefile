@@ -6,7 +6,7 @@
 #    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/11 19:56:07 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/11 20:35:36 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBS	= $(LIBMLX)/build/libmlx42.a $(LIBFT)/lib_extended.a -ldl -lglfw -pthread -
 endif
 
 SRCS	= main.c \
-			display.c \
+			color.c display.c \
 			vector1.c vector2.c vector3.c ray.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
 			errors.c \

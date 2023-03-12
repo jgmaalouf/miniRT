@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   validate2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:50 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:36:28 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:21:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include "lib.h"
 #include "parse.h"
+
+#include <stdbool.h>
 
 bool	valid_rgb(char **str)
 {

@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   populate1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:00:11 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:21:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include "elem_count.h"
 #include "lib.h"
 #include "parse.h"
 #include "scene.h"
+
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 void	fill_plane(char *str, t_scene *scene)
 {

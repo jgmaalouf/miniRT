@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   validate1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:42:49 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 21:21:33 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
-#include <stdbool.h>
 #include "errors.h"
 #include "parse.h"
 #include "lib.h"
+
+#include <stdint.h>
+#include <stdbool.h>
 
 void	valid_elem_info(uint8_t elem_type, char **str, bool *ero_bewliun)
 {

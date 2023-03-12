@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:41:05 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:52:19 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define GRAPHICS_H
 
 # include "scene.h"
-
-# define WIDTH 1920
-# define HEIGHT 1080
 
 void	display(t_scene *scene);
 

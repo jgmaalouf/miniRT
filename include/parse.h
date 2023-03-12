@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:30:00 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:55:56 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define TOK_RGB 0b1
 
 // As these are static const they are not considered "global" by the norm
+
 static const uint8_t	g_amb_light = TOK_RATIO | TOK_RGB;
 static const uint8_t	g_camera = TOK_COORD | TOK_ORIENT | TOK_FOV;
 static const uint8_t	g_light = TOK_COORD | TOK_RATIO | TOK_RGB;
@@ -35,6 +36,7 @@ static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
 	| TOK_DIAMETER | TOK_HEIGHT | TOK_RGB;
 
 // Szenenfüllung
+
 void	scene_populate(t_scene *scene, char *file);
 void	fill_triple_val(char *str, t_vec3 *triple_val);
 void	fill_amb_light(char *str, t_scene *scene);

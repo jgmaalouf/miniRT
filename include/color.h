@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 19:40:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 20:54:05 by amorvai          ###   ########.fr       */
+/*   Created: 2023/03/10 19:52:47 by amorvai           #+#    #+#             */
+/*   Updated: 2023/03/10 19:53:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#ifndef COLOR_H
+# define COLOR_H
 
-# include "scene.h"
+# include <stdint.h>
 
-void	print_scene(t_scene scene);
+uint32_t	translate_colors(double r, double g, double b);
 
 #endif

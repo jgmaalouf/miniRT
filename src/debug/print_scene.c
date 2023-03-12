@@ -16,3 +16,8 @@ void	print_scene(t_scene scene)
 	for (int i = 0; i < get_count(g_cylinder, &scene); i++)
 		printf("cy\t%.1f,%.1f,%.1f\t\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%.1f,%.1f,%.1f\n\n", scene.hittable.cylinders[i].pos.e[0], scene.hittable.cylinders[i].pos.e[1], scene.hittable.cylinders[i].pos.e[2], scene.hittable.cylinders[i].orient.e[0], scene.hittable.cylinders[i].orient.e[1], scene.hittable.cylinders[i].orient.e[2], scene.hittable.cylinders[i].diameter, scene.hittable.cylinders[i].height, scene.hittable.cylinders[i].rgb.e[0], scene.hittable.cylinders[i].rgb.e[1], scene.hittable.cylinders[i].rgb.e[2]);
 }
+
+void	print_vec3(char *name, t_vec3 vec)
+{
+	printf("vector [%s]:\t[%f][%f][%f]\n", name, vec.e[0], vec.e[1], vec.e[2]);
+}
