@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/11 20:35:36 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/12 20:08:51 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
 VPATH	= src src/graphics src/math src/parse src/utils src/debug
-HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
+HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(LIBFT)/libft
 CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
@@ -31,7 +31,7 @@ SRCS	= main.c \
 			color.c display.c \
 			vector1.c vector2.c vector3.c ray.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
-			errors.c \
+			errors.c panic.c utils.c \
 			print_scene.c
 
 OBJS	= $(addprefix obj/,$(patsubst %.c, %.o, $(SRCS)))

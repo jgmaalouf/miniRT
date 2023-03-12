@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 21:20:52 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/12 19:07:57 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "libft.h"
 #include "errors.h"
 #include "parse.h"
 
@@ -40,21 +40,6 @@ bool	inval_amount(int type, char *str)
 	else if (type == LESS)
 		printf("%sThere is an insufficient amount of %s!\n", error, str);
 	return (false);
-}
-
-void	panic(char *str)
-{
-	ft_putstr_fd(error, 2);
-	ft_putstr_fd(str, 2);
-	ft_putchar_fd('\n', 2);
-}
-
-void	panic_exit(char *str)
-{
-	ft_putstr_fd(error, 2);
-	ft_putstr_fd(str, 2);
-	ft_putchar_fd('\n', 2);
-	exit(EXIT_FAILURE);
 }
 
 static char	*get_type_name(uint8_t elem_type)

@@ -3,73 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   populate2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:43 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:00:56 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/12 19:59:49 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 #include "parse.h"
 #include "scene.h"
-#include "vector.h"
 
-void	fill_triple_val(char *str, t_vec3 *triple_val)
+void	fill_cylinder(char *str, t_scene *scene)
 {
-	ft_atod(str, &triple_val->e[0]);
-	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == '-')
-		str++;
-	str++;
-	ft_atod(str, &triple_val->e[1]);
-	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == '-')
-		str++;
-	str++;
-	ft_atod(str, &triple_val->e[2]);
-}
+	static int	count;
 
-void	fill_amb_light(char *str, t_scene *scene)
-{
-	str++;
+	str += 2;
 	skip_spaces(&str);
-	ft_atod(str, &scene->amb_light.ratio);
+	fill_triple_val(str, &scene->hittable.cylinders[count].pos);
+	while (ft_isdigit(*str) || *str == '.' || *str == '+'
+		|| *str == '-' || *str == ',')
+		str++;
+	skip_spaces(&str);
+	fill_triple_val(str, &scene->hittable.cylinders[count].orient);
+	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
+		str++;
+	skip_spaces(&str);
+	ft_atod(str, &scene->hittable.cylinders[count].diameter);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->amb_light.rgb);
-}
-
-void	fill_camera(char *str, t_scene *scene)
-{
-	str++;
-	skip_spaces(&str);
-	fill_triple_val(str, &scene->camera.pos);
-	while (ft_isdigit(*str) || *str == '.' || *str == '+'
-		|| *str == '-' || *str == ',')
-		str++;
-	skip_spaces(&str);
-	fill_triple_val(str, &scene->camera.orient);
-	while (ft_isdigit(*str) || *str == '.' || *str == '+'
-		|| *str == '-' || *str == ',')
-		str++;
-	skip_spaces(&str);
-	ft_atoi_mod(str, &scene->camera.fov);
-}
-
-void	fill_light(char *str, t_scene *scene)
-{
-	str++;
-	skip_spaces(&str);
-	fill_triple_val(str, &scene->light.pos);
-	while (ft_isdigit(*str) || *str == '.' || *str == '+'
-		|| *str == '-' || *str == ',')
-		str++;
-	skip_spaces(&str);
-	ft_atod(str, &scene->light.ratio);
+	ft_atod(str, &scene->hittable.cylinders[count].height);
 	while (ft_isdigit(*str) || *str == '.' || *str == '+')
 		str++;
 	skip_spaces(&str);
-	fill_triple_val(str, &scene->light.rgb);
+	fill_triple_val(str, &scene->hittable.cylinders[count].rgb);
+	count++;
+}
+
+void	fill_plane(char *str, t_scene *scene)
+{
+	static int	count;
+
+	str += 2;
+	skip_spaces(&str);
+	fill_triple_val(str, &scene->hittable.planes[count].pos);
+	while (ft_isdigit(*str) || *str == '.' || *str == '+'
+		|| *str == '-' || *str == ',')
+		str++;
+	skip_spaces(&str);
+	fill_triple_val(str, &scene->hittable.planes[count].orient);
+	while (ft_isdigit(*str) || *str == '.' || *str == '+' || *str == ',')
+		str++;
+	skip_spaces(&str);
+	fill_triple_val(str, &scene->hittable.planes[count].rgb);
+	count++;
 }
 
 void	fill_sphere(char *str, t_scene *scene)
