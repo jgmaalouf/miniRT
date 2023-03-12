@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 19:40:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/12 15:46:23 by amorvai          ###   ########.fr       */
+/*   Created: 2023/03/09 11:39:48 by amorvai           #+#    #+#             */
+/*   Updated: 2023/03/10 20:32:26 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#include "ray.h"
 
-# include "scene.h"
+t_ray	ray_constr(const t_point3 origin, const t_vec3 direction)
+{
+	t_ray	ray;
 
-void	print_scene(t_scene scene);
-void	print_vec3(char *name, t_vec3 vec);
+	ray.orig = origin;
+	ray.dir = direction;
+	return (ray);
+}
 
-#endif
+t_point3	ray_at(const t_ray ray, const double t)
+{
+	return (
+		vec3_add(
+			ray.orig,
+			vec3_scale_mult(ray.dir, t)
+		)
+	);
+}

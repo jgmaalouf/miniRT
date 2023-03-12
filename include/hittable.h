@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 11:39:48 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/11 21:03:03 by amorvai          ###   ########.fr       */
+/*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
+/*   Updated: 2023/03/12 00:08:27 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#ifndef HITTABLE_H
+# define HITTABLE_H
 
-t_ray	ray_constr(const t_point3 origin, const t_vec3 direction)
+# include <float.h>
+# define T_MIN (double)0
+# define T_MAX DBL_MAX
+
+# include "scene.h"
+# include "vector.h"
+# include "ray.h"
+
+typedef struct s_hit_record
 {
-	t_ray	ray;
+	t_point3	p;
+	t_vec3		normal;
+	double		t;
+	bool		front_face;
+}				t_hit_record;
 
-	ray.orig = origin;
-	ray.dir = direction;
-	return (ray);
-}
+bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects);
 
-t_point3	ray_at(const t_ray ray, const double t)
-{
-	return (
-		vec3_add(
-			ray.orig,
-			vec3_scale_mult(ray.dir, t)
-		)
-	);
-}
+#endif

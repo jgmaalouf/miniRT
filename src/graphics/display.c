@@ -6,16 +6,20 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 21:14:51 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/12 16:12:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
 #include "errors.h"
+#include "debug.h"
 #include "graphics.h"
 #include "color.h"
 #include "scene.h"
 #include "ray.h"
+#include "hittable.h"
+
+#include <stdio.h> // printf
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -73,46 +77,22 @@ t_ray	get_next_ray(int x, int y, t_image img, t_camera cam)
 	return (ray);
 }
 
-double	hit_sphere(t_sphere sp, const t_ray ray)
-{
-	t_vec3	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-
-	oc = vec3_substr(ray.orig, sp.pos);
-	a = vec3_dot(ray.dir, ray.dir);
-	b = 2.0 * vec3_dot(oc, ray.dir);
-	c = vec3_dot(oc, oc) - sp.diameter / 2 * sp.diameter / 2;
-	discriminant = (b * b) - (4 * a * c);
-	if (discriminant < 0)
-		return (0.0);
-	else
-		return (1.0);
-		// return ((-b - sqrt(discriminant)) / (2.0 * a));
-}
-
 t_color	ray_color(const t_ray r, t_scene *scene)
 {
-	t_vec3	unit_direction;
-	double	t;
-	t_color	white;
-	t_color	blue;
+	t_hit_record	hit_rec;
+	t_vec3			unit_direction;
+	double			t;
+	t_color			white;
+	t_color			blue;
 
 	white = vec3_constr(1.0, 1.0, 1.0);
 	blue = vec3_constr(0.5, 0.7, 1.0);
-	t = hit_sphere(scene->hittable.spheres[0], r);
-	if (t)
-		return (vec3_constr(1, 0, 0));
-	// if (t > 0.0)
-	// {
-	// 	t_vec3	n = vec3_unit(vec3_substr(ray_at(r, t), vec3_constr(0, 0, -1)));
-	// 	return (
-	// 		vec3_scale_mult(
-	// 			vec3_constr(n.e[0] + 1, n.e[1] + 1, n.e[2] + 1),
-	// 			0.5));
-	// }
+	hit_rec = (t_hit_record){0};
+	if (world_hit(r, &hit_rec, scene->hittable))
+	{
+		// printf("I hit something \\o/\n");
+		return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1, 1, 1)), 0.5));
+	}
 	unit_direction = vec3_unit(r.dir);
 	t = 0.5 * (unit_direction.e[1] + 1.0);
 	return (
@@ -145,7 +125,7 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 		x = 0;
 		while (x < scene->image.width)
 		{
-			r = get_next_ray(x, y, scene->image, scene->camera);
+			r = get_next_ray(scene->image.width - x, scene->image.height - y, scene->image, scene->camera);
 			mlx_put_pixel(mlx_img, x, y, pixel_color(r, scene));
 			x++;
 		}
