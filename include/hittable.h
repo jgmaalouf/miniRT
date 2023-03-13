@@ -6,16 +6,16 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/12 00:08:27 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/13 07:10:25 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HITTABLE_H
 # define HITTABLE_H
 
-# include <float.h>
+# include <math.h>
 # define T_MIN (double)0
-# define T_MAX DBL_MAX
+# define T_MAX INFINITY
 
 # include "scene.h"
 # include "vector.h"

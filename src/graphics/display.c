@@ -6,14 +6,13 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/12 16:12:15 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/13 07:31:14 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
 #include "errors.h"
 #include "debug.h"
-#include "graphics.h"
 #include "color.h"
 #include "scene.h"
 #include "ray.h"
@@ -52,57 +51,6 @@ void	calc_lower_left_corner(t_image *img, t_camera cam)
 			);
 }
 
-t_ray	get_next_ray(int x, int y, t_image img, t_camera cam)
-{
-	t_ray	ray;
-	double	u;
-	double	v;
-
-	u = (double)x / (img.width - 1);
-	v = (double)y / (img.height - 1);
-	// printf("x:\t%i,\ty:\t%i\n", x, y);
-	ray = ray_constr(
-			cam.pos,
-			vec3_substr(
-				vec3_add(
-					img.lower_left_corner,
-					vec3_add(
-						vec3_scale_mult(img.hori, u),
-						vec3_scale_mult(img.vert, v)
-						)
-					),
-				cam.pos
-				)
-			);
-	return (ray);
-}
-
-t_color	ray_color(const t_ray r, t_scene *scene)
-{
-	t_hit_record	hit_rec;
-	t_vec3			unit_direction;
-	double			t;
-	t_color			white;
-	t_color			blue;
-
-	white = vec3_constr(1.0, 1.0, 1.0);
-	blue = vec3_constr(0.5, 0.7, 1.0);
-	hit_rec = (t_hit_record){0};
-	if (world_hit(r, &hit_rec, scene->hittable))
-	{
-		// printf("I hit something \\o/\n");
-		return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1, 1, 1)), 0.5));
-	}
-	unit_direction = vec3_unit(r.dir);
-	t = 0.5 * (unit_direction.e[1] + 1.0);
-	return (
-		vec3_add(
-			vec3_scale_mult(white, 1.0 - t),
-			vec3_scale_mult(blue, t)
-		)
-	);
-}
-
 uint32_t	pixel_color(const t_ray r, t_scene *scene)
 {
 	t_color	color;
@@ -125,7 +73,8 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 		x = 0;
 		while (x < scene->image.width)
 		{
-			r = get_next_ray(scene->image.width - x, scene->image.height - y, scene->image, scene->camera);
+			r = get_next_ray(scene->image.width - x, scene->image.height - y,
+					scene->image, scene->camera);
 			mlx_put_pixel(mlx_img, x, y, pixel_color(r, scene));
 			x++;
 		}
