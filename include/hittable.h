@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 11:32:04 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/13 07:23:31 by amorvai          ###   ########.fr       */
+/*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
+/*   Updated: 2023/03/13 07:10:25 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef HITTABLE_H
+# define HITTABLE_H
 
+# include <math.h>
+# define T_MIN (double)0
+# define T_MAX INFINITY
+
+# include "scene.h"
 # include "vector.h"
+# include "ray.h"
 
-typedef struct s_ray
+typedef struct s_hit_record
 {
-	t_point3	orig;
-	t_vec3		dir;
-}				t_ray;
+	t_point3	p;
+	t_vec3		normal;
+	double		t;
+	bool		front_face;
+}				t_hit_record;
 
-t_ray		ray_constr(const t_point3 origin, const t_vec3 direction);
-
-t_point3	ray_at(const t_ray ray, const double t);
-
-t_ray		get_next_ray(int x, int y, t_image img, t_camera cam);
-t_color		ray_color(const t_ray r, t_scene *scene);
+bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects);
 
 #endif

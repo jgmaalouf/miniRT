@@ -6,12 +6,12 @@
 #    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/11 20:35:36 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/13 07:38:33 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= miniRT
-VPATH	= src src/graphics src/math src/parse src/utils src/debug
+VPATH	= src/ src/debug/ src/graphics/ src/graphics/color/ src/graphics/hittable/ src/graphics/ray/ src/math/ src/parse src/utils/ 
 HEADERS	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
 CFLAGS	= -Wall -Wextra -Werror -O3
 LIBMLX	= ./lib/MLX42
@@ -29,7 +29,9 @@ endif
 
 SRCS	= main.c \
 			color.c display.c \
-			vector1.c vector2.c vector3.c ray.c \
+			vector_basic.c vector_advanced.c vector_length.c \
+			sphere.c \
+			ray.c ray_calc.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
 			errors.c \
 			print_scene.c
