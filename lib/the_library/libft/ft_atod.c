@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 13:21:54 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/02 17:39:01 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/13 05:50:37 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_atod(const char *str, double *res)
 	{
 		val = val * 10 + (str[i++] - '0');
 		if (val > DBL_MAX)
-			return (0);
+			return (1);
 	}
 	if (str[i] == '.')
 		i++;
@@ -74,5 +74,36 @@ int	ft_atod(const char *str, double *res)
 		dec *= 0.1;
 	}
 	*res = val * sign;
-	return (1);
+	return (0);
+}
+
+int	ft_atod_mod(const char *str, double *res)
+{
+	int			i;
+	long double	val;
+	double		sign;
+	double		dec;
+
+	val = 0.0;
+	sign = 1.0;
+	dec = 0.1;
+	i = 0;
+	get_sign(str, &sign, &i);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		val = val * 10 + (str[i++] - '0');
+		if (val > DBL_MAX)
+			return (1);
+	}
+	if (str[i] == '.')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		val = val + (dec * (str[i++] - '0'));
+		dec *= 0.1;
+	}
+	if (str[i] != '\0' || !ft_isspace(str[i]) || str[i] != ',')
+		return (1);
+	*res = val * sign;
+	return (0);
 }
