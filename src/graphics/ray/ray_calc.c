@@ -6,13 +6,14 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/13 07:30:09 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:04:22 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 #include "ray.h"
 #include "hittable.h"
+#include "utils.h"
 
 #include <stdio.h> // printf
 
@@ -22,8 +23,8 @@ t_ray	get_next_ray(int x, int y, t_image img, t_camera cam)
 	double	u;
 	double	v;
 
-	u = (double)x / (img.width - 1);
-	v = (double)y / (img.height - 1);
+	u = ((double)x + random_double()) / (img.width - 1);
+	v = ((double)y + random_double()) / (img.height - 1);
 	// printf("x:\t%i,\ty:\t%i\n", x, y);
 	ray = ray_constr(
 			cam.pos,

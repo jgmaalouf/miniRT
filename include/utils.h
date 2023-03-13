@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 11:32:04 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/13 16:03:34 by amorvai          ###   ########.fr       */
+/*   Created: 2023/03/13 16:02:55 by amorvai           #+#    #+#             */
+/*   Updated: 2023/03/13 16:03:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "vector.h"
-# include "scene.h"
-
-typedef struct s_ray
-{
-	t_point3	orig;
-	t_vec3		dir;
-}				t_ray;
-
-t_ray		ray_constr(const t_point3 origin, const t_vec3 direction);
-
-t_point3	ray_at(const t_ray ray, const double t);
-
-t_ray		get_next_ray(int x, int y, t_image img, t_camera cam);
-t_color		ray_color(const t_ray r, t_scene *scene);
+double		random_double();
+double		random_double_in(double min, double max);
+double		clamp(double x, double min, double max);
 
 #endif
