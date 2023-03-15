@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/14 14:33:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/15 09:30:50 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	mlx = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
+}
+
+// TODO: Needs fixing for more accuracy
+void	print_loading_screen(int line, int total)
+{
+	printf("Rendering: %i%%\r", (int)((line / (double)total) * 100.0));
 }
 
 void	scene_render(t_scene *scene, mlx_image_t *mlx_img)

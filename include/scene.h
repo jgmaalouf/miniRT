@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/14 14:35:12 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/15 09:26:49 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef SCENE_H
 # define SCENE_H
@@ -84,6 +85,7 @@ typedef struct s_image
 	t_point3	hori;
 	t_point3	vert;
 	t_point3	lower_left_corner;
+	int			max_depth;
 }				t_image;
 
 typedef struct s_scene
