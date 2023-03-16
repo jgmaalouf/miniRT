@@ -6,7 +6,7 @@
 #    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/13 13:07:39 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/16 19:58:41 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,13 @@ endif
 SRCS	= main.c \
 			color.c display.c \
 			vector_basic.c vector_advanced.c vector_length.c \
-			sphere.c \
+			world.c sphere.c plane.c \
 			ray.c ray_calc.c utils2.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
 			errors.c \
 			print_scene.c
+
+#  cylinder.c 
 
 OBJS	= $(addprefix obj/,$(patsubst %.c, %.o, $(SRCS)))
 
@@ -43,10 +45,11 @@ GREEN	= \033[32;1m
 RESET	= \033[0m
 
 all: libmlx libft $(NAME)
-	# @curl -s https://themushroomkingdom.net/sounds/wav/smb/smb_world_clear.wav -o sound.wav && afplay sound.wav && rm sound.wav &
-	# @-curl --fail --silent --show-error -m 7 parrot.live 2> /dev/null ; true
-	# @printf "$(GREEN)$(BOLD)\tminiRT compiled successfully\n$(RESET)"
-	# @say MLX compiled successfully bitch
+
+# @curl -s https://themushroomkingdom.net/sounds/wav/smb/smb_world_clear.wav -o sound.wav && afplay sound.wav && rm sound.wav &
+# @-curl --fail --silent --show-error -m 7 parrot.live 2> /dev/null ; true
+# @printf "$(GREEN)$(BOLD)\tminiRT compiled successfully\n$(RESET)"
+# @say MLX compiled successfully bitch
 
 libmlx:
 	@bash setup_lib.sh
