@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/15 09:26:49 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:15:23 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "vector.h"
 # include <stdbool.h>
 
-# define SPP 1
+# define SPP 50
 
 typedef struct s_camera
 {

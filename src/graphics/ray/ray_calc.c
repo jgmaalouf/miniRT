@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/15 09:30:15 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:05:26 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <stdio.h> // printf
 #include <stdlib.h> // uint_t
 
-static t_color	ray_color(const t_ray r, t_scene *scene)
+static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
 	t_hit_record	hit_rec;
 	t_point3		target;
@@ -42,9 +42,9 @@ static t_color	ray_color(const t_ray r, t_scene *scene)
 		target = vec3_add(hit_rec.p,
 					vec3_add(hit_rec.normal, vec3_random_in_unit_sp()));
 		// print_vec3("target", target);
-		return (vec3_scale_mult(
+		return (vec3_mult(
 				ray_color(ray_constr(hit_rec.p, vec3_substr(target, hit_rec.p)), scene, depth - 1),
-				0.5));
+				vec3_scale_mult(vec3_scale_div(hit_rec.color, 255), 0.5)));
 	}
 	unit_direction = vec3_unit(r.dir);
 	t = 0.5 * (unit_direction.e[1] + 1.0);
@@ -98,7 +98,7 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 	{
 		r = get_next_ray(scene->image.width - x, scene->image.height - y,
 				scene->image, scene->camera);
-		color = vec3_add(color, ray_color(r, scene));
+		color = vec3_add(color, ray_color(r, scene, scene->image.max_depth));
 		i++;
 	}
 	color = vec3_scale_div(color, SPP);
