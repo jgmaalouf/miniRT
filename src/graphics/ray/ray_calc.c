@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/14 14:38:08 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/15 12:05:26 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,21 @@
 #include "hittable.h"
 #include "utils.h"
 
+#include "debug.h" // print_vec3
 #include <stdio.h> // printf
 #include <stdlib.h> // uint_t
 
-static t_color	ray_color(const t_ray r, t_scene *scene)
+static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
 	t_hit_record	hit_rec;
+	t_point3		target;
 	t_vec3			unit_direction;
 	double			t;
 	t_color			white;
 	t_color			blue;
+
+	if (depth <= 0)
+		return (vec3_constr(0, 0, 0));
 
 	white = vec3_constr(1.0, 1.0, 1.0);
 	blue = vec3_constr(0.5, 0.7, 1.0);
@@ -34,7 +39,12 @@ static t_color	ray_color(const t_ray r, t_scene *scene)
 	if (world_hit(r, &hit_rec, scene->hittable))
 	{
 		// printf("I hit something \\o/\n");
-		return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1, 1, 1)), 0.5));
+		target = vec3_add(hit_rec.p,
+					vec3_add(hit_rec.normal, vec3_random_in_unit_sp()));
+		// print_vec3("target", target);
+		return (vec3_mult(
+				ray_color(ray_constr(hit_rec.p, vec3_substr(target, hit_rec.p)), scene, depth - 1),
+				vec3_scale_mult(vec3_scale_div(hit_rec.color, 255), 0.5)));
 	}
 	unit_direction = vec3_unit(r.dir);
 	t = 0.5 * (unit_direction.e[1] + 1.0);
@@ -88,7 +98,7 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 	{
 		r = get_next_ray(scene->image.width - x, scene->image.height - y,
 				scene->image, scene->camera);
-		color = vec3_add(color, ray_color(r, scene));
+		color = vec3_add(color, ray_color(r, scene, scene->image.max_depth));
 		i++;
 	}
 	color = vec3_scale_div(color, SPP);

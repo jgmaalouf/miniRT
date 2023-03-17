@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/14 14:35:12 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/16 16:15:23 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef SCENE_H
 # define SCENE_H
@@ -16,7 +17,7 @@
 # include "vector.h"
 # include <stdbool.h>
 
-# define SPP 1
+# define SPP 50
 
 typedef struct s_camera
 {
@@ -84,6 +85,7 @@ typedef struct s_image
 	t_point3	hori;
 	t_point3	vert;
 	t_point3	lower_left_corner;
+	int			max_depth;
 }				t_image;
 
 typedef struct s_scene
