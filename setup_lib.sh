@@ -4,7 +4,7 @@ OS_MAC="$(uname)"
 OS_ARCH="$(uname -r)"
 
 if [[ -d ./lib/MLX42 ]]; then
-	echo "\033[1;33m./lib/MLX42/ Exists\033[0m";
+	echo -e "\033[1;33m./lib/MLX42/ Exists\033[0m";
 else
 {
 	git clone https://github.com/codam-coding-college/MLX42.git 

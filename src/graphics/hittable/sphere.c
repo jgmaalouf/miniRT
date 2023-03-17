@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:44:05 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/16 19:57:25 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/17 13:17:35 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ bool	hit_sphere_record(const t_ray r, double t_max, t_sphere sp,
 			sp.diameter * 0.5
 			);
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
+		temp_rec->color = sp.rgb;
 		return (true);
 	}
 	return (false);

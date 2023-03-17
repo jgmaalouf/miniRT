@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/13 16:01:19 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/15 11:36:26 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,15 @@ void	scene_validate(t_scene *scene, char *file)
 
 void	scene_image_init(t_image *img, t_camera cam)
 {
-	img->width = 1920.0;
-	img->height = 1080.0;
+	img->width = 1280.0;
+	img->height = 720.0;
 	img->ratio = img->width / img->height;
 	img->focal_len = 1.0;
 	img->viewport_width = 4.0;
 	img->viewport_height = img->viewport_width / img->ratio;
 	img->hori = vec3_constr(img->viewport_width, 0, 0);
 	img->vert = vec3_constr(0, img->viewport_height, 0);
+	img->max_depth = 50;
 	img->lower_left_corner
 		= vec3_substr(
 			cam.pos,
