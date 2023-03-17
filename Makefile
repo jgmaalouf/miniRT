@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/16 16:15:06 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/17 13:18:29 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ endif
 SRCS	= main.c \
 			color.c display.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
-			sphere.c \
+			world.c sphere.c plane.c \
 			ray.c ray_calc.c utils2.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
 			errors.c \
@@ -61,13 +61,13 @@ libmlx:
 libft:
 	@make -C $(LIBFT)
 
-$(ODIR)/%.o: %.c
+$(ODIR)/%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(ODIR):
 	mkdir $(ODIR)
 
-$(NAME): $(ODIR) $(OBJS) $(HEADERS)
+$(NAME): $(ODIR) $(OBJS)
 	$(CC) $(OBJS) $(LDFLAGS) $(INCL) -o $(NAME)
 
 clean:

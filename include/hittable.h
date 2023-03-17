@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/15 12:02:22 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:14:49 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,11 @@ typedef struct s_hit_record
 }				t_hit_record;
 
 bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects);
+void	set_face_normal(const t_ray r, t_vec3 *outward_normal, bool *front_face);
+
+bool	hit_sphere_record(const t_ray r, double t_max, t_sphere sp,
+							t_hit_record *temp_rec);
+bool	hit_plane_record(const t_ray r, double t_max, t_plane pl,
+							t_hit_record *temp_rec);
 
 #endif
