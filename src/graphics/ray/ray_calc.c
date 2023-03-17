@@ -30,7 +30,7 @@ static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 	t_color			white;
 	t_color			blue;
 
-	if (depth <= 0)
+	if (depth < 0)
 		return (vec3_constr(0, 0, 0));
 
 	white = vec3_constr(1.0, 1.0, 1.0);
