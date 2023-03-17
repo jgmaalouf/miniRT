@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/15 12:05:26 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:17:27 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,21 @@ static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
 	t_hit_record	hit_rec;
 	t_point3		target;
-	t_vec3			unit_direction;
-	double			t;
-	t_color			white;
-	t_color			blue;
+	t_color			r_c;
 
 	if (depth < 0)
 		return (vec3_constr(0, 0, 0));
-
-	white = vec3_constr(1.0, 1.0, 1.0);
-	blue = vec3_constr(0.5, 0.7, 1.0);
 	hit_rec = (t_hit_record){0};
 	if (world_hit(r, &hit_rec, scene->hittable))
 	{
-		// printf("I hit something \\o/\n");
 		target = vec3_add(hit_rec.p,
-					vec3_add(hit_rec.normal, vec3_random_in_unit_sp()));
-		// print_vec3("target", target);
-		return (vec3_mult(
-				ray_color(ray_constr(hit_rec.p, vec3_substr(target, hit_rec.p)), scene, depth - 1),
-				vec3_scale_mult(vec3_scale_div(hit_rec.color, 255), 0.5)));
+			vec3_add(hit_rec.normal, vec3_random_in_unit_sp()));
+		r_c = ray_color(ray_constr(hit_rec.p, vec3_substr(target, hit_rec.p)), scene, depth - 1);
+		if (r_c.e[0] == 0 && r_c.e[1] == 0 && r_c.e[2] == 0)
+			return (vec3_mult(vec3_add(r_c, vec3_constr(1, 1, 1)), hit_rec.color));
+		return (vec3_mult(r_c, hit_rec.color));
 	}
-	unit_direction = vec3_unit(r.dir);
-	t = 0.5 * (unit_direction.e[1] + 1.0);
-	return (
-		vec3_add(
-			vec3_scale_mult(white, 1.0 - t),
-			vec3_scale_mult(blue, t)
-		)
-	);
+	return (vec3_constr(0, 0, 0));
 }
 
 static t_ray	get_next_ray(int x, int y, t_image img, t_camera cam)
