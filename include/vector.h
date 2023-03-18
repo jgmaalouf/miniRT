@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:16 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/14 17:46:34 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:05:58 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ double	vec3_length(const t_vec3 v);
 double	vec3_length_squared(const t_vec3 v);
 
 t_vec3	vec3_random(double min, double max);
-t_vec3	vec3_random_in_unit_sp(void);
+t_vec3	vec3_random_unit(void);
 
 #endif

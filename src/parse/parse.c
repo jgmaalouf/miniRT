@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/15 11:36:26 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:05:34 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	scene_image_init(t_image *img, t_camera cam)
 	img->viewport_height = img->viewport_width / img->ratio;
 	img->hori = vec3_constr(img->viewport_width, 0, 0);
 	img->vert = vec3_constr(0, img->viewport_height, 0);
-	img->max_depth = 50;
 	img->lower_left_corner
 		= vec3_substr(
 			cam.pos,
@@ -130,19 +129,11 @@ void	scene_image_init(t_image *img, t_camera cam)
 			);
 }
 
-void	scene_init(t_scene *scene)
-{
-	scene->error = false;
-	scene->hittable.sp_count = 0;
-	scene->hittable.pl_count = 0;
-	scene->hittable.cy_count = 0;
-}
-
 t_scene	parse(char *file)
 {
 	t_scene	scene;
 
-	scene_init(&scene);
+	scene = (t_scene){0};
 	scene_validate(&scene, file);
 	if (scene.error == false)
 	{

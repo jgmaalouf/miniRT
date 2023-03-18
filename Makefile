@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/17 13:18:29 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/18 18:07:10 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RESET	= \033[0m
 
 NAME	= miniRT
 INCL	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
-CFLAGS	= -Wall -Wextra -Werror -O3 $(INCL)
+CFLAGS	= -Wall -Wextra -Werror $(INCL)
 LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42 
 
 VPATH	= src/ src/debug/ src/graphics/ src/graphics/color/ src/graphics/hittable/ src/graphics/ray/ src/math/ src/parse src/utils/ include/

@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/17 15:36:25 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:17:03 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 void	print_loading_screen(int line, int total)
 {
 	fflush(stdout);
-	printf("Rendering: %i%%\r", (int)((line / (double)total) * 100.0));
+	printf("Rendering: %i%%\r", (int)((line / (double)total) * 101.0));
 }
 
 void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
