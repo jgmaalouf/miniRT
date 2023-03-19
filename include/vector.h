@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:16 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 17:47:55 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:46:34 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ t_vec3	vec3_cross(const t_vec3 u, const t_vec3 v);
 t_vec3	vec3_scale_mult(const t_vec3 v, const double scale);
 t_vec3	vec3_scale_div(const t_vec3 v, const double scale);
 
-double	vec3_length_squared(const t_vec3 v);
-double	vec3_length(const t_vec3 v);
-
 t_vec3	vec3_unit(t_vec3 v);
+
+double	vec3_length(const t_vec3 v);
+double	vec3_length_squared(const t_vec3 v);
+
+t_vec3	vec3_random(double min, double max);
+t_vec3	vec3_random_in_unit_sp(void);
 
 #endif

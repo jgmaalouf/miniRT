@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:49:49 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/06 19:49:56 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:28:09 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_vec3	vec3_scale_div(const t_vec3 v, const double scale)
 	return (vec3_scale_mult(v, 1 / scale));
 }
 
-double	vec3_length_squared(const t_vec3 v)
+t_vec3	vec3_unit(t_vec3 v)
 {
-	return (vec3_dot(v, v));
+	return (vec3_scale_div(v, vec3_length(v)));
 }
