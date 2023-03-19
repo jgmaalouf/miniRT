@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:57:13 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/16 20:03:27 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/19 01:05:08 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects)
 		}
 		i++;
 	}
+	i = 0;
+	while (i < objects.cy_count)
+	{
+		if (hit_cylinder_record(r, closest_so_far, objects.cylinders[i], &temp_rec))
+		{
+			*rec = temp_rec;
+			return (true);
+			hit_anything = true;
+			closest_so_far = temp_rec.t;
+		}
+		i++;
+	}
+	
 	return (hit_anything);
 }
 

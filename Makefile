@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/17 13:18:29 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/19 00:30:58 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ endif
 SRCS	= main.c \
 			color.c display.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
-			world.c sphere.c plane.c \
+			world.c sphere.c plane.c cylinder.c \
 			ray.c ray_calc.c utils2.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
 			errors.c \

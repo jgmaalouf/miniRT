@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/15 12:05:26 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:42:28 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
 	t_hit_record	hit_rec;
-	t_point3		target;
+	// t_point3		target;
 	t_vec3			unit_direction;
 	double			t;
 	t_color			white;
@@ -38,13 +38,16 @@ static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 	hit_rec = (t_hit_record){0};
 	if (world_hit(r, &hit_rec, scene->hittable))
 	{
+		// if (hit_rec.color.e[0] == 1.0 && hit_rec.color.e[1] == 1.0 && hit_rec.color.e[2] == 1.0)
+		// 	return (hit_rec.color);
 		// printf("I hit something \\o/\n");
-		target = vec3_add(hit_rec.p,
-					vec3_add(hit_rec.normal, vec3_random_in_unit_sp()));
-		// print_vec3("target", target);
-		return (vec3_mult(
-				ray_color(ray_constr(hit_rec.p, vec3_substr(target, hit_rec.p)), scene, depth - 1),
-				vec3_scale_mult(vec3_scale_div(hit_rec.color, 255), 0.5)));
+		// target = vec3_add(hit_rec.p,
+		// 			vec3_add(hit_rec.normal, vec3_random_in_unit_sp()));
+		// // print_vec3("target", target);
+		// return (vec3_mult(
+		// 		ray_color(ray_constr(hit_rec.p, vec3_substr(target, hit_rec.p)), scene, depth - 1),
+		// 		vec3_scale_mult(vec3_scale_div(hit_rec.color, 255), 0.5)));
+		return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1.0, 1.0, 1.0)), 0.5));
 	}
 	unit_direction = vec3_unit(r.dir);
 	t = 0.5 * (unit_direction.e[1] + 1.0);
