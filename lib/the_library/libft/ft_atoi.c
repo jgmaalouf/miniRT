@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 18:55:20 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/06 14:35:18 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/13 06:01:58 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	ft_atoi_mod(const char *str, int *result)
 			return (1);
 		i++;
 	}
+	if (str[i] != '\0' || !ft_isspace(str[i]) || str[i] != ',')
+		return (1);
 	*result = (int)(n * sign);
 	return (0);
 }
