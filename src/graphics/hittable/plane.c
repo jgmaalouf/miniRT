@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/18 19:52:18 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:10:10 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	hit_plane(const t_ray r, double t_max, t_plane pl, double *t)
 	double	pos_min_orig__xnorm;
 
 	dir_xnorm = vec3_dot(r.dir, pl.orient);
-	pos_min_orig__xnorm = vec3_dot(pl.orient, vec3_substr(pl.pos, r.orig));
+	pos_min_orig__xnorm = vec3_dot(pl.orient, vec3_subtr(pl.pos, r.orig));
 	*t = pos_min_orig__xnorm / dir_xnorm;
 	// if (*t < 0)
 	// 	return (false);
