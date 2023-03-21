@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/12 20:04:59 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/20 23:47:38 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ bool	valid_rgb(char **str);
 
 // utils
 
-int		ft_isnumber(char *s);
-int		ft_isdouble(char *s);
-
 void	skip_spaces(char **str);
+void	increment_while_double(char **str);
 
-void	fill_triple_val(char *str, t_vec3 *triple_val);
+void	fill_single_val(char **str, double *val);
+void	fill_triple_val(char **str, t_vec3 *triple_val);
 
 #endif

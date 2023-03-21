@@ -6,14 +6,14 @@
 /*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/12 20:08:05 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/20 23:59:20 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "errors.h"
 #include "parse.h"
 #include "elem_count.h"
-#include "lib.h"
+#include "errors.h"
+#include "libft.h"
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -29,15 +29,9 @@ bool	valid_orient(char **str)
 	i = 3;
 	while (i > 0)
 	{
-		if (!ft_isdouble(*str)) // why check this if ft_atod returns 1 if not a double
+		if (ft_atod_mod(*str, &val) || val < -1.0 || val > 1.0)
 			err = false;
-		if (!ft_atod(*str, &val))
-			err = false;
-		while (ft_isdigit(**str) || **str == '.'
-			|| **str == '+' || **str == '-') // make seperate function for this
-			(*str)++;
-		if (val < -1.0 || val > 1.0)
-			err = false;
+		increment_while_double(str);
 		if (**str == ',')
 			(*str)++;
 		i--;
@@ -56,13 +50,9 @@ bool	valid_coord(char **str)
 	i = 3;
 	while (i > 0)
 	{
-		if (!ft_isdouble(*str)) // same here
+		if (ft_atod_mod(*str, &coord))
 			err = false;
-		if (!ft_atod(*str, &coord))
-			err = false;
-		while (ft_isdigit(**str) || **str == '.'
-			|| **str == '+' || **str == '-')
-			(*str)++;
+		increment_while_double(str);
 		if (**str == ',')
 			(*str)++;
 		i--;
