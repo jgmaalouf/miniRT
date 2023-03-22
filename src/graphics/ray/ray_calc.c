@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/21 20:10:58 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:09:05 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,69 +25,52 @@
 
 t_color	ray_color(const t_ray r, t_scene *scene, int depth);
 
-static t_vec3	diffuse(t_hit_record *hit_rec)
+static t_vec3	random_dir(const t_hit_record hit_rec)
 {
-	t_point3	diffuse_dir;
+	t_vec3	random_dir;
 
-	diffuse_dir = vec3_add(hit_rec->p, vec3_add(hit_rec->normal, vec3_random_unit()));
-	return (vec3_subtr(diffuse_dir, hit_rec->p));
+	random_dir = vec3_add(hit_rec.p, vec3_add(hit_rec.normal, vec3_random_unit()));
+	return (vec3_subtr(random_dir, hit_rec.p));
 }
 
-t_vec3	luminosity(t_scene *scene, t_hit_record *hit_rec, int depth)
+t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
 {
-	t_color			luminance;
+	t_color	luminance;
 
-	luminance = vec3_scale_mult(ray_color(ray_constr(hit_rec->p, diffuse(hit_rec)), scene, depth - 1), 0.5);
+	luminance = vec3_scale_mult(ray_color(ray_constr(hit_rec.p, random_dir(hit_rec)), scene, depth - 1), 0.5);
 	if (luminance.e[0] == 0 && luminance.e[1] == 0 && luminance.e[2] == 0)
-		luminance = vec3_constr(1, 1, 1);
+		luminance = vec3_constr(0.1, 0.1, 0.1);
 	return (luminance);
 }
+
+static const t_color black = (t_color){0};
+// static const t_color white = (t_color){1, 1, 1};
 
 t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
 	t_hit_record	hit_rec;
-	// t_color			luminance;
+	t_hit_record	shadow_rec;
+	t_color			luminance;
+	t_color			light_clr;
 
 	if (depth < 0)
-		return (vec3_constr(0, 0, 0));
+		return (black);
+	light_clr = vec3_scale_mult(vec3_scale_div(scene->light.rgb, 256), scene->light.ratio);
 	hit_rec = (t_hit_record){0};
 	if (world_hit(r, &hit_rec, scene->hittable))
 	{
-		t_color	light_clr = vec3_scale_mult(vec3_scale_div(scene->light.rgb, 255), scene->light.ratio);
-		t_vec3 obj_clr = vec3_mult(light_clr, hit_rec.color);
+		t_vec3	light_dir = vec3_subtr(scene->light.pos, hit_rec.p);
+		t_ray shadow_ray = ray_constr(hit_rec.p, light_dir);
+		luminance = luminosity(scene, hit_rec, depth);
+		if (world_hit(shadow_ray, &shadow_rec, scene->hittable))
+			return (black);
+		double	d = clamp(vec3_dot(hit_rec.normal, light_dir), 0.0, 1.0); // cos(angle)
+		t_vec3 obj_clr = vec3_scale_mult(vec3_mult(light_clr, hit_rec.color), d);
+		obj_clr = vec3_mult(obj_clr, luminance);
 		return (obj_clr);
 	}
-	return (vec3_constr(0, 0, 0));
+	return (black);
 }
-/* t_color	ray_color(const t_ray r, t_scene *scene, int depth)
-{
-	t_hit_record	hit_rec;
-	// t_color			luminance;
-
-	if (depth < 0)
-		return (vec3_constr(0, 0, 0));
-	hit_rec = (t_hit_record){0};
-	if (world_hit(r, &hit_rec, scene->hittable))
-	{
-		// t_color albedo = vec3_constr(0.18, 0.18, 0.18);
-		// t_color	amb_light_clr = vec3_scale_mult(vec3_scale_div(scene->amb_light.rgb, 255), scene->amb_light.ratio);
-		t_color	light_clr = vec3_scale_mult(vec3_scale_div(scene->light.rgb, 255), scene->light.ratio);
-
-		// t_vec3 obj_clr = vec3_mult(vec3_add(amb_light_clr, light_clr), hit_rec.color);
-		t_vec3 obj_clr = vec3_mult(light_clr, hit_rec.color);
-
-		// t_vec3 light_dir = vec3_scale_mult(vec3_subtr(scene->light.pos, hit_rec.p), -1);
-		
-		// vec3_scale_div(albedo, PI);
-		// double ratio = clamp(vec3_dot(hit_rec.normal, light_dir), 0.0, 0.999);
-		// obj_clr = vec3_scale_mult(obj_clr, ratio);
-
-		// luminance = luminosity(scene, &hit_rec, depth);
-		// return (vec3_mult(luminance, obj_clr));
-		return (obj_clr);
-	}
-	return (vec3_constr(0, 0, 0));
-} */
 
 void pixel_to_world(t_scene *scene, double *x, double *y)
 {
@@ -96,9 +79,18 @@ void pixel_to_world(t_scene *scene, double *x, double *y)
 	double px_screen_x;
 	double px_screen_y;
 
-	// Convert from pixels to NDC space (Normalized Device Coordinates) range (0, 1)
-	px_ndc_x = (*x + 0.5) / scene->image.width;
-	px_ndc_y = (*y + 0.5) / scene->image.height;
+	if (SPP > 1)
+	{
+		// Convert from pixels to NDC space (Normalized Device Coordinates) range (0, 1)
+		px_ndc_x = (*x + random_double_in(0, 1)) / scene->image.width;
+		px_ndc_y = (*y + random_double_in(0, 1)) / scene->image.height;
+	}
+	else
+	{
+		// Convert from pixels to NDC space (Normalized Device Coordinates) range (0, 1)
+		px_ndc_x = (*x + 0.5) / scene->image.width;
+		px_ndc_y = (*y + 0.5) / scene->image.height;
+	}
 
 	// Convert from NDC space to screen space range (-1, 1)
 	px_screen_x = 2 * px_ndc_x - 1;
@@ -119,34 +111,6 @@ static t_ray	get_next_ray(t_scene *scene, double x, double y)
 	ray = ray_constr(scene->camera.pos, ray_dir);
 	return (ray);
 }
-/* static t_ray	get_next_ray(t_scene *scene, int x, int y)
-{
-	t_ray	ray;
-	double	u;
-	double	v;
-
-	if (SPP > 1)
-	{
-		u = ((double)x + random_double()) / (scene->image.width - 1);
-		v = ((double)y + random_double()) / (scene->image.height - 1);
-	}
-	else
-	{
-		u = (double)x / (scene->image.width - 1);
-		v = (double)y / (scene->image.height - 1);
-	}
-	ray = ray_constr(
-			scene->camera.pos,
-			vec3_subtr(
-				vec3_add(
-					scene->image.lower_left_corner,
-					vec3_add(
-						vec3_scale_mult(scene->image.hori, u),
-						vec3_scale_mult(scene->image.vert, v))),
-				scene->camera.pos)
-			);
-	return (ray);
-} */
 
 uint32_t	pixel_color(t_scene *scene, int x, int y)
 {
@@ -160,8 +124,8 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 	{
 		r = get_next_ray(scene, (double)x, (double)y);
 		color = vec3_add(color, ray_color(r, scene, MAX_DEPTH));
+		// color = vec3_add(vec3_scale_div(color, SPP), ray_color(r, scene, MAX_DEPTH));
 		i++;
 	}
-	color = vec3_scale_div(color, SPP);
 	return (translate_colors(color.e[0], color.e[1], color.e[2]));
 }
