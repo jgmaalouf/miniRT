@@ -59,7 +59,7 @@ bool	valid_ratio(char **str);
 bool	valid_dbl_size(char **str);
 bool	valid_rgb(char **str);
 
-// utils
+// Nutzen
 
 void	skip_spaces(char **str);
 void	increment_while_double(char **str);
