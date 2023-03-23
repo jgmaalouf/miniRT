@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/20 10:10:10 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:33:28 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	hit_plane_record(const t_ray r, double t_max, t_plane pl,
 		temp_rec->p = ray_at(r, temp_rec->t);
 		temp_rec->normal = vec3_unit(pl.orient);
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
-		temp_rec->color = vec3_scale_div(pl.rgb, 255);
+		temp_rec->color = vec3_scale_div(pl.rgb, 256);
 		return (true);
 	}
 	return (false);
