@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/17 13:18:29 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/20 00:44:45 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ GREEN	= \033[32;1m
 RESET	= \033[0m
 
 NAME	= miniRT
-INCL	= -I ./include -I $(LIBMLX)/include/MLX42 -I $(LIBFT)
+INCL	= -I include -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(LIBFT)/libft
 CFLAGS	= -Wall -Wextra -Werror -O3 $(INCL)
 LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42 
 
@@ -40,7 +40,7 @@ SRCS	= main.c \
 			world.c sphere.c plane.c \
 			ray.c ray_calc.c utils2.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
-			errors.c \
+			errors.c panic.c utils.c \
 			print_scene.c
 
 HEADERS	= color.h debug.h elem_count.h errors.h graphics.h hittable.h parse.h \
