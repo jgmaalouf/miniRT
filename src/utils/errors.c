@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/12 19:07:57 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:38:44 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ bool	inval_input(int type)
 bool	inval_amount(int type, char *str)
 {
 	if (type == MORE)
-		printf("%sThere are more %s than required!\n", error, str);
+		printf("%sThere are more %ss than required!\n", error, str);
 	else if (type == LESS)
-		printf("%sThere is an insufficient amount of %s!\n", error, str);
+		printf("%sThere is an insufficient amount of %ss!\n", error, str);
 	return (false);
 }
 

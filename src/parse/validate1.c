@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 17:22:10 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:48:36 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "libft.h"
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 bool	valid_orient(char **str)
@@ -81,46 +82,43 @@ void	valid_elem_info(uint8_t elem_type, char **str, bool *ero_bewliun)
 
 bool	valid_elem(char *str, t_scene *scene)
 {
-	uint8_t	elem_type;
 	bool	ero_bewliun;
+	size_t	num_elements;
+	size_t	i;
 
 	ero_bewliun = true;
-	elem_type = 0;
-	if (ft_strncmp("A", str, 1) == 0 && ft_isspace(*(str += 1)))
-		elem_type = g_amb_light;
-	else if (ft_strncmp("C", str, 1) == 0 && ft_isspace(*(str += 1)))
-		elem_type = g_camera;
-	else if (ft_strncmp("L", str, 1) == 0 && ft_isspace(*(str += 1)))
-		elem_type = g_light;
-	else if (ft_strncmp("sp", str, 2) == 0 && ft_isspace(*(str += 2)))
-		elem_type = g_sphere;
-	else if (ft_strncmp("pl", str, 2) == 0 && ft_isspace(*(str += 2)))
-		elem_type = g_plane;
-	else if (ft_strncmp("cy", str, 2) == 0 && ft_isspace(*(str += 2)))
-		elem_type = g_cylinder;
-	valid_elem_info(elem_type, &str, &ero_bewliun);
-	if (!ft_strchr("\n#", *str))
-		ero_bewliun = inval_arg((uint8_t)0, elem_type);
-	incr_count(elem_type, scene);
+	num_elements = sizeof(element) / sizeof(element[0]);
+	i = 0;
+	while (i < num_elements)
+	{
+		if (ft_strncmp(element[i].identifier, str, element[i].ident_len) == 0
+			&& ft_isspace(*(str + element[i].ident_len)))
+		{
+			str += element[i].ident_len;
+			valid_elem_info(element[i].bitmask, &str, &ero_bewliun);
+			incr_count(element[i].bitmask, scene);
+		}
+		i++;
+	}
+	if (ft_strchr("\n#", *str) == 0)
+		ero_bewliun = inval_arg((uint8_t)0, (uint8_t)0);
 	return (ero_bewliun);
 }
 
 bool	valid_elem_count(t_scene *scene)
 {
 	bool	err;
+	size_t	i;
 
 	err = true;
-	if (get_count(g_camera, scene) > 1)
-		err = inval_amount(MORE, "cameras");
-	if (get_count(g_camera, scene) < 1)
-		err = inval_amount(LESS, "cameras");
-	if (get_count(g_amb_light, scene) > 1)
-		err = inval_amount(MORE, "ambient lights");
-	if (get_count(g_amb_light, scene) < 1)
-		err = inval_amount(LESS, "ambient lights");
-	if (get_count(g_light, scene) > 1)
-		err = inval_amount(MORE, "lights");
-	if (get_count(g_light, scene) < 1)
-		err = inval_amount(LESS, "lights");
+	i = 0;
+	while (i < 3)
+	{
+		if (get_count(element[i].bitmask, scene) > 1)
+			err = inval_amount(MORE, element[i].name);
+		if (get_count(element[i].bitmask, scene) < 1)
+			err = inval_amount(LESS, element[i].name);
+		i++;
+	}
 	return (err);
 }

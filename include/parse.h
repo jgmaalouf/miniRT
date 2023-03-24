@@ -6,17 +6,17 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 17:27:38 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:44:12 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include "scene.h"
+# include <stdbool.h> // bool
+# include <stdint.h> // uint8_t
+# include <stdlib.h> // size_t
+# include "scene.h"
 
 # define TOK_COORD 0b1000000
 # define TOK_ORIENT 0b100000
@@ -36,34 +36,21 @@ static const uint8_t	g_plane = TOK_COORD | TOK_ORIENT | TOK_RGB;
 static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
 	| TOK_DIAMETER | TOK_HEIGHT | TOK_RGB;
 
-// Szenenfüllung
-
-void	fill_elem(t_scene *scene, char *str);
-
-void	fill_amb_light(char *str, t_scene *scene);
-void	fill_camera(char *str, t_scene *scene);
-void	fill_light(char *str, t_scene *scene);
-void	fill_sphere(char *str, t_scene *scene);
-void	fill_plane(char *str, t_scene *scene);
-void	fill_cylinder(char *str, t_scene *scene);
-
-typedef void	(*t_filler)(char *str, t_scene *scene);
-
-static struct a
+static const struct s_element
 {
-	char		*elem;
-	size_t		elem_len;
-	t_filler	filler;
-} filler[] =
-	{
-		{"A", 1, fill_amb_light},
-		{"C", 1, fill_camera},
-		{"L", 1, fill_light},
-		{"sp", 2, fill_sphere},
-		{"pl", 2, fill_plane},
-		{"cy", 2, fill_cylinder}
-	};
-
+	char		*identifier;
+	size_t		ident_len;
+	u_int8_t	bitmask;
+	char		*name;
+}
+element[] = {
+	{"A",	1,	g_amb_light,	"ambient light"},
+	{"C",	1,	g_camera,		"camera"},
+	{"L",	1,	g_light,		"light"},
+	{"sp",	2,	g_sphere,		"sphere"},
+	{"pl",	2,	g_plane,		"plane"},
+	{"cy",	2,	g_cylinder,		"cylinder"}
+};
 
 // Szenenvalidierung
 
@@ -78,6 +65,30 @@ bool	valid_ratio(char **str);
 bool	valid_dbl_size(char **str);
 bool	valid_rgb(char **str);
 
+// typedef bool			(*t_validate)(char **str);
+
+// Szenenfüllung
+
+void	fill_elem(t_scene *scene, char *str);
+
+void	fill_amb_light(char *str, t_scene *scene);
+void	fill_camera(char *str, t_scene *scene);
+void	fill_light(char *str, t_scene *scene);
+void	fill_sphere(char *str, t_scene *scene);
+void	fill_plane(char *str, t_scene *scene);
+void	fill_cylinder(char *str, t_scene *scene);
+
+typedef void			(*t_filler)(char *str, t_scene *scene);
+
+static const t_filler	g_element_fillers[] = {
+	fill_amb_light,
+	fill_camera,
+	fill_light,
+	fill_sphere,
+	fill_plane,
+	fill_cylinder
+};
+
 // Nutzen
 
 void	skip_spaces(char **str);
@@ -85,5 +96,24 @@ void	increment_while_double(char **str);
 
 void	fill_single_val(char **str, double *val);
 void	fill_triple_val(char **str, t_vec3 *triple_val);
+
+// typedef void			(*t_scene_filler)(char **, void *);
+
+// typedef struct s_idkyet
+// {
+// 	uint8_t			identifier;
+// 	t_scene_filler	filler;
+// 	void			*member;
+// }				t_idkyet;
+
+// static const t_idkyet	g_scene_fillers[] = {
+// {TOK_COORD,		&fill_triple_val,	&(t_vec3){0}},
+// {TOK_ORIENT,	&fill_triple_val,	&(t_vec3){0}},
+// {TOK_FOV,		&fill_single_val,	&(double){0}},
+// {TOK_RATIO,		&fill_single_val,	&(double){0}},
+// {TOK_DIAMETER,	&fill_single_val,	&(double){0}},
+// {TOK_HEIGHT,	&fill_single_val,	&(double){0}},
+// {TOK_RGB,		&fill_triple_val,	&(t_vec3){0}}
+// };
 
 #endif
