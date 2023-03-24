@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/24 18:13:00 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/24 18:24:06 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS	= main.c \
 			color.c display.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
 			world.c sphere.c plane.c \
-			ray.c ray_calc.c utils.c \
+			ray.c ray_calc.c utils2.c \
 			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
 			errors.c panic.c utils.c \
 			print_scene.c
