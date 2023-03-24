@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 06:57:00 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/19 21:21:09 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 13:27:13 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 #include <stdbool.h>
 #include <stdio.h> // printf
 
-bool	hit_cylinder(const t_ray r, double t_max, t_cylinder cy, t_hit_record *temp_rec)
+bool	hit_cylinder(const t_ray r, const double t_max, const t_cylinder cy,
+						t_hit_record *temp_rec)
 {
 	t_vec3	common_normal;
 	t_vec3	common_common_normal;
@@ -51,7 +52,7 @@ bool	hit_cylinder(const t_ray r, double t_max, t_cylinder cy, t_hit_record *temp
 	}
 }
 
-bool	hit_cylinder_record(const t_ray r, double t_max, t_cylinder cy,
+bool	hit_cylinder_record(const t_ray r, const double t_max, const t_cylinder cy,
 							t_hit_record *temp_rec)
 {
 	if (hit_cylinder(r, t_max, cy, temp_rec))
