@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/23 16:28:01 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:41:17 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ t_color	ray_color(const t_ray r, t_scene *scene, int depth);
 
 static t_vec3	random_dir(const t_hit_record hit_rec)
 {
-	t_vec3	random_dir;
+	// t_vec3	random_dir;
 
-	random_dir = vec3_add(hit_rec.p, vec3_add(hit_rec.normal, vec3_random_unit()));
-	return (vec3_subtr(random_dir, hit_rec.p));
+	// random_dir = vec3_add(hit_rec.p, vec3_add(hit_rec.normal, vec3_random_unit()));
+	// return (vec3_subtr(random_dir, hit_rec.p));
+	return(vec3_unit(vec3_add(hit_rec.normal, vec3_random_unit())));
 }
 // YOU ARE STOOPID THIS IS THE INDIRECT LIGHTING YOU SIMPLETON NOT LUMINOSITY
 t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
@@ -45,7 +46,7 @@ t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
 
 static const t_color black = (t_color){0};
 // static const t_color white = (t_color){1, 1, 1};
-static const t_color red = (t_color){1, 0, 0};
+// static const t_color red = (t_color){1, 0, 0};
 
 t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
@@ -61,16 +62,16 @@ t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 	if (world_hit(r, &hit_rec, scene->hittable))
 	{
 		t_vec3	light_dir = vec3_subtr(scene->light.pos, hit_rec.p);
-		// t_ray shadow_ray = ray_constr(hit_rec.p, light_dir);
+		// t_ray	shadow_ray = ray_constr(hit_rec.p, light_dir);
 		// luminance = luminosity(scene, hit_rec, depth);
 		// if (world_hit(shadow_ray, &shadow_rec, scene->hittable))
-			// return (white);
-		double	d = clamp(vec3_dot(hit_rec.normal, light_dir), 0.0, 1.0); // cos(angle)
-		t_vec3 p_color = vec3_scale_mult(vec3_mult(light_clr, hit_rec.color), d);
+		// 	return (black);
+		double	d = clamp_min(vec3_dot(hit_rec.normal, light_dir), 0.0); // cos(angle)
+		t_vec3	p_color = vec3_scale_mult(vec3_mult(light_clr, hit_rec.color), d);
 		// p_color = vec3_mult(p_color, luminance);
 		return (p_color);
 	}
-	return (red);
+	return (black);
 }
 
 void pixel_to_world(t_scene *scene, double *x, double *y)
@@ -125,8 +126,8 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 	{
 		r = get_next_ray(scene, (double)x, (double)y);
 		color = vec3_add(color, ray_color(r, scene, MAX_DEPTH));
-		// color = vec3_add(vec3_scale_div(color, SPP), ray_color(r, scene, MAX_DEPTH));
 		i++;
 	}
+	color = vec3_scale_div(color, SPP);
 	return (translate_colors(color.e[0], color.e[1], color.e[2]));
 }
