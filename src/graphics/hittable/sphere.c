@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:44:05 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/17 13:17:35 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/21 22:47:46 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <stdio.h> // printf
 
-bool	hit_sphere(const t_ray r, double t_max, t_sphere sp, double *root)
+bool	hit_sphere(const t_ray r, double t_max, const t_sphere sp, double *root)
 {
 	t_vec3	oc;
 	double	a;
@@ -45,7 +45,7 @@ bool	hit_sphere(const t_ray r, double t_max, t_sphere sp, double *root)
 	return (true);
 }
 
-bool	hit_sphere_record(const t_ray r, double t_max, t_sphere sp,
+bool	hit_sphere_record(const t_ray r, double t_max, const t_sphere sp,
 							t_hit_record *temp_rec)
 {
 	if (hit_sphere(r, t_max, sp, &temp_rec->t))

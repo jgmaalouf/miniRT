@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/16 19:52:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/21 13:58:00 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <stdio.h> // printf
 
-bool	hit_plane(const t_ray r, double t_max, t_plane pl, double *t)
+bool	hit_plane(const t_ray r, double t_max, const t_plane pl, double *t)
 {
 	double	dir_xnorm;
 	double	pos_min_orig__xnorm;
@@ -34,7 +34,7 @@ bool	hit_plane(const t_ray r, double t_max, t_plane pl, double *t)
 	return (true);
 }
 
-bool	hit_plane_record(const t_ray r, double t_max, t_plane pl,
+bool	hit_plane_record(const t_ray r, double t_max, const t_plane pl,
 							t_hit_record *temp_rec)
 {
 	if (hit_plane(r, t_max, pl, &temp_rec->t))

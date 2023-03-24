@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:57:13 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/19 01:05:08 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 13:20:49 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include <stdbool.h>
 
-bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects)
+bool	world_hit(const t_ray r, t_hit_record *rec, const t_hittable objects)
 {
 	t_hit_record	temp_rec;
 	bool			hit_anything;
@@ -61,7 +61,6 @@ bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects)
 		}
 		i++;
 	}
-	
 	return (hit_anything);
 }
 

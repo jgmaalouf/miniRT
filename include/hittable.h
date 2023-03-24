@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/19 00:31:31 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 12:43:52 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ typedef struct s_hit_record
 	t_color		color;
 }				t_hit_record;
 
-bool	world_hit(const t_ray r, t_hit_record *rec, t_hittable objects);
+bool	world_hit(const t_ray r, t_hit_record *rec, const t_hittable objects);
 void	set_face_normal(const t_ray r, t_vec3 *outward_normal, bool *front_face);
 
-bool	hit_sphere_record(const t_ray r, double t_max, t_sphere sp,
+bool	hit_sphere(const t_ray r, double t_max, const t_sphere sp, double *root);
+bool	hit_sphere_record(const t_ray r, double t_max, const t_sphere sp,
 							t_hit_record *temp_rec);
-bool	hit_plane_record(const t_ray r, double t_max, t_plane pl,
+bool	hit_plane_record(const t_ray r, double t_max, const t_plane pl,
 							t_hit_record *temp_rec);
-bool	hit_cylinder_record(const t_ray r, double t_max, t_cylinder cy,
+bool	hit_cylinder_record(const t_ray r, double t_max, const t_cylinder cy,
 							t_hit_record *temp_rec);
 
 #endif

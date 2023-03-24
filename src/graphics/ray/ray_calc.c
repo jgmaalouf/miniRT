@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/19 20:42:28 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 13:09:34 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ static t_ray	get_next_ray(int x, int y, t_image img, t_camera cam)
 	// printf("x:\t%i,\ty:\t%i\n", x, y);
 	ray = ray_constr(
 			cam.pos,
-			vec3_substr(
+			vec3_unit(vec3_substr(
 				vec3_add(
 					img.lower_left_corner,
 					vec3_add(
 						vec3_scale_mult(img.hori, u),
 						vec3_scale_mult(img.vert, v))),
-				cam.pos)
+				cam.pos))
 			);
 	return (ray);
 }
