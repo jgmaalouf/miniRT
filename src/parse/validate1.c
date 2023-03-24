@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/20 23:59:20 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:22:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ bool	valid_elem(char *str, t_scene *scene)
 		elem_type = g_cylinder;
 	valid_elem_info(elem_type, &str, &ero_bewliun);
 	if (!ft_strchr("\n#", *str))
-		inval_arg((uint8_t)0, elem_type);
+		ero_bewliun = inval_arg((uint8_t)0, elem_type);
 	incr_count(elem_type, scene);
 	return (ero_bewliun);
 }
