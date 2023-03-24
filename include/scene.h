@@ -6,10 +6,9 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/21 16:26:54 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:13:59 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef SCENE_H
 # define SCENE_H
@@ -25,7 +24,7 @@ typedef struct s_camera
 {
 	t_point3	pos;
 	t_vec3		orient;
-	int			fov;
+	double		fov;
 }				t_camera;
 
 typedef struct s_amb_light

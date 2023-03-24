@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/21 19:29:49 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:16:02 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,46 @@
 #include <unistd.h>
 #include <time.h>
 
+void	allocate_scene_elements(t_scene *scene)
+{
+	scene->hittable.spheres = malloc(
+			(get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
+	if (scene->hittable.spheres == NULL)
+		panic_exit("bad alloc");
+	scene->hittable.planes = malloc(
+			(get_count(g_plane, scene) + 1) * sizeof(t_plane));
+	if (scene->hittable.planes == NULL)
+	{
+		free(scene->hittable.spheres);
+		panic_exit("bad alloc");
+	}
+	scene->hittable.cylinders = malloc(
+			(get_count(g_cylinder, scene) + 1) * sizeof(t_cylinder));
+	if (scene->hittable.cylinders == NULL)
+	{
+		free(scene->hittable.spheres);
+		free(scene->hittable.planes);
+		panic_exit("bad alloc");
+	}
+}
+
+void	scene_populate(t_scene *scene, char *file)
+{
+	int		fd;
+	char	*line;
+
+	allocate_scene_elements(scene);
+	fd = open(file, O_RDONLY);
+	get_next_line(fd, &line);
+	while (line != NULL)
+	{
+		fill_elem(scene, line);
+		get_next_line(fd, &line);
+		free(line);
+	}
+	close(fd);
+}
+
 bool	open_file(char *file, int *fd)
 {
 	char	*extension;
@@ -36,53 +76,6 @@ bool	open_file(char *file, int *fd)
 			return (true);
 	}
 	return (false);
-}
-
-bool	valid_elem(char *str, t_scene *scene)
-{
-	uint8_t	elem_type;
-	bool	ero_bewliun;
-
-	ero_bewliun = true;
-	elem_type = 0;
-	if (ft_strncmp("A", str, 1) == 0 && ft_isspace(*(str += 1)))
-		elem_type = g_amb_light;
-	else if (ft_strncmp("C", str, 1) == 0 && ft_isspace(*(str += 1)))
-		elem_type = g_camera;
-	else if (ft_strncmp("L", str, 1) == 0 && ft_isspace(*(str += 1)))
-		elem_type = g_light;
-	else if (ft_strncmp("sp", str, 2) == 0 && ft_isspace(*(str += 2)))
-		elem_type = g_sphere;
-	else if (ft_strncmp("pl", str, 2) == 0 && ft_isspace(*(str += 2)))
-		elem_type = g_plane;
-	else if (ft_strncmp("cy", str, 2) == 0 && ft_isspace(*(str += 2)))
-		elem_type = g_cylinder;
-	valid_elem_info(elem_type, &str, &ero_bewliun);
-	if (!ft_strchr("\n#", *str))
-		inval_arg((uint8_t)0, elem_type);
-	incr_count(elem_type, scene);
-	return (ero_bewliun);
-}
-
-
-bool	valid_elem_count(t_scene *scene)
-{
-	bool	err;
-
-	err = true;
-	if (get_count(g_camera, scene) > 1)
-		err = inval_amount(MORE, "cameras");
-	if (get_count(g_camera, scene) < 1)
-		err = inval_amount(LESS, "cameras");
-	if (get_count(g_amb_light, scene) > 1)
-		err = inval_amount(MORE, "ambient lights");
-	if (get_count(g_amb_light, scene) < 1)
-		err = inval_amount(LESS, "ambient lights");
-	if (get_count(g_light, scene) > 1)
-		err = inval_amount(MORE, "lights");
-	if (get_count(g_light, scene) < 1)
-		err = inval_amount(LESS, "lights");
-	return (err);
 }
 
 void	scene_validate(t_scene *scene, char *file)
@@ -102,6 +95,7 @@ void	scene_validate(t_scene *scene, char *file)
 		if (!valid_elem(line, scene))
 			scene->error = true;
 		get_next_line(fd, &line);
+		free(line);
 	}
 	close(fd);
 	if (!valid_elem_count(scene))
