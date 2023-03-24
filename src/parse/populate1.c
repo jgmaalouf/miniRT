@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   populate1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/21 00:09:40 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:08:56 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	fill_camera(char *str, t_scene *scene)
 	str++;
 	fill_triple_val(&str, &scene->camera.pos);
 	fill_triple_val(&str, &scene->camera.orient);
-	skip_spaces(&str);
-	ft_atoi_mod(str, &scene->camera.fov);
+	fill_single_val(&str, &scene->camera.fov);
 }
 
 void	fill_amb_light(char *str, t_scene *scene)
@@ -53,3 +52,18 @@ void	fill_elem(t_scene *scene, char *str)
 	if (ft_strncmp("cy", str, 2) == 0)
 		return (fill_cylinder(str, scene));
 }
+
+
+// void	fill_elem(t_scene *scene, char *str)
+// {
+// 	size_t	num_fillers = sizeof(filler) / sizeof(filler[0]);
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (i < num_fillers)
+// 	{
+// 		if (ft_strncmp(filler[i].elem, str, filler[i].elem_len))
+// 			filler[i].filler(str, scene);
+// 		i++;
+// 	}
+// }

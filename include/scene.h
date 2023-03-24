@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/16 16:15:23 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:10:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef SCENE_H
 # define SCENE_H
@@ -17,13 +16,13 @@
 # include "vector.h"
 # include <stdbool.h>
 
-# define SPP 50
+# define SPP 1
 
 typedef struct s_camera
 {
 	t_point3	pos;
 	t_vec3		orient;
-	int			fov;
+	double		fov;
 }				t_camera;
 
 typedef struct s_amb_light

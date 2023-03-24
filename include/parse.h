@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/20 23:47:38 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:10:11 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+// #include <stdlib.h>
 #include "scene.h"
 
 # define TOK_COORD 0b1000000
@@ -34,6 +35,23 @@ static const uint8_t	g_sphere = TOK_COORD | TOK_DIAMETER | TOK_RGB;
 static const uint8_t	g_plane = TOK_COORD | TOK_ORIENT | TOK_RGB;
 static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
 	| TOK_DIAMETER | TOK_HEIGHT | TOK_RGB;
+
+// typedef void	(*t_filler)(char *str, t_scene *scene);
+
+// static const struct a
+// {
+// 	char		*elem;
+// 	size_t		elem_len;
+// 	t_filler	filler;
+// } filler[] =
+// 	{
+// 		{"A", 1, fill_amb_light},
+// 		{"C", 1, fill_camera},
+// 		{"L", 1, fill_light},
+// 		{"sp", 2, fill_sphere},
+// 		{"ps", 2, fill_plane},
+// 		{"cy", 2, fill_cylinder}
+// 	};
 
 // Szenenfüllung
 
