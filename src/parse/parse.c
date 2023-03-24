@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/20 00:43:55 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 17:07:39 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,24 @@
 
 void	allocate_scene_elements(t_scene *scene)
 {
-	scene->hittable.spheres = malloc((get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
-	scene->hittable.planes = malloc((get_count(g_plane, scene) + 1) * sizeof(t_plane));
-	scene->hittable.cylinders = malloc((get_count(g_cylinder, scene) + 1) * sizeof(t_cylinder));
-	if (scene->hittable.spheres == NULL || scene->hittable.planes == NULL
-		|| scene->hittable.cylinders == NULL) // this is problematic because trying to free whatever is not allocated will result in error
+	scene->hittable.spheres = malloc(
+			(get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
+	if (scene->hittable.spheres == NULL)
+		panic_exit("bad alloc");
+	scene->hittable.planes = malloc(
+			(get_count(g_plane, scene) + 1) * sizeof(t_plane));
+	if (scene->hittable.planes == NULL)
+	{
+		free(scene->hittable.spheres);
+		panic_exit("bad alloc");
+	}
+	scene->hittable.cylinders = malloc(
+			(get_count(g_cylinder, scene) + 1) * sizeof(t_cylinder));
+	if (scene->hittable.cylinders == NULL)
 	{
 		free(scene->hittable.spheres);
 		free(scene->hittable.planes);
-		free(scene->hittable.cylinders);
+		panic_exit("bad alloc");
 	}
 }
 
@@ -47,7 +56,8 @@ void	scene_populate(t_scene *scene, char *file)
 	while (line != NULL)
 	{
 		fill_elem(scene, line);
-		get_next_line(fd, &line); // line needs to be freed before next call
+		get_next_line(fd, &line);
+		free(line);
 	}
 	close(fd);
 }
@@ -82,7 +92,8 @@ void	scene_validate(t_scene *scene, char *file)
 	{
 		if (!valid_elem(line, scene))
 			scene->error = true;
-		get_next_line(fd, &line); // line needs to be freed before next call
+		get_next_line(fd, &line);
+		free(line);
 	}
 	close(fd);
 	if (!valid_elem_count(scene))
@@ -99,7 +110,7 @@ void	scene_image_init(t_image *img, t_camera cam)
 	img->viewport_height = img->viewport_width / img->ratio;
 	img->hori = vec3_constr(img->viewport_width, 0, 0);
 	img->vert = vec3_constr(0, img->viewport_height, 0);
-	img->max_depth = 50;
+	img->max_depth = 1;
 	img->lower_left_corner
 		= vec3_substr(
 			cam.pos,
@@ -113,19 +124,10 @@ void	scene_image_init(t_image *img, t_camera cam)
 			);
 }
 
-// void	scene_init(t_scene *scene)
-// {
-// 	scene->error = false;
-// 	scene->hittable.sp_count = 0;
-// 	scene->hittable.pl_count = 0;
-// 	scene->hittable.cy_count = 0;
-// }
-
 t_scene	parse(char *file)
 {
 	t_scene	scene;
 
-	// scene_init(&scene);
 	scene = (t_scene){0};
 	scene_validate(&scene, file);
 	if (scene.error == false)
