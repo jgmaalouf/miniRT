@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/24 13:09:34 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 13:35:02 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 	t_color			white;
 	t_color			blue;
 
-	if (depth <= 0)
+	if (depth < 0)
 		return (vec3_constr(0, 0, 0));
 
 	white = vec3_constr(1.0, 1.0, 1.0);
@@ -99,7 +99,7 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 	i = 0;
 	while (i < SPP)
 	{
-		r = get_next_ray(scene->image.width - x, scene->image.height - y,
+		r = get_next_ray(x, scene->image.height - y,
 				scene->image, scene->camera);
 		color = vec3_add(color, ray_color(r, scene, scene->image.max_depth));
 		i++;

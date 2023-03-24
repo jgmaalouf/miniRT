@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 20:55:56 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/20 23:47:38 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,34 @@ static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
 
 // Szenenfüllung
 
-void	scene_populate(t_scene *scene, char *file);
-void	fill_triple_val(char *str, t_vec3 *triple_val);
+void	fill_elem(t_scene *scene, char *str);
+
 void	fill_amb_light(char *str, t_scene *scene);
 void	fill_camera(char *str, t_scene *scene);
 void	fill_light(char *str, t_scene *scene);
 void	fill_sphere(char *str, t_scene *scene);
-
-void	skip_spaces(char **str);
+void	fill_plane(char *str, t_scene *scene);
+void	fill_cylinder(char *str, t_scene *scene);
 
 // Szenenvalidierung
 
+bool	valid_elem(char *str, t_scene *scene);
 void	valid_elem_info(uint8_t elem_type, char **str, bool *ero_bewliun);
+bool	valid_elem_count(t_scene *scene);
 
-bool	valid_ratio(char **str);
 bool	valid_coord(char **str);
 bool	valid_orient(char **str);
 bool	valid_fov(char **str);
+bool	valid_ratio(char **str);
 bool	valid_dbl_size(char **str);
 bool	valid_rgb(char **str);
 
-int		ft_isnumber(char *s);
-int		ft_isdouble(char *s);
+// Nutzen
+
 void	skip_spaces(char **str);
+void	increment_while_double(char **str);
+
+void	fill_single_val(char **str, double *val);
+void	fill_triple_val(char **str, t_vec3 *triple_val);
 
 #endif
