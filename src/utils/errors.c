@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 20:38:44 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:55:57 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,25 @@ bool	inval_amount(int type, char *str)
 	return (false);
 }
 
-static char	*get_type_name(uint8_t elem_type)
-{
-	if (elem_type == g_amb_light)
-		return ("ambient light");
-	if (elem_type == g_camera)
-		return ("camera");
-	if (elem_type == g_light)
-		return ("light");
-	if (elem_type == g_sphere)
-		return ("sphere");
-	if (elem_type == g_plane)
-		return ("plane");
-	if (elem_type == g_cylinder)
-		return ("cylinder");
-	return ("\b");
-}
+// static char	*get_type_name(uint8_t elem_type)
+// {
+// 	if (elem_type == g_amb_light)
+// 		return ("ambient light");
+// 	if (elem_type == g_camera)
+// 		return ("camera");
+// 	if (elem_type == g_light)
+// 		return ("light");
+// 	if (elem_type == g_sphere)
+// 		return ("sphere");
+// 	if (elem_type == g_plane)
+// 		return ("plane");
+// 	if (elem_type == g_cylinder)
+// 		return ("cylinder");
+// 	return ("\b");
+// }
 
-bool	inval_arg(uint8_t error_type, uint8_t elem_type)
+bool	inval_arg(uint8_t error_type, char *elem_name)
 {
-	char		*elem_name;
-
-	elem_name = get_type_name(elem_type);
 	if (error_type == TOK_RATIO)
 		printf("%sThe %s ratio is invalid!\n", error, elem_name);
 	else if (error_type == TOK_COORD)

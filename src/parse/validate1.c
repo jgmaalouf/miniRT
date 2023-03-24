@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 20:48:36 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:53:49 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ bool	valid_coord(char **str)
 	return (err);
 }
 
-void	valid_elem_info(uint8_t elem_type, char **str, bool *ero_bewliun)
+void	valid_elem_info(struct s_element element, char **str, bool *ero_bewliun)
 {
-	if (elem_type & TOK_COORD && !valid_coord(str))
-		*ero_bewliun = inval_arg(TOK_COORD, elem_type);
-	if (elem_type & TOK_ORIENT && !valid_orient(str))
-		*ero_bewliun = inval_arg(TOK_ORIENT, elem_type);
-	if (elem_type & TOK_FOV && !valid_fov(str))
-		*ero_bewliun = inval_arg(TOK_FOV, elem_type);
-	if (elem_type & TOK_RATIO && !valid_ratio(str))
-		*ero_bewliun = inval_arg(TOK_RATIO, elem_type);
-	if (elem_type & TOK_DIAMETER && !valid_dbl_size(str))
-		*ero_bewliun = inval_arg(TOK_DIAMETER, elem_type);
-	if (elem_type & TOK_HEIGHT && !valid_dbl_size(str))
-		*ero_bewliun = inval_arg(TOK_HEIGHT, elem_type);
-	if (elem_type & TOK_RGB && !valid_rgb(str))
-		*ero_bewliun = inval_arg(TOK_RGB, elem_type);
+	if (element.bitmask & TOK_COORD && !valid_coord(str))
+		*ero_bewliun = inval_arg(TOK_COORD, element.name);
+	if (element.bitmask & TOK_ORIENT && !valid_orient(str))
+		*ero_bewliun = inval_arg(TOK_ORIENT, element.name);
+	if (element.bitmask & TOK_FOV && !valid_fov(str))
+		*ero_bewliun = inval_arg(TOK_FOV, element.name);
+	if (element.bitmask & TOK_RATIO && !valid_ratio(str))
+		*ero_bewliun = inval_arg(TOK_RATIO, element.name);
+	if (element.bitmask & TOK_DIAMETER && !valid_dbl_size(str))
+		*ero_bewliun = inval_arg(TOK_DIAMETER, element.name);
+	if (element.bitmask & TOK_HEIGHT && !valid_dbl_size(str))
+		*ero_bewliun = inval_arg(TOK_HEIGHT, element.name);
+	if (element.bitmask & TOK_RGB && !valid_rgb(str))
+		*ero_bewliun = inval_arg(TOK_RGB, element.name);
 	skip_spaces(str);
 }
 
@@ -95,13 +95,13 @@ bool	valid_elem(char *str, t_scene *scene)
 			&& ft_isspace(*(str + element[i].ident_len)))
 		{
 			str += element[i].ident_len;
-			valid_elem_info(element[i].bitmask, &str, &ero_bewliun);
+			valid_elem_info(element[i], &str, &ero_bewliun);
 			incr_count(element[i].bitmask, scene);
 		}
 		i++;
 	}
 	if (ft_strchr("\n#", *str) == 0)
-		ero_bewliun = inval_arg((uint8_t)0, (uint8_t)0);
+		ero_bewliun = inval_arg((uint8_t)0, "\b");
 	return (ero_bewliun);
 }
 

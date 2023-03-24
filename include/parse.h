@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 20:44:12 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 20:55:23 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ element[] = {
 // Szenenvalidierung
 
 bool	valid_elem(char *str, t_scene *scene);
-void	valid_elem_info(uint8_t elem_type, char **str, bool *ero_bewliun);
+void	valid_elem_info(struct s_element element, char **str, bool *ero_bewliun);
 bool	valid_elem_count(t_scene *scene);
 
 bool	valid_coord(char **str);
