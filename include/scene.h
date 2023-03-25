@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 18:13:59 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:51:15 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "MLX42.h"
 # include <stdbool.h>
 
-# define SPP 1
-# define MAX_DEPTH 1
+# define SPP 5
+# define MAX_DEPTH 20
 
 typedef struct s_camera
 {
@@ -31,6 +31,7 @@ typedef struct s_amb_light
 {
 	double		ratio;
 	t_color		rgb;
+	t_color		energy;
 }				t_amb_light;
 
 typedef struct s_light
@@ -38,6 +39,7 @@ typedef struct s_light
 	t_point3	pos;
 	double		ratio;
 	t_color		rgb;
+	t_color		energy;
 }				t_light;
 
 typedef struct s_sphere

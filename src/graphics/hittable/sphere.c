@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:44:05 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/23 15:13:07 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:43:05 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	hit_sphere_record(const t_ray r, double t_max, t_sphere sp,
 			sp.diameter * 0.5
 			);
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
-		temp_rec->color = vec3_scale_div(sp.rgb, 256);
+		temp_rec->color = vec3_scale_div(sp.rgb, 255);
 		return (true);
 	}
 	return (false);
