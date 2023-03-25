@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 20:17:05 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/25 20:42:18 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fill_amb_light(char *str, t_scene *scene)
 	fill_triple_val(&str, &scene->amb_light.rgb);
 }
 
-void	fill_elem(t_scene *scene, char *str)
+void	fill_element(t_scene *scene, char *str)
 {
 	size_t	num_elements;
 	size_t	i;
@@ -43,9 +43,9 @@ void	fill_elem(t_scene *scene, char *str)
 	i = 0;
 	while (i < num_elements)
 	{
-		if (ft_strncmp(element[i].identifier, str, element[i].ident_len) == 0)
+		if (ft_strncmp(element[i].id_str, str, element[i].id_len) == 0)
 		{
-			str += element[i].ident_len;
+			str += element[i].id_len;
 			g_element_fillers[i](str, scene);
 		}
 		i++;

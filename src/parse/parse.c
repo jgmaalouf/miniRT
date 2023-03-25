@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 17:07:39 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/25 20:42:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	scene_populate(t_scene *scene, char *file)
 	get_next_line(fd, &line);
 	while (line != NULL)
 	{
-		fill_elem(scene, line);
+		fill_element(scene, line);
 		get_next_line(fd, &line);
 		free(line);
 	}
@@ -90,13 +90,13 @@ void	scene_validate(t_scene *scene, char *file)
 	get_next_line(fd, &line);
 	while (line != NULL)
 	{
-		if (!valid_elem(line, scene))
+		if (!validate_element(line, scene))
 			scene->error = true;
 		get_next_line(fd, &line);
 		free(line);
 	}
 	close(fd);
-	if (!valid_elem_count(scene))
+	if (!validate_element_count(scene))
 		scene->error = true;
 }
 

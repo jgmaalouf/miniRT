@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/20 00:44:45 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/25 20:16:20 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS	= main.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
 			world.c sphere.c plane.c \
 			ray.c ray_calc.c utils2.c \
-			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
+			parse.c populate1.c populate2.c validate.c elem_count.c \
 			errors.c panic.c utils.c \
 			print_scene.c
 
