@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 20:43:44 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/25 21:50:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ min: lower limit to valid value
 max: upper limit to valid value */
 bool	validate_single_val(char **str, const double min, const double max)
 {
+	bool	valid;
 	double	value;
-	bool	err;
 
+	valid = true;
 	value = 0;
-	err = true;
 	if (ft_atod_mod(*str, &value))
-		err = false;
+		valid = false;
 	if (min != max)
 		if (value < min || value > max)
-			err = false;
+			valid = false;
 	increment_while_double(str);
-	return (err);
+	return (valid);
 }
 
 /* Checks the string for three valid values seperated by commas and
@@ -55,26 +55,26 @@ min: lower limit to valid value
 max: upper limit to valid value */
 bool	validate_triple_val(char **str, const double min, const double max)
 {
-	int		i;
+	bool	valid;
 	double	value;
-	bool	err;
+	int		i;
 
+	valid = true;
 	value = 0;
-	err = true;
 	i = 3;
 	while (i > 0)
 	{
 		if (ft_atod_mod(*str, &value))
-			err = false;
+			valid = false;
 		if (min != max)
 			if (value < min || value > max)
-				err = false;
+				valid = false;
 		increment_while_double(str);
 		if (**str == ',')
 			(*str)++;
 		i--;
 	}
-	return (err);
+	return (valid);
 }
 
 /* Loops through all tokens an element could possibly be defined by.
@@ -83,11 +83,13 @@ expected values in place of the token and increment the string accordingly.
 Preceeding whitespaces are skipped.
 If any of the string's content is invalid in terms of the expected token,
 an error message is printed and bool error is set to false */
-void	validate_element_info(char **str, struct s_element element, bool *error)
+uint8_t	validate_element_info(char **str, struct s_element element)
 {
+	uint8_t	error;
 	size_t	num_token;
 	size_t	i;
 
+	error = 0;
 	num_token = sizeof(p) / sizeof(p[0]);
 	i = 0;
 	while (i < num_token)
@@ -96,10 +98,11 @@ void	validate_element_info(char **str, struct s_element element, bool *error)
 		if (element.bitmask & p[i].token
 			&& !p[i].validater(str, p[i].min, p[i].max))
 		{
-			*error = inval_arg(p[i].token, element.name);
+			error += p[i].token;
 		}
 		i++;
 	}
+	return (error);
 }
 
 /* Loops through all defined elements to check if the beginning of the string
@@ -109,13 +112,13 @@ accordingly, a function is called to check the expected following information
 and another function to keep count of the different elements.
 If str ends with anything but a '\n', '#' or '\0', the str represents an
 invalid element. */
-bool	validate_element(char *str, t_scene *scene)
+bool	validate_element(char *str, t_scene *scene, size_t line)
 {
-	bool	error;
+	uint8_t	error;
 	size_t	num_elements;
 	size_t	i;
 
-	error = true;
+	error = 0;
 	num_elements = sizeof(element) / sizeof(element[0]);
 	i = 0;
 	while (i < num_elements)
@@ -124,14 +127,16 @@ bool	validate_element(char *str, t_scene *scene)
 			&& ft_isspace(*(str + element[i].id_len)))
 		{
 			str += element[i].id_len;
-			validate_element_info(&str, element[i], &error);
+			error = validate_element_info(&str, element[i]);
+			if (error)
+				inval_arg(error, element[i].name, line);
 			incr_count(element[i].bitmask, scene);
 		}
 		i++;
 	}
 	skip_spaces(&str);
 	if (ft_strchr("\n#", *str) == 0)
-		error = inval_arg((uint8_t)0, "\b");
+		return (inval_arg((uint8_t)0, NULL, line), true);
 	return (error);
 }
 

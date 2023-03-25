@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 20:42:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/25 21:51:20 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,8 @@ element[] = {
 //	Szenenvalidierung
 // _____________________________________________________________________________
 
-bool	validate_element(char *str, t_scene *scene);
-void	validate_element_info(char **str, struct s_element element,
-			bool *error);
+bool	validate_element(char *str, t_scene *scene, size_t line);
+uint8_t	validate_element_info(char **str, struct s_element element);
 bool	validate_element_count(t_scene *scene);
 
 bool	validate_single_val(char **str, const double min, const double max);
@@ -83,19 +82,19 @@ static const struct s_validate
 }
 p[] = {
 {TOK_COORD,		validate_triple_val,	0,		0,
-"%sThe coordinates for the %s are invalid!\n"},
+"\tThe coordinates for the %s are invalid!\n"},
 {TOK_ORIENT,	validate_triple_val,	-1,		1,
-"%sThe orientation vector for the %s is invalid!\n"},
+"\tThe orientation vector for the %s is invalid!\n"},
 {TOK_FOV,		validate_single_val,	0,		180,
-"%sThe FOV value for the %s is invalid!\n"},
+"\tThe FOV value for the %s is invalid!\n"},
 {TOK_RATIO,		validate_single_val,	0,		1,
-"%sThe %s ratio is invalid!\n"},
+"\tThe %s ratio is invalid!\n"},
 {TOK_DIAMETER,	validate_single_val,	0,		DBL_MAX,
-"%sThe %s diameter is invalid!\n"},
+"\tThe %s diameter is invalid!\n"},
 {TOK_HEIGHT,	validate_single_val,	0,		DBL_MAX,
-"%sThe %s height is invalid!\n"},
+"\tThe %s height is invalid!\n"},
 {TOK_RGB,		validate_triple_val,	0,		255,
-"%sThe RGB value for %s is invalid!\n"}
+"\tThe RGB value for %s is invalid!\n"}
 };
 
 // _____________________________________________________________________________

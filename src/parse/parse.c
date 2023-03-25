@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 20:42:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/25 22:10:44 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <unistd.h>
 #include <time.h>
 
-void	allocate_scene_elements(t_scene *scene)
+static void	scene_elements_allocate(t_scene *scene)
 {
 	scene->hittable.spheres = malloc(
 			(get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
@@ -45,12 +45,12 @@ void	allocate_scene_elements(t_scene *scene)
 	}
 }
 
-void	scene_populate(t_scene *scene, char *file)
+static void	scene_populate(t_scene *scene, char *file)
 {
 	int		fd;
 	char	*line;
 
-	allocate_scene_elements(scene);
+	scene_elements_allocate(scene);
 	fd = open(file, O_RDONLY);
 	get_next_line(fd, &line);
 	while (line != NULL)
@@ -62,7 +62,7 @@ void	scene_populate(t_scene *scene, char *file)
 	close(fd);
 }
 
-bool	open_file(char *file, int *fd)
+static bool	open_file(char *file, int *fd)
 {
 	char	*extension;
 
@@ -76,10 +76,11 @@ bool	open_file(char *file, int *fd)
 	return (false);
 }
 
-void	scene_validate(t_scene *scene, char *file)
+static void	scene_validate(t_scene *scene, char *file)
 {
 	int		fd;
 	char	*line;
+	size_t	i;
 
 	if (!open_file(file, &fd))
 	{
@@ -87,20 +88,22 @@ void	scene_validate(t_scene *scene, char *file)
 		scene->error = true;
 		return ;
 	}
+	i = 0;
 	get_next_line(fd, &line);
 	while (line != NULL)
 	{
-		if (!validate_element(line, scene))
+		if (validate_element(line, scene, i))
 			scene->error = true;
 		get_next_line(fd, &line);
 		free(line);
+		i++;
 	}
 	close(fd);
 	if (!validate_element_count(scene))
 		scene->error = true;
 }
 
-void	scene_image_init(t_image *img, t_camera cam)
+static void	scene_image_init(t_image *img, t_camera cam)
 {
 	img->width = 1280.0;
 	img->height = 720.0;
