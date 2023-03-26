@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/26 09:16:19 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/26 11:01:59 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,19 @@ static void	scene_populate(t_scene *scene, char *file)
 /* Presets and precalculates important variables */
 static void	scene_image_init(t_image *img, t_camera cam)
 {
+	// Image related stuff (in pixels)
 	img->width = 1280.0;
 	img->height = 720.0;
 	img->ratio = img->width / img->height;
-	img->focal_len = 1.0;
-	img->viewport_width = 4.0;
+
+	// Stuff for the viewport
+	img->viewport_width = 2.0;
 	img->viewport_height = img->viewport_width / img->ratio;
+	img->focal_len = 1.0;
 	img->hori = vec3_constr(img->viewport_width, 0, 0);
 	img->vert = vec3_constr(0, img->viewport_height, 0);
-	img->max_depth = 1;
 	img->lower_left_corner
-		= vec3_substr(
+		= vec3_subtr(
 			cam.pos,
 			vec3_add(
 				vec3_scale_div(img->hori, 2),
