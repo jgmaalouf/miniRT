@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/24 12:43:52 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/27 00:12:49 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ void	set_face_normal(const t_ray r, t_vec3 *outward_normal, bool *front_face);
 bool	hit_sphere(const t_ray r, double t_max, const t_sphere sp, double *root);
 bool	hit_sphere_record(const t_ray r, double t_max, const t_sphere sp,
 							t_hit_record *temp_rec);
+bool	hit_plane(const t_ray r, double t_max, const t_plane pl, double *t);
 bool	hit_plane_record(const t_ray r, double t_max, const t_plane pl,
 							t_hit_record *temp_rec);
 bool	hit_cylinder_record(const t_ray r, double t_max, const t_cylinder cy,
 							t_hit_record *temp_rec);
+bool	hit_cylinder_plane_record(const t_ray r, const double t_max,
+							const t_cylinder cy, t_hit_record *temp_rec);
 
 #endif
