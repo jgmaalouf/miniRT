@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:44:05 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/25 17:43:05 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:17:35 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	hit_sphere(const t_ray r, double t_max, t_sphere sp, double *root)
 	double	c;
 	double	sqrtd;
 
-	oc = vec3_subtr(r.orig, sp.pos);
+	oc = vec3_substr(r.orig, sp.pos);
 	a = vec3_length_squared(r.dir);
 	half_b = vec3_dot(oc, r.dir);
 	c = vec3_length_squared(oc) - sp.diameter * 0.5 * sp.diameter * 0.5;
@@ -52,11 +52,11 @@ bool	hit_sphere_record(const t_ray r, double t_max, t_sphere sp,
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
 		temp_rec->normal = vec3_scale_div(
-			vec3_subtr(temp_rec->p, sp.pos),
+			vec3_substr(temp_rec->p, sp.pos),
 			sp.diameter * 0.5
 			);
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
-		temp_rec->color = vec3_scale_div(sp.rgb, 255);
+		temp_rec->color = sp.rgb;
 		return (true);
 	}
 	return (false);

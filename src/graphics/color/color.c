@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 19:50:52 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/20 10:00:24 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:23:06 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ uint32_t	translate_colors(double r, double g, double b)
 	uint8_t	ir;
 	uint8_t	ig;
 	uint8_t	ib;
+	// double	scale;
+
+	// printf("r: %f\tg: %f\tb: %f\n", r, g, b);
+
+	// scale = 1.0 / (double)SPP;
+	// r = sqrt(scale * r);
+    // g = sqrt(scale * g);
+    // b = sqrt(scale * b);
 
 	ir = (uint8_t)(256 * clamp(r, 0.0, 0.999));
 	ig = (uint8_t)(256 * clamp(g, 0.0, 0.999));

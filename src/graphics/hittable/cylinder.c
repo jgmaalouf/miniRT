@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 06:57:00 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/20 10:10:10 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/16 09:50:40 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	hit_cylinder(const t_ray r, double t_max, t_cylinder cy, double *t)
 	double	c;
 	double	sqrtd;
 
-	// oc = vec3_subtr(r.orig, cy.pos);
+	// oc = vec3_substr(r.orig, cy.pos);
 	
 	// a = vec3_length_squared(r.dir);
 	if (*t < 0)
@@ -50,7 +50,7 @@ bool	hit_cylinder_record(const t_ray r, double t_max, t_cylinder cy,
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
 		// temp_rec->normal = vec3_scale_div(
-		// 	vec3_subtr(temp_rec->p, cy.pos),
+		// 	vec3_substr(temp_rec->p, cy.pos),
 		// 	cy.diameter * 0.5
 		// 	);
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);

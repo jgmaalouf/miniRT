@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 18:51:15 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:10:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 # define SCENE_H
 
 # include "vector.h"
-# include "MLX42.h"
-
 # include <stdbool.h>
 
 # define SPP 1
-# define MAX_DEPTH 1
 
 typedef struct s_camera
 {
@@ -32,7 +29,6 @@ typedef struct s_amb_light
 {
 	double		ratio;
 	t_color		rgb;
-	t_color		energy;
 }				t_amb_light;
 
 typedef struct s_light
@@ -40,7 +36,6 @@ typedef struct s_light
 	t_point3	pos;
 	double		ratio;
 	t_color		rgb;
-	t_color		energy;
 }				t_light;
 
 typedef struct s_sphere
@@ -80,7 +75,6 @@ typedef struct s_hittable
 
 typedef struct s_image
 {
-	mlx_image_t	*img;
 	double		width;
 	double		height;
 	double		ratio;
@@ -90,6 +84,7 @@ typedef struct s_image
 	t_point3	hori;
 	t_point3	vert;
 	t_point3	lower_left_corner;
+	int			max_depth;
 }				t_image;
 
 typedef struct s_scene

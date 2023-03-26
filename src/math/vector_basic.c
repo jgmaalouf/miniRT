@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_basic.c                                     :+:      :+:    :+:   */
+/*   vector1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:34 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/20 10:10:10 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:49:43 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec3	vec3_add(const t_vec3 u, const t_vec3 v)
 			u.e[2] + v.e[2]));
 }
 
-t_vec3	vec3_subtr(const t_vec3 u, const t_vec3 v)
+t_vec3	vec3_substr(const t_vec3 u, const t_vec3 v)
 {
 	return (vec3_constr(
 			u.e[0] - v.e[0],

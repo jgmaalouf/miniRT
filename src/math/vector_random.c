@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:12:50 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/18 18:32:17 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/14 17:41:01 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ t_vec3 vec3_random(double min, double max)
 	return (vec3_constr(random_dbl(min, max), random_dbl(min, max), random_dbl(min, max)));
 }
 
-t_vec3	vec3_random_unit(void)
+t_vec3	vec3_random_in_unit_sp(void)
 {
-	return (vec3_unit(vec3_random(-1, 1)));
-}
+	t_vec3	p;
 
+	p = vec3_random(-1, 1);
+	while (vec3_length_squared(p) >= 1)
+		p = vec3_random(-1, 1);
+	return (p);
+}

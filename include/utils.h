@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 16:02:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/24 14:03:35 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:03:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 double		random_double();
 double		random_double_in(double min, double max);
-double		clamp_min(double x, double min);
-double		clamp_max(double x, double max);
 double		clamp(double x, double min, double max);
 
 #endif
