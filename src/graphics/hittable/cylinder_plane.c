@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_plane.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:56:18 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:30:12 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/27 00:56:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	hit_cylinder_plane_record(const t_ray r, const double t_max, const t_cylind
 	if (hit_plane(r, t_max, help_pl, &temp_rec->t))
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
-		if (vec3_length(vec3_substr(temp_rec->p, help_pl.pos)) <= cy.diameter / 2.0)
+		if (vec3_length(vec3_subtr(temp_rec->p, help_pl.pos)) <= cy.diameter / 2.0)
 		{
 			set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 			return (true);
@@ -48,7 +48,7 @@ bool	hit_cylinder_plane_record(const t_ray r, const double t_max, const t_cylind
 	if (hit_plane(r, t_max, help_pl, &temp_rec->t))
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
-		if (vec3_length(vec3_substr(temp_rec->p, help_pl.pos)) <= cy.diameter / 2.0)
+		if (vec3_length(vec3_subtr(temp_rec->p, help_pl.pos)) <= cy.diameter / 2.0)
 		{
 			set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 			return (true);

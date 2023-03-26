@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 06:57:00 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:13:59 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/27 00:56:31 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,23 @@ double	solve_cylinder_t(const t_vec3 common_normal, const t_ray r, const t_cylin
 	t_vec3	lhs[3];
 	double	ratio;
 
-	rhs = vec3_substr(cy.pos, r.orig);
+	rhs = vec3_subtr(cy.pos, r.orig);
 	lhs[0] = vec3_constr(r.dir.e[0], -cy.orient.e[0], common_normal.e[0]);
 	lhs[1] = vec3_constr(r.dir.e[1], -cy.orient.e[1], common_normal.e[1]);
 	lhs[2] = vec3_constr(r.dir.e[2], -cy.orient.e[2], common_normal.e[2]);
 	// if (lhs[0].e[0] != 0.0)
 	// {
 		ratio = lhs[1].e[0] / lhs[0].e[0];
-		lhs[1] = vec3_substr(lhs[1], vec3_scale_mult(lhs[0], ratio));
+		lhs[1] = vec3_subtr(lhs[1], vec3_scale_mult(lhs[0], ratio));
 		rhs.e[1] = rhs.e[1] - rhs.e[0] * ratio;
 		ratio = lhs[2].e[0] / lhs[0].e[0];
-		lhs[2] = vec3_substr(lhs[2], vec3_scale_mult(lhs[0], ratio));
+		lhs[2] = vec3_subtr(lhs[2], vec3_scale_mult(lhs[0], ratio));
 		rhs.e[2] = rhs.e[2] - rhs.e[0] * ratio;
 	// }
 	// if (lhs[1].e[2])
 	// {
 		ratio = lhs[2].e[2] / lhs[1].e[2];
-		lhs[2] = vec3_substr(lhs[2], vec3_scale_mult(lhs[1], ratio));
+		lhs[2] = vec3_subtr(lhs[2], vec3_scale_mult(lhs[1], ratio));
 		rhs.e[2] = rhs.e[2] - rhs.e[1] * ratio;
 	// }
 	// printf("%f =\t", rhs.e[2]);
