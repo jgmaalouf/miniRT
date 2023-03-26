@@ -3,68 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/24 18:16:02 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/26 21:18:07 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
-#include "elem_count.h"
 #include "scene.h"
 #include "parse.h"
 #include "errors.h"
+#include "memory_alloc.h"
 
-#include "debug.h"
-
-#include <stdbool.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <time.h>
 
-void	allocate_scene_elements(t_scene *scene)
-{
-	scene->hittable.spheres = malloc(
-			(get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
-	if (scene->hittable.spheres == NULL)
-		panic_exit("bad alloc");
-	scene->hittable.planes = malloc(
-			(get_count(g_plane, scene) + 1) * sizeof(t_plane));
-	if (scene->hittable.planes == NULL)
-	{
-		free(scene->hittable.spheres);
-		panic_exit("bad alloc");
-	}
-	scene->hittable.cylinders = malloc(
-			(get_count(g_cylinder, scene) + 1) * sizeof(t_cylinder));
-	if (scene->hittable.cylinders == NULL)
-	{
-		free(scene->hittable.spheres);
-		free(scene->hittable.planes);
-		panic_exit("bad alloc");
-	}
-}
-
-void	scene_populate(t_scene *scene, char *file)
-{
-	int		fd;
-	char	*line;
-
-	allocate_scene_elements(scene);
-	fd = open(file, O_RDONLY);
-	get_next_line(fd, &line);
-	while (line != NULL)
-	{
-		fill_elem(scene, line);
-		get_next_line(fd, &line);
-		free(line);
-	}
-	close(fd);
-}
-
-bool	open_file(char *file, int *fd)
+/* Opens file descripter if file format is correct. Returns 0 upon success. */
+static int	open_file(char *file, int *fd)
 {
 	char	*extension;
 
@@ -73,43 +31,59 @@ bool	open_file(char *file, int *fd)
 	{
 		*fd = open(file, O_RDONLY);
 		if (*fd != -1)
-			return (true);
+			return (0);
 	}
-	return (false);
+	return (1);
 }
 
-void	scene_validate(t_scene *scene, char *file)
+/* Checks format and content of input file line by line */
+static void	scene_validate(t_scene *scene, char *file)
+{
+	int		fd;
+	char	*line;
+	size_t	i;
+
+	if (open_file(file, &fd))
+	{
+		invalid_input(INVALID_FILE);
+		scene->error = true;
+		return ;
+	}
+	i = 1;
+	get_next_line(fd, &line);
+	while (line != NULL)
+	{
+		if (validate_element(line, scene, i))
+			scene->error = true;
+		get_next_line(fd, &line);
+		free(line);
+		i++;
+	}
+	close(fd);
+	if (!validate_element_count(scene))
+		scene->error = true;
+}
+
+/* Fills scene structure with content of input file line by line */
+static void	scene_populate(t_scene *scene, char *file)
 {
 	int		fd;
 	char	*line;
 
-	if (!open_file(file, &fd))
-	{
-		inval_input(INVALID_FILE);
-		scene->error = true;
-		return ;
-	}
+	scene_elements_allocate(scene);
+	fd = open(file, O_RDONLY);
 	get_next_line(fd, &line);
 	while (line != NULL)
 	{
-		if (!valid_elem(line, scene))
-			scene->error = true;
+		fill_element(scene, line);
 		get_next_line(fd, &line);
 		free(line);
 	}
 	close(fd);
-	if (!valid_elem_count(scene))
-		scene->error = true;
 }
 
-// void	scene_image_init(t_image *img, t_camera cam)
-// {
-// 	img->width = 1280.0;
-// 	img->height = 720.0;
-// 	img->ratio = img->width / img->height;
-
-// }
-void	scene_image_init(t_image *img, t_camera cam)
+/* Presets and precalculates important variables */
+static void	scene_image_init(t_image *img, t_camera cam)
 {
 	// Image related stuff (in pixels)
 	img->width = 1280.0;

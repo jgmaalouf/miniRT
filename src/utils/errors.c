@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/12 19:07:57 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/26 09:17:08 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,64 +21,46 @@
 #define BOLD "\001\e[1m\002"
 #define RED "\001\e[31m\002"
 
-static const char	*error = RED BOLD "Error\n" RESET;
+static const char	*g_error = RED BOLD "Error\n" RESET;
 
-bool	inval_input(int type)
+void	invalid_input(int type)
 {
 	if (type == INVALID_ARGS)
-		printf("%s%s\n", error, "Not enough args!");
+	{
+		printf("%s%s\n", g_error, "Wrong amount of arguments!");
+		printf("Hint: ./miniRT [path_to_file]\n");
+	}
 	if (type == INVALID_FILE)
-		printf("%s%s\n", error,
-			"File is invalid! Make sure the file extension is '.rt'");
-	return (true);
+		printf("%s%s\n", g_error,
+			"Couldn't open file! Make sure the file extension is '.rt'");
 }
 
-bool	inval_amount(int type, char *str)
+void	invalid_element(uint8_t error_type, char *elem_name, size_t line)
+{
+	size_t	num_token;
+	size_t	i;
+
+	printf("%lu:\t%s", line, g_error);
+	if (error_type == (uint8_t)0)
+	{
+		printf("\tUnexpected character(s) at the end of line!\n");
+		return ;
+	}
+	num_token = sizeof(p) / sizeof(p[0]);
+	i = 0;
+	while (i < num_token)
+	{
+		if (error_type & p[i].token)
+			printf(p[i].error_message, elem_name);
+		i++;
+	}
+	return ;
+}
+
+void	invalid_element_amount(int type, char *str)
 {
 	if (type == MORE)
-		printf("%sThere are more %s than required!\n", error, str);
+		printf("%sThere are more %ss than required!\n", g_error, str);
 	else if (type == LESS)
-		printf("%sThere is an insufficient amount of %s!\n", error, str);
-	return (false);
-}
-
-static char	*get_type_name(uint8_t elem_type)
-{
-	if (elem_type == g_amb_light)
-		return ("ambient light");
-	if (elem_type == g_camera)
-		return ("camera");
-	if (elem_type == g_light)
-		return ("light");
-	if (elem_type == g_sphere)
-		return ("sphere");
-	if (elem_type == g_plane)
-		return ("plane");
-	if (elem_type == g_cylinder)
-		return ("cylinder");
-	return ("\b");
-}
-
-bool	inval_arg(uint8_t error_type, uint8_t elem_type)
-{
-	char		*elem_name;
-
-	elem_name = get_type_name(elem_type);
-	if (error_type == TOK_RATIO)
-		printf("%sThe %s ratio is invalid!\n", error, elem_name);
-	else if (error_type == TOK_COORD)
-		printf("%sThe coordinates for the %s are invalid!\n", error, elem_name);
-	else if (error_type == TOK_ORIENT)
-		printf("%sThe orientation vector for the %s is invalid!\n", error, elem_name);
-	else if (error_type == TOK_FOV)
-		printf("%sThe FOV value for the %s is invalid!\n", error, elem_name);
-	else if (error_type == TOK_DIAMETER)
-		printf("%sThe %s diameter is invalid!\n", error, elem_name);
-	else if (error_type == TOK_HEIGHT)
-		printf("%sThe %s height is invalid!\n", error, elem_name);
-	else if (error_type == TOK_RGB)
-		printf("%sThe RGB value for %s is invalid!\n", error, elem_name);
-	else
-		printf("%sThe element %s is invalid!\n", error, elem_name);
-	return (false);
+		printf("%sThere is an insufficient amount of %ss!\n", g_error, str);
 }

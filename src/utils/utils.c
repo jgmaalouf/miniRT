@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 19:06:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/21 09:48:51 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/25 20:20:09 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,51 +25,6 @@ void	increment_while_double(char **str)
 	while (ft_isdigit(**str) || **str == '.' || **str == '+' || **str == '-')
 		(*str)++;
 }
-
-// void	increment_while_pos_double(char **str)
-// {
-// 	while (ft_isdigit(**str) || **str == '.' || **str == '+')
-// 		(*str)++;
-// }
-
-// int	ft_isnumber(char *s)
-// {
-// 	if (*s == '+' || *s == '-')
-// 		s++;
-// 	while (ft_isdigit(*s++))
-// 		if (*s == '\0' || ft_isspace(*s) || *s == ',')
-// 			return (1);
-// 	return (0);
-// }
-
-// int	ft_isdouble(char *s)
-// {
-// 	int	i;
-//
-// 	i = 0;
-// 	if (s[i] == '+' || s[i] == '-')
-// 		i++;
-// 	if (s[i] == '\0' || ft_isspace(s[i]) || s[i] == ',')
-// 		return (0);
-// 	while (ft_isdigit(s[i]))
-// 		i++;
-// 	if (i > 10)
-// 		return (0);
-// 	if (s[i] == '\0' || ft_isspace(s[i]) || s[i] == ',')
-// 		return (1);
-// 	if (s[i] == '.')
-// 	{
-// 		i++;
-// 		while (ft_isdigit(s[i++]))
-// 		{
-// 			if (s[i] == '\0' || ft_isspace(s[i]) || s[i] == ',')
-// 				return (1);
-// 			if (i > 10)
-// 				return (0);
-// 		}
-// 	}
-// 	return (0);
-// }
 
 void	fill_single_val(char **str, double *val)
 {

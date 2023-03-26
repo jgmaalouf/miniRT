@@ -6,7 +6,7 @@
 #    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/20 00:44:45 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/26 08:14:31 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ SRCS	= main.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
 			world.c sphere.c plane.c \
 			ray.c ray_calc.c utils2.c \
-			parse.c populate1.c populate2.c validate1.c validate2.c elem_count.c \
-			errors.c panic.c utils.c \
+			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \
+			errors.c memory_alloc.c panic.c utils.c \
 			print_scene.c
 
 HEADERS	= color.h debug.h elem_count.h errors.h graphics.h hittable.h parse.h \
