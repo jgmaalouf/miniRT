@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/24 18:24:06 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/20 00:44:45 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
