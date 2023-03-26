@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:36:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/13 15:18:52 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/24 14:11:29 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,28 @@ double	random_double_in(double min, double max)
 	return (min + (max - min) * random_double());
 }
 
-// clamps the value x to the range [min,max]
-double	clamp(double x, double min, double max)
+double	clamp_min(double x, double min)
 {
 	if (x < min)
 		return min;
+	return x;
+}
+
+double	clamp_max(double x, double max)
+{
 	if (x > max)
 		return max;
+	return x;
+}
+
+// clamps the value x to the range [min,max]
+double	clamp(double x, double min, double max)
+{
+	// if (clamp_min(x, min) != x)
+	// 	return (min);
+	// if (clamp_max(x, max) != x)
+	// 	return (max);
+	x = clamp_min(x, min);
+	x = clamp_max(x, max);
 	return x;
 }
