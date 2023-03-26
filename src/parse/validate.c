@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 21:50:21 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:34:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ bool	validate_single_val(char **str, const double min, const double max)
 	return (valid);
 }
 
-/* Checks the string for three valid values seperated by commas and
-increments the string to the position after said values.
+/* Checks the string for three valid values seperated by commas and increments
+the string to the position after said values.
 Valid value meaning a double, terminated by either a whitespace, ',' or '\0',
 no less than min and no greater than max.
 Returns true if valid values are found.
@@ -81,9 +81,9 @@ bool	validate_triple_val(char **str, const double min, const double max)
 If the token defines said element, the proper function is called to validate
 expected values in place of the token and increment the string accordingly.
 Preceeding whitespaces are skipped.
-If any of the string's content is invalid in terms of the expected token,
-an error message is printed and bool error is set to false */
-uint8_t	validate_element_info(char **str, struct s_element element)
+Returns a bitmask defining what part of the string's content is invalid in
+terms of the expected token */
+uint8_t	validate_element_info(char **str, uint8_t element_bitmask)
 {
 	uint8_t	error;
 	size_t	num_token;
@@ -95,7 +95,7 @@ uint8_t	validate_element_info(char **str, struct s_element element)
 	while (i < num_token)
 	{
 		skip_spaces(str);
-		if (element.bitmask & p[i].token
+		if (element_bitmask & p[i].token
 			&& !p[i].validater(str, p[i].min, p[i].max))
 		{
 			error += p[i].token;
@@ -127,16 +127,16 @@ bool	validate_element(char *str, t_scene *scene, size_t line)
 			&& ft_isspace(*(str + element[i].id_len)))
 		{
 			str += element[i].id_len;
-			error = validate_element_info(&str, element[i]);
+			error = validate_element_info(&str, element[i].bitmask);
 			if (error)
-				inval_arg(error, element[i].name, line);
+				invalid_element(error, element[i].name, line);
 			incr_count(element[i].bitmask, scene);
 		}
 		i++;
 	}
 	skip_spaces(&str);
 	if (ft_strchr("\n#", *str) == 0)
-		return (inval_arg((uint8_t)0, NULL, line), true);
+		return (invalid_element((uint8_t)0, NULL, line), true);
 	return (error);
 }
 
@@ -144,18 +144,24 @@ bool	validate_element(char *str, t_scene *scene, size_t line)
 and ambient light */
 bool	validate_element_count(t_scene *scene)
 {
-	bool	err;
+	bool	valid;
 	size_t	i;
 
-	err = true;
+	valid = true;
 	i = 0;
 	while (i < 3)
 	{
 		if (get_count(element[i].bitmask, scene) > 1)
-			err = inval_amount(MORE, element[i].name);
+		{
+			invalid_element_amount(MORE, element[i].name);
+			valid = false;
+		}
 		if (get_count(element[i].bitmask, scene) < 1)
-			err = inval_amount(LESS, element[i].name);
+		{
+			invalid_element_amount(LESS, element[i].name);
+			valid = false;
+		}
 		i++;
 	}
-	return (err);
+	return (valid);
 }

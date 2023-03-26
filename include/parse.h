@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 21:51:20 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:41:44 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ element[] = {
 // _____________________________________________________________________________
 
 bool	validate_element(char *str, t_scene *scene, size_t line);
-uint8_t	validate_element_info(char **str, struct s_element element);
+uint8_t	validate_element_info(char **str, uint8_t element_bitmask);
 bool	validate_element_count(t_scene *scene);
 
 bool	validate_single_val(char **str, const double min, const double max);

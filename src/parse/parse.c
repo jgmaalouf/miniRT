@@ -3,48 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/25 22:10:44 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/26 09:16:19 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
-#include "elem_count.h"
 #include "scene.h"
 #include "parse.h"
 #include "errors.h"
+#include "memory_alloc.h"
 
-#include <stdbool.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <time.h>
 
-static void	scene_elements_allocate(t_scene *scene)
+/* Opens file descripter if file format is correct. Returns 0 upon success. */
+static int	open_file(char *file, int *fd)
 {
-	scene->hittable.spheres = malloc(
-			(get_count(g_sphere, scene) + 1) * sizeof(t_sphere));
-	if (scene->hittable.spheres == NULL)
-		panic_exit("bad alloc");
-	scene->hittable.planes = malloc(
-			(get_count(g_plane, scene) + 1) * sizeof(t_plane));
-	if (scene->hittable.planes == NULL)
+	char	*extension;
+
+	extension = ft_strnstr(file, ".rt", ft_strlen(file));
+	if (extension != NULL && ft_strcmp(extension, ".rt") == 0)
 	{
-		free(scene->hittable.spheres);
-		panic_exit("bad alloc");
+		*fd = open(file, O_RDONLY);
+		if (*fd != -1)
+			return (0);
 	}
-	scene->hittable.cylinders = malloc(
-			(get_count(g_cylinder, scene) + 1) * sizeof(t_cylinder));
-	if (scene->hittable.cylinders == NULL)
-	{
-		free(scene->hittable.spheres);
-		free(scene->hittable.planes);
-		panic_exit("bad alloc");
-	}
+	return (1);
 }
 
+/* Checks format and content of input file line by line */
+static void	scene_validate(t_scene *scene, char *file)
+{
+	int		fd;
+	char	*line;
+	size_t	i;
+
+	if (open_file(file, &fd))
+	{
+		invalid_input(INVALID_FILE);
+		scene->error = true;
+		return ;
+	}
+	i = 1;
+	get_next_line(fd, &line);
+	while (line != NULL)
+	{
+		if (validate_element(line, scene, i))
+			scene->error = true;
+		get_next_line(fd, &line);
+		free(line);
+		i++;
+	}
+	close(fd);
+	if (!validate_element_count(scene))
+		scene->error = true;
+}
+
+/* Fills scene structure with content of input file line by line */
 static void	scene_populate(t_scene *scene, char *file)
 {
 	int		fd;
@@ -62,47 +82,7 @@ static void	scene_populate(t_scene *scene, char *file)
 	close(fd);
 }
 
-static bool	open_file(char *file, int *fd)
-{
-	char	*extension;
-
-	extension = ft_strnstr(file, ".rt", ft_strlen(file));
-	if (extension != NULL && ft_strcmp(extension, ".rt") == 0)
-	{
-		*fd = open(file, O_RDONLY);
-		if (*fd != -1)
-			return (true);
-	}
-	return (false);
-}
-
-static void	scene_validate(t_scene *scene, char *file)
-{
-	int		fd;
-	char	*line;
-	size_t	i;
-
-	if (!open_file(file, &fd))
-	{
-		inval_input(INVALID_FILE);
-		scene->error = true;
-		return ;
-	}
-	i = 0;
-	get_next_line(fd, &line);
-	while (line != NULL)
-	{
-		if (validate_element(line, scene, i))
-			scene->error = true;
-		get_next_line(fd, &line);
-		free(line);
-		i++;
-	}
-	close(fd);
-	if (!validate_element_count(scene))
-		scene->error = true;
-}
-
+/* Presets and precalculates important variables */
 static void	scene_image_init(t_image *img, t_camera cam)
 {
 	img->width = 1280.0;
