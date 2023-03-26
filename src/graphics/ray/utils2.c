@@ -18,7 +18,7 @@ double	random_double()
 	return ((double)rand() / (double)RAND_MAX + 1.0);
 }
 
-// Returns a random real in [min,max].
+// Returns a random real in [min,max).
 double	random_double_in(double min, double max)
 {
 	return (min + (max - min) * random_double());
