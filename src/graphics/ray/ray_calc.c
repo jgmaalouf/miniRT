@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:49:10 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/27 21:26:18 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,35 @@ t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
 }
 */
 
+double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t_vec3 light)
+{
+	t_hit_record	shadow_rec;
+	double			visiblity;
+
+	shadow_rec = (t_hit_record){0};
+	visiblity = !world_hit(shadow_ray, &shadow_rec, objects);
+	if (visiblity == 0)
+	{
+		if (vec3_length(light) < vec3_length(vec3_subtr(hitpoint.p, shadow_rec.p)))
+			visiblity = 1;
+	}
+	return (visiblity);
+}
+
+/*
+	Mixes the colors using linear interpolation between two colors based on mix_factor.
+	mix_factor should be a value between 0.0 and 1.0. If it is 0.0 we get only color1,
+	and if it's 1.0 we get color2 completely.
+	The equation applied: (color2 - color1) * mix_factor + color1
+*/
+t_color	mix(t_color color1, t_color color2)
+{
+	t_color	color;
+
+	color = vec3_mult(color1, color2);
+	return (color);
+}
+
 /*
 	Determines the shade of the objects using the attenuation (which is a fancy word for how bright the point is).
 	We get the attenuation by finding the value of cosine the angle between the normal and the light direction.
@@ -45,22 +74,26 @@ t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
 	Finally, we determine if the point is in the shadow by setting the visible boolean. Effectively turning the 
 	color off or on when we multiply it with the boolean.
 */
+// color = vec3_scale_mult(vec3_add(vec3_scale_mult(hitpoint.color, attenuation), vec3_scale_mult(hitpoint.color, scene->amb_light.ratio)), 0.5);
 t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 {
-	t_color			color;
+	t_color			light_color;
+	t_vec3			light_vec;
 	t_vec3			light_dir;
 	double			attenuation;
-	t_hit_record	shadow_rec;
 	t_ray			shadow_ray;
-	bool			visible;
+	double			visiblity;
 
-	shadow_rec = (t_hit_record){0};
-	light_dir = vec3_subtr(scene->light.pos, hitpoint.p);
-	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal) / (vec3_length(light_dir) * vec3_length(hitpoint.normal)), 0.0);
+	light_vec = vec3_subtr(scene->light.pos, hitpoint.p);
+ 	light_dir = vec3_scale_mult(vec3_unit(light_vec), scene->light.ratio);
+	// To get the cos(a) we divide the dot product with the length of the light direction multiplied by the length of the normal, but since these two values are 1 since they are normalized, we can omit them.
+	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal), 0.0);
 	shadow_ray = ray_constr(hitpoint.p, light_dir);
-	visible = !world_hit(shadow_ray, &shadow_rec, scene->hittable);
-	color = vec3_scale_mult(vec3_scale_mult(hitpoint.color, attenuation), visible);
-	return (vec3_mult(scene->light.energy, color));
+	visiblity = shadow_hit(shadow_ray, scene->hittable, hitpoint, light_vec);
+	light_color = mix(scene->amb_light.energy, scene->light.energy);
+	light_color = vec3_scale_mult(light_color, attenuation);
+	// light_color = vec3_mult(scene->amb_light.energy, vec3_scale_mult(scene->light.energy, attenuation));
+	return (vec3_scale_mult(vec3_mult(hitpoint.color, light_color), visiblity));
 }
 
 /*
