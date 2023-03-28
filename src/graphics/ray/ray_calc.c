@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/28 18:15:51 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:04:04 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 {
 	t_color			light_color;
 
-	light_color = (t_color){0, 0, 0};
+	light_color = (t_color){0};
 	if (scene->light.ratio != 0)
 		light_color = get_light_shade(scene, hitpoint);
 	light_color = vec3_add(scene->amb_light.energy, light_color);
