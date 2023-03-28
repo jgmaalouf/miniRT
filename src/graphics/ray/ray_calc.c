@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/28 01:50:53 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:22:40 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,9 @@ double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t
 	return (visiblity);
 }
 
-t_color	mix_lights(t_amb_light amb_light, t_light light) // We should consider doing a function that approximates zero because of the floating point errors we might get.
+t_color	mix_lights(t_color color1, t_color color2)
 {
-	if (amb_light.ratio == 0 && light.ratio == 0)
-		return (vec3_constr(0, 0, 0));
-	if (amb_light.ratio == 0)
-		return (light.energy);
-	if (light.ratio == 0)
-		return (amb_light.energy);
-	return (vec3_mult(amb_light.energy, light.energy));
+	return (vec3_clamp(vec3_add(color1, color2), 0.0, 1.0));
 }
 
 /*
@@ -87,10 +81,12 @@ t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal), 0.0);
 	shadow_ray = ray_constr(hitpoint.p, light_dir);
 	visiblity = shadow_hit(shadow_ray, scene->hittable, hitpoint, light_vec);
-	light_color = mix_lights(scene->amb_light, scene->light);
+	light_color = (t_color){0, 0, 0};
 	if (scene->light.ratio != 0)
-		light_color = vec3_scale_mult(light_color, attenuation);
-	return (vec3_scale_mult(vec3_mult(hitpoint.color, light_color), visiblity));
+		light_color = vec3_scale_mult(scene->light.energy, attenuation);
+	light_color = vec3_scale_mult(light_color, visiblity);
+	light_color = mix_lights(scene->amb_light.energy, light_color);
+	return (vec3_mult(hitpoint.color, light_color));
 }
 
 /*
