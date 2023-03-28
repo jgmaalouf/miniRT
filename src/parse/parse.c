@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/28 22:03:22 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:09:23 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include <time.h>
 
-/* Opens file descripter if file format is correct. Returns 0 upon success. */
+/* Opens file descriptor if file format is correct. Returns 0 upon success. */
 static int	open_file(char *file, int *fd)
 {
 	char	*extension;
