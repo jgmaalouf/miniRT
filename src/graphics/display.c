@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/21 14:27:04 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:43:11 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,15 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 	}
 }
 
-// void print_window(int32_t width, int32_t height, void *param)
-// {
-// 	t_scene *scene = (t_scene *)param;
-// 	fflush(stdout);
-// 	printf("%i\n", height);
-// 	printf("%i\n", width);
-// 	scene->image.height = height;
-// 	scene->image.width = width;
-// 	scene->image.ratio = scene->image.width / scene->image.height;
-// 	scene->image.focal_len = 1.0;
-// 	scene->image.viewport_width = 4.0;
-// 	scene->image.viewport_height = scene->image.viewport_width / scene->image.ratio;
-// 	scene->image.hori = vec3_constr(scene->image.viewport_width, 0, 0);
-// 	scene->image.vert = vec3_constr(0, scene->image.viewport_height, 0);
-// 	scene->image.lower_left_corner
-// 		= vec3_subtr(
-// 			scene->camera.pos,
-// 			vec3_add(
-// 				vec3_scale_div(scene->image.hori, 2),
-// 				vec3_add(
-// 					vec3_scale_div(scene->image.vert, 2),
-// 					vec3_constr(0, 0, scene->image.focal_len)
-// 					)
-// 				)
-// 			);
-// 	mlx_resize_image(scene->image.img, width, height);
-// }
+void resize_scene(int32_t width, int32_t height, void *param)
+{
+	t_scene *scene = (t_scene *)param;
+	mlx_resize_image(scene->image.img, width, height);
+	scene->image.height = height;
+	scene->image.width = width;
+	scene->image.ratio = scene->image.width / scene->image.height;
+	scene_render(scene, scene->image.img);
+}
 
 void	display(t_scene *scene)
 {
@@ -91,7 +73,7 @@ void	display(t_scene *scene)
 	if (!scene->image.img || (mlx_image_to_window(mlx, scene->image.img, 0, 0) < 0))
 		panic_exit("mlx image failure");
 	scene_render(scene, scene->image.img);
-	// mlx_resize_hook(mlx, &print_window, &scene);
+	mlx_resize_hook(mlx, &resize_scene, scene);
 	mlx_key_hook(mlx, &key_hook, mlx);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, scene->image.img);

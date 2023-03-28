@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/27 00:45:15 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:42:36 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,30 +83,11 @@ static void	scene_populate(t_scene *scene, char *file)
 }
 
 /* Presets and precalculates important variables */
-static void	scene_image_init(t_image *img, t_camera cam)
+static void	scene_image_init(t_image *img)
 {
-	// Image related stuff (in pixels)
 	img->width = 1280.0;
 	img->height = 720.0;
 	img->ratio = img->width / img->height;
-
-	// Stuff for the viewport
-	img->viewport_width = 2.0;
-	img->viewport_height = img->viewport_width / img->ratio;
-	img->focal_len = 1.0;
-	img->hori = vec3_constr(img->viewport_width, 0, 0);
-	img->vert = vec3_constr(0, img->viewport_height, 0);
-	img->lower_left_corner
-		= vec3_subtr(
-			cam.pos,
-			vec3_add(
-				vec3_scale_div(img->hori, 2),
-				vec3_add(
-					vec3_scale_div(img->vert, 2),
-					vec3_constr(0, 0, img->focal_len)
-					)
-				)
-			);
 }
 
 t_scene	parse(char *file)
@@ -118,7 +99,7 @@ t_scene	parse(char *file)
 	if (scene.error == false)
 	{
 		scene_populate(&scene, file);
-		scene_image_init(&scene.image, scene.camera);
+		scene_image_init(&scene.image);
 		srand(time(NULL));
 	}
 	return (scene);
