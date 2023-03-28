@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/26 09:17:08 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/28 02:34:48 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	invalid_element(uint8_t error_type, char *elem_name, size_t line)
 	size_t	num_token;
 	size_t	i;
 
-	printf("%lu:\t%s", line, g_error);
+	printf("%sline %lu: ", g_error, line);
 	if (error_type == (uint8_t)0)
 	{
 		printf("\tUnexpected character(s) at the end of line!\n");

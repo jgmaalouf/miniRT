@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 21:26:18 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/28 01:50:53 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,15 @@ double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t
 	return (visiblity);
 }
 
-/*
-	Mixes the colors using linear interpolation between two colors based on mix_factor.
-	mix_factor should be a value between 0.0 and 1.0. If it is 0.0 we get only color1,
-	and if it's 1.0 we get color2 completely.
-	The equation applied: (color2 - color1) * mix_factor + color1
-*/
-t_color	mix(t_color color1, t_color color2)
+t_color	mix_lights(t_amb_light amb_light, t_light light) // We should consider doing a function that approximates zero because of the floating point errors we might get.
 {
-	t_color	color;
-
-	color = vec3_mult(color1, color2);
-	return (color);
+	if (amb_light.ratio == 0 && light.ratio == 0)
+		return (vec3_constr(0, 0, 0));
+	if (amb_light.ratio == 0)
+		return (light.energy);
+	if (light.ratio == 0)
+		return (amb_light.energy);
+	return (vec3_mult(amb_light.energy, light.energy));
 }
 
 /*
@@ -90,9 +87,9 @@ t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal), 0.0);
 	shadow_ray = ray_constr(hitpoint.p, light_dir);
 	visiblity = shadow_hit(shadow_ray, scene->hittable, hitpoint, light_vec);
-	light_color = mix(scene->amb_light.energy, scene->light.energy);
-	light_color = vec3_scale_mult(light_color, attenuation);
-	// light_color = vec3_mult(scene->amb_light.energy, vec3_scale_mult(scene->light.energy, attenuation));
+	light_color = mix_lights(scene->amb_light, scene->light);
+	if (scene->light.ratio != 0)
+		light_color = vec3_scale_mult(light_color, attenuation);
 	return (vec3_scale_mult(vec3_mult(hitpoint.color, light_color), visiblity));
 }
 
