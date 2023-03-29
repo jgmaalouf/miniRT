@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_plane.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:56:18 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:56:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 01:02:47 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,30 @@ insert:
 bool	hit_cylinder_plane_record(const t_ray r, const double t_max, const t_cylinder cy, t_hit_record *temp_rec)
 {
 	t_plane	help_pl;
+	t_vec3	half_height;
 
 	help_pl.orient = cy.orient;
-	help_pl.pos = vec3_add(cy.pos, vec3_scale_mult(cy.orient, cy.diameter / 2.0));
-	temp_rec->normal = vec3_unit(help_pl.orient);
-	temp_rec->color = vec3_scale_div(cy.rgb, 255);
+	half_height = vec3_scale_mult(cy.orient, cy.height / 2.0);
+	help_pl.pos = vec3_add(cy.pos, half_height);
 	if (hit_plane(r, t_max, help_pl, &temp_rec->t))
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
 		if (vec3_length(vec3_subtr(temp_rec->p, help_pl.pos)) <= cy.diameter / 2.0)
 		{
+			temp_rec->normal = vec3_unit(help_pl.orient);
+			temp_rec->color = vec3_scale_div(cy.rgb, 255);
 			set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 			return (true);
 		}
 	}
-	help_pl.pos = vec3_add(cy.pos, vec3_scale_mult(cy.orient, cy.diameter / -2.0));
+	help_pl.pos = vec3_subtr(cy.pos, half_height);
 	if (hit_plane(r, t_max, help_pl, &temp_rec->t))
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
 		if (vec3_length(vec3_subtr(temp_rec->p, help_pl.pos)) <= cy.diameter / 2.0)
 		{
+			temp_rec->normal = vec3_unit(help_pl.orient);
+			temp_rec->color = vec3_scale_div(cy.rgb, 255);
 			set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 			return (true);
 		}

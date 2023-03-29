@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 18:01:12 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 22:08:53 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	hit_plane_record(const t_ray r, double t_max, const t_plane pl,
 	if (hit_plane(r, t_max, pl, &temp_rec->t))
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
-		temp_rec->normal = vec3_unit(pl.orient);
+		temp_rec->normal = pl.orient;
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 		temp_rec->color = vec3_scale_div(pl.rgb, 255);
 		return (true);
