@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 08:07:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 21:25:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static void	scene_validate(t_scene *scene, char *file)
 	{
 		if (validate_element(line, scene, i))
 			scene->error = true;
-		get_next_line(fd, &line);
 		free(line);
+		get_next_line(fd, &line);
 		i++;
 	}
 	close(fd);
@@ -76,8 +76,8 @@ static void	scene_populate(t_scene *scene, char *file)
 	while (line != NULL)
 	{
 		fill_element(scene, line);
-		get_next_line(fd, &line);
 		free(line);
+		get_next_line(fd, &line);
 	}
 	close(fd);
 }

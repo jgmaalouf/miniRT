@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 19:50:52 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/20 10:00:24 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:28:33 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 uint32_t	to_rgba(uint8_t red, uint8_t green, uint8_t blue)
 {
-	return ((uint32_t)(red << 24 | green << 16 | blue << 8 | 0xFF));
+	return ((uint32_t)((uint32_t)red << 24 | green << 16 | blue << 8 | 0xFF));
 }
 
 uint32_t	translate_colors(double r, double g, double b)
