@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include <time.h>
 
-/* Opens file descripter if file format is correct. Returns 0 upon success. */
+/* Opens file descriptor if file format is correct. Returns 0 upon success. */
 static int	open_file(char *file, int *fd)
 {
 	char	*extension;
@@ -55,8 +55,8 @@ static void	scene_validate(t_scene *scene, char *file)
 	{
 		if (validate_element(line, scene, i))
 			scene->error = true;
-		get_next_line(fd, &line);
 		free(line);
+		get_next_line(fd, &line);
 		i++;
 	}
 	close(fd);
@@ -76,8 +76,8 @@ static void	scene_populate(t_scene *scene, char *file)
 	while (line != NULL)
 	{
 		fill_element(scene, line);
-		get_next_line(fd, &line);
 		free(line);
+		get_next_line(fd, &line);
 	}
 	close(fd);
 }
