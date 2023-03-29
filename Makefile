@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/28 20:28:22 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/29 19:25:47 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,12 @@ LIBFT	= ./lib/the_library
 OS		= $(shell uname)
 
 ifeq ($(OS), Darwin)
-LDFLAGS	+= -L $(LIBMLX)/glfw_lib/ -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+CFLAGS += -fsanitize=address,undefined
+LDFLAGS	+= -L $(LIBMLX)/glfw_lib/ -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -fsanitize=address,undefined
 endif
 
 ifeq ($(OS), Linux)
-LDFLAGS	+= -ldl -pthread -lm -lglfw
+LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd
 endif
 
 SRCS	= main.c \
