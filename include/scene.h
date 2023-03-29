@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/27 00:54:37 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:57:10 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "MLX42.h"
 
 # include <stdbool.h>
-
-# define SPP 1
-# define MAX_DEPTH 1
 
 typedef struct s_camera
 {
@@ -84,12 +81,6 @@ typedef struct s_image
 	double		width;
 	double		height;
 	double		ratio;
-	double		viewport_width;
-	double		viewport_height;
-	double		focal_len;
-	t_point3	hori;
-	t_point3	vert;
-	t_point3	lower_left_corner;
 }				t_image;
 
 typedef struct s_scene

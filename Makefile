@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/27 00:43:19 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/29 14:04:15 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,7 @@ SRCS	= main.c \
 			world.c sphere.c plane.c cylinder.c cylinder_plane.c \
 			ray.c ray_calc.c utils2.c \
 			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \
-			errors.c memory_alloc.c panic.c utils.c \
-			print_scene.c
+			errors.c memory_alloc.c panic.c utils.c
 
 HEADERS	= color.h debug.h elem_count.h errors.h graphics.h hittable.h parse.h \
 			ray.h scene.h utils.h vector.h

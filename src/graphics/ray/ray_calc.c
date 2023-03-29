@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/28 22:04:04 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:03:49 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,7 @@
 #include "hittable.h"
 #include "utils.h"
 
-#include "debug.h" // print_vec3
-#include <stdio.h> // printf
-#include <stdlib.h> // uint_t
-
-/* 
-static t_vec3	random_dir(const t_hit_record hit_rec)
-{
-	return(vec3_unit(vec3_add(hit_rec.normal, vec3_random_unit())));
-}
-// YOU ARE STOOPID THIS IS THE SOMETHING ELSE YOU SIMPLETON NOT LUMINOSITY
-t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
-{
-	t_color	luminance;
-
-	luminance = vec3_scale_mult(ray_color(ray_constr(hit_rec.p, random_dir(hit_rec)), scene, depth - 1), 0.5);
-	if (luminance.e[0] == 0 && luminance.e[1] == 0 && luminance.e[2] == 0)
-		luminance = vec3_constr(1, 1, 1);
-	return (luminance);
-}
-*/
+#include <stdint.h> // uint_t
 
 double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t_vec3 light)
 {
@@ -92,7 +73,6 @@ t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 	if (scene->light.ratio != 0)
 		light_color = get_light_shade(scene, hitpoint);
 	light_color = vec3_add(scene->amb_light.energy, light_color);
-	// light_color = vec3_clamp(vec3_add(scene->amb_light.energy, light_color), 0.0, 1.0);
 	return (vec3_mult(hitpoint.color, light_color));
 }
 
@@ -125,16 +105,8 @@ void pixel_to_world(t_scene *scene, double *x, double *y)
 	double px_screen_x;
 	double px_screen_y;
 
-	if (SPP > 1)
-	{
-		px_ndc_x = (*x + random_double_in(0, 1)) / scene->image.width;
-		px_ndc_y = (*y + random_double_in(0, 1)) / scene->image.height;
-	}
-	else
-	{
-		px_ndc_x = (*x + 0.5) / scene->image.width;
-		px_ndc_y = (*y + 0.5) / scene->image.height;
-	}
+	px_ndc_x = (*x + 0.5) / scene->image.width;
+	px_ndc_y = (*y + 0.5) / scene->image.height;
 	px_screen_x = 2 * px_ndc_x - 1;
 	px_screen_y = 1 - 2 * px_ndc_y;
 	*x  = px_screen_x * scene->image.ratio * tan(((double)scene->camera.fov * (M_PI / 180.0)) / 2.0);
@@ -163,16 +135,9 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 {
 	t_ray		r;
 	t_color		color;
-	int			i;
 
 	color = (t_color){0};
-	i = 0;
-	while (i < SPP)
-	{
-		r = get_next_ray(scene, (double)x, (double)y);
-		color = vec3_add(color, ray_color(r, scene));
-		i++;
-	}
-	color = vec3_scale_div(color, SPP);
+	r = get_next_ray(scene, (double)x, (double)y);
+	color = vec3_add(color, ray_color(r, scene));
 	return (translate_colors(color.e[0], color.e[1], color.e[2]));
 }

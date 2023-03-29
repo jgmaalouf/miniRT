@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/28 19:43:11 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:56:05 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "scene.h"
 #include "ray.h"
 
-#include <stdio.h> // printf
-
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	mlx_t	*mlx;
@@ -24,12 +22,6 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	mlx = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
-}
-
-void	print_loading_screen(int line, int total)
-{
-	fflush(stdout);
-	printf("Rendering: %i%%\r", (int)((line / (double)total) * 101.0));
 }
 
 void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
@@ -47,7 +39,6 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 			x++;
 		}
 		y++;
-		print_loading_screen(y, scene->image.height);
 	}
 }
 
@@ -65,7 +56,6 @@ void	display(t_scene *scene)
 {
 	mlx_t		*mlx;
 
-	// mlx_set_setting(MLX_FULLSCREEN, true);
 	mlx = mlx_init(scene->image.width, scene->image.height, "miniRT", true);
 	if (!mlx)
 		panic_exit("mlx init failure");
