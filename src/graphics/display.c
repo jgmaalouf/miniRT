@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 18:32:05 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:19:36 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 {
 	int			x;
 	int			y;
-	
+
 	y = 0;
 	while (y < scene->image.height)
 	{
@@ -42,9 +42,11 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 	}
 }
 
-void resize_scene(int32_t width, int32_t height, void *param)
+void	resize_scene(int32_t width, int32_t height, void *param)
 {
-	t_scene *scene = (t_scene *)param;
+	t_scene	*scene;
+
+	scene = param;
 	mlx_resize_image(scene->image.img, width, height);
 	scene->image.height = height;
 	scene->image.width = width;
@@ -54,13 +56,15 @@ void resize_scene(int32_t width, int32_t height, void *param)
 
 void	display(t_scene *scene)
 {
-	mlx_t		*mlx;
+	mlx_t	*mlx;
 
 	mlx = mlx_init(scene->image.width, scene->image.height, "miniRT", true);
 	if (!mlx)
 		panic_exit("mlx init failure");
-	scene->image.img = mlx_new_image(mlx, scene->image.width, scene->image.height);
-	if (!scene->image.img || (mlx_image_to_window(mlx, scene->image.img, 0, 0) < 0))
+	scene->image.img = mlx_new_image(mlx,
+			scene->image.width, scene->image.height);
+	if (!scene->image.img
+		|| (mlx_image_to_window(mlx, scene->image.img, 0, 0) < 0))
 		panic_exit("mlx image failure");
 	scene_render(scene, scene->image.img);
 	mlx_resize_hook(mlx, &resize_scene, scene);

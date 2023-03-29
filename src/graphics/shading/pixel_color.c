@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 18:28:15 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:16:02 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,28 @@ t_color	ray_color(const t_ray r, t_scene *scene)
 }
 
 /*
-	Converts the pixel into something that the camera can shoot rays through in 3 steps.
-		1. Convert from pixels to NDC space (Normalized Device Coordinates) range (0, 1).
+	Converts the pixel into something that the camera can shoot
+	rays through in 3 steps.
+		1. Convert from pixels to NDC space
+			(Normalized Device Coordinates) range (0, 1).
 		2. Convert from NDC space to screen space range (-1, 1).
 		3. Convert from screen space to camera space.
 */
-void pixel_to_world(t_scene *scene, double *x, double *y)
+void	pixel_to_world(t_scene *scene, double *x, double *y)
 {
-	double px_ndc_x;
-	double px_ndc_y;
-	double px_screen_x;
-	double px_screen_y;
+	double	px_ndc_x;
+	double	px_ndc_y;
+	double	px_screen_x;
+	double	px_screen_y;
 
 	px_ndc_x = (*x + 0.5) / scene->image.width;
 	px_ndc_y = (*y + 0.5) / scene->image.height;
 	px_screen_x = 2 * px_ndc_x - 1;
 	px_screen_y = 1 - 2 * px_ndc_y;
-	*x  = px_screen_x * scene->image.ratio * tan(((double)scene->camera.fov * (M_PI / 180.0)) / 2.0);
-	*y  = px_screen_y * tan(((double)scene->camera.fov * (M_PI / 180.0)) / 2.0);
+	*x = px_screen_x * scene->image.ratio
+		* tan(((double)scene->camera.fov * (M_PI / 180.0)) / 2.0);
+	*y = px_screen_y
+		* tan(((double)scene->camera.fov * (M_PI / 180.0)) / 2.0);
 }
 
 /*
@@ -85,7 +89,8 @@ static t_ray	get_next_ray(t_scene *scene, double x, double y)
 }
 
 /*
-	We generate rays through each pixel. Then, we find the color of the ray that we shot.
+	We generate rays through each pixel.
+	Then, we find the color of the ray that we shot.
 */
 uint32_t	pixel_color(t_scene *scene, int x, int y)
 {
