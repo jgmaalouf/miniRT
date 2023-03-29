@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/28 22:04:04 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/30 00:39:32 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@
 #include <stdio.h> // printf
 #include <stdlib.h> // uint_t
 
-/* 
+t_color	ray_color(const t_ray r, t_scene *scene, int depth);
+
 static t_vec3	random_dir(const t_hit_record hit_rec)
 {
 	return(vec3_unit(vec3_add(hit_rec.normal, vec3_random_unit())));
 }
-// YOU ARE STOOPID THIS IS THE SOMETHING ELSE YOU SIMPLETON NOT LUMINOSITY
-t_color	luminosity(t_scene *scene, const t_hit_record hit_rec, int depth)
-{
-	t_color	luminance;
 
-	luminance = vec3_scale_mult(ray_color(ray_constr(hit_rec.p, random_dir(hit_rec)), scene, depth - 1), 0.5);
-	if (luminance.e[0] == 0 && luminance.e[1] == 0 && luminance.e[2] == 0)
-		luminance = vec3_constr(1, 1, 1);
-	return (luminance);
+t_color	ambient_occlusion(t_scene *scene, const t_hit_record hit_rec, int depth)
+{
+	t_color	illum;
+
+	illum = vec3_scale_mult(ray_color(ray_constr(hit_rec.p, random_dir(hit_rec)), scene, depth - 1), 0.5);
+	if (illum.e[0] == 0 && illum.e[1] == 0 && illum.e[2] == 0)
+		illum = vec3_constr(1, 1, 1);
+	return (illum);
 }
-*/
+
 
 double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t_vec3 light)
 {
@@ -52,7 +53,7 @@ double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t
 	}
 	return (visiblity);
 }
-
+#include <math.h>
 /*
 	Determines how the light will look like on the objects using the attenuation (which is a fancy word for how bright the point is).
 	We get the attenuation by finding the value of cosine the angle between the hitpoint normal and the light direction,
@@ -76,7 +77,6 @@ t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
 	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal), 0.0);
 	light_color = vec3_scale_mult(scene->light.energy, attenuation);
 	return (vec3_scale_mult(light_color, visiblity));
-	return (light_color);
 }
 
 /*
@@ -100,15 +100,20 @@ t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 	Checks if the ray hits any objects. If that's the case we shade accordingly.
 	Otherwise, we return black.
 */
-t_color	ray_color(const t_ray r, t_scene *scene)
+t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 {
 	t_color			color;
 	t_hit_record	hit_rec;
 
+	if (depth < 0)
+		return ((t_color){0});
 	hit_rec = (t_hit_record){0};
 	color = (t_color){0};
 	if (world_hit(r, &hit_rec, scene->hittable))
-		color = shade(hit_rec, scene);
+	{
+		color = ambient_occlusion(scene, hit_rec, depth);
+		color = vec3_mult(shade(hit_rec, scene), color);
+	}
 	return (color);
 }
 
@@ -170,7 +175,7 @@ uint32_t	pixel_color(t_scene *scene, int x, int y)
 	while (i < SPP)
 	{
 		r = get_next_ray(scene, (double)x, (double)y);
-		color = vec3_add(color, ray_color(r, scene));
+		color = vec3_add(color, ray_color(r, scene, 50));
 		i++;
 	}
 	color = vec3_scale_div(color, SPP);
