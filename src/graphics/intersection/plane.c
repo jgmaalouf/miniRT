@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:51:24 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:39:15 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hittable.h"
+#include "intersection.h"
 #include "scene.h"
 #include "ray.h"
 #include "vector.h"
 
 #include <math.h>
 #include <stdbool.h>
-#include <stdio.h> // printf
 
 bool	hit_plane(const t_ray r, double t_max, const t_plane pl, double *t)
 {
@@ -27,8 +26,6 @@ bool	hit_plane(const t_ray r, double t_max, const t_plane pl, double *t)
 	dir_xnorm = vec3_dot(r.dir, pl.orient);
 	pos_min_orig__xnorm = vec3_dot(pl.orient, vec3_subtr(pl.pos, r.orig));
 	*t = pos_min_orig__xnorm / dir_xnorm;
-	// if (*t < 0)
-	// 	return (false);
 	if (*t < T_MIN || t_max < *t)
 		return (false);
 	return (true);

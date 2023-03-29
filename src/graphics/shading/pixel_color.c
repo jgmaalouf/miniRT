@@ -1,64 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_calc.c                                         :+:      :+:    :+:   */
+/*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 14:03:49 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:28:15 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 #include "vector.h"
 #include "ray.h"
-#include "color.h"
-#include "hittable.h"
+#include "graphics.h"
+#include "intersection.h"
 #include "utils.h"
-
-#include <stdint.h> // uint_t
-
-double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t_vec3 light)
-{
-	t_hit_record	shadow_rec;
-	double			visiblity;
-
-	shadow_rec = (t_hit_record){0};
-	visiblity = !world_hit(shadow_ray, &shadow_rec, objects);
-	if (visiblity == 0)
-	{
-		if (vec3_length(light) < vec3_length(vec3_subtr(hitpoint.p, shadow_rec.p)))
-			visiblity = 1;
-	}
-	return (visiblity);
-}
-
-/*
-	Determines how the light will look like on the objects using the attenuation (which is a fancy word for how bright the point is).
-	We get the attenuation by finding the value of cosine the angle between the hitpoint normal and the light direction,
-	which we get by dividing the dot product of the two vectors with the length of the two vectors multiplied (since the two vectors are normalize we can omit the division)
-	Finally, we determine if the point is in the shadow by setting the visible boolean. Effectively turning the 
-	color off or on when we multiply the point with the boolean.
-*/
-t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
-{
-	t_vec3			light_vec;
-	t_vec3			light_dir;
-	t_ray			shadow_ray;
-	double			visiblity;
-	double			attenuation;
-	t_color			light_color;
-
-	light_vec = vec3_subtr(scene->light.pos, hitpoint.p);
-	light_dir = vec3_scale_mult(vec3_unit(light_vec), scene->light.ratio);
-	shadow_ray = ray_constr(hitpoint.p, light_dir);
-	visiblity = shadow_hit(shadow_ray, scene->hittable, hitpoint, light_vec);
-	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal), 0.0);
-	light_color = vec3_scale_mult(scene->light.energy, attenuation);
-	return (vec3_scale_mult(light_color, visiblity));
-	return (light_color);
-}
 
 /*
 	Determines the shade of the object by first getting the light color and then
@@ -114,7 +71,7 @@ void pixel_to_world(t_scene *scene, double *x, double *y)
 }
 
 /*
-	Sends a ray to the scene through the given pixels.
+	Sends a ray to the scene through the given pixel.
 */
 static t_ray	get_next_ray(t_scene *scene, double x, double y)
 {
@@ -128,16 +85,14 @@ static t_ray	get_next_ray(t_scene *scene, double x, double y)
 }
 
 /*
-	We generate rays through each pixel depending on the SPP (samples per pixel).
-	Then, we merge the colors of all the rays that we shot per pixel to create anti-aliasing.
+	We generate rays through each pixel. Then, we find the color of the ray that we shot.
 */
 uint32_t	pixel_color(t_scene *scene, int x, int y)
 {
 	t_ray		r;
 	t_color		color;
 
-	color = (t_color){0};
 	r = get_next_ray(scene, (double)x, (double)y);
-	color = vec3_add(color, ray_color(r, scene));
+	color = ray_color(r, scene);
 	return (translate_colors(color.e[0], color.e[1], color.e[2]));
 }

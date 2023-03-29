@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/26 22:39:23 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:08:29 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	fill_amb_light(char *str, t_scene *scene)
 	scene->amb_light.energy = vec3_scale_div(vec3_scale_mult(scene->amb_light.rgb, scene->amb_light.ratio), 255);
 }
 
-/* Fills scene structure with previously validated element information. Loops
-through all defined elements to match the type identifier in the beginning of
-the string to a defined element. Calls function to fill according part of the
-scene structure with information to that element */
+/*
+	Fills scene structure with previously validated element information. Loops
+	through all defined elements to match the type identifier in the beginning of
+	the string to a defined element. Calls function to fill according part of the
+	scene structure with information to that element
+*/
 void	fill_element(t_scene *scene, char *str)
 {
 	size_t	num_elements;

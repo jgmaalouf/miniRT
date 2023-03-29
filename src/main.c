@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 13:00:40 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:30:56 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "graphics.h"
 #include "errors.h"
 #include "memory_alloc.h"
-#include "debug.h"
 
 #include <stdlib.h>
 

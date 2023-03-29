@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/29 14:04:15 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/29 18:44:19 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ RESET	= \033[0m
 NAME	= miniRT
 INCL	= -I include -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(LIBFT)/libft
 CFLAGS	= -Wall -Wextra -Werror -O3 $(INCL)
-LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42 
+LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42
 
-VPATH	= src/ src/debug/ src/graphics/ src/graphics/color/ src/graphics/hittable/ src/graphics/ray/ src/math/ src/parse src/utils/ include/
+VPATH	= src/ src/debug/ src/graphics/ src/graphics/intersection/ src/graphics/shading/ src/math/ src/parse src/utils/ include/
 
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
@@ -35,14 +35,14 @@ LDFLAGS	+= -ldl -pthread -lm -lglfw
 endif
 
 SRCS	= main.c \
-			color.c display.c \
-			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
+			display.c \
+			vector_basic.c vector_advanced.c vector_length.c \
 			world.c sphere.c plane.c cylinder.c cylinder_plane.c \
-			ray.c ray_calc.c utils2.c \
+			ray.c light.c pixel_color.c shading_utils.c \
 			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \
 			errors.c memory_alloc.c panic.c utils.c
 
-HEADERS	= color.h debug.h elem_count.h errors.h graphics.h hittable.h parse.h \
+HEADERS	= elem_count.h errors.h graphics.h intersection.h memory_alloc.h parse.h \
 			ray.h scene.h utils.h vector.h
 
 ODIR	= obj

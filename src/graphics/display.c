@@ -6,14 +6,14 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 15:56:05 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:32:05 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
 #include "errors.h"
 #include "scene.h"
-#include "ray.h"
+#include "graphics.h"
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {

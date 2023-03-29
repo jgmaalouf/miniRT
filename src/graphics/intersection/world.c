@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:57:13 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:26:07 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:36:12 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hittable.h"
+#include "intersection.h"
 #include "scene.h"
 #include "ray.h"
 #include "vector.h"

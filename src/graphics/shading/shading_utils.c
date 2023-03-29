@@ -6,22 +6,30 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 12:36:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/24 14:11:29 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:15:43 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h> // rand()
+#include "utils.h"
+#include "scene.h"
+#include <stdint.h>
+#include <stdio.h>
 
-// Returns a random real in [0,1).
-double	random_double()
+uint32_t	to_rgba(uint8_t red, uint8_t green, uint8_t blue)
 {
-	return ((double)rand() / (double)RAND_MAX + 1.0);
+	return ((uint32_t)(red << 24 | green << 16 | blue << 8 | 0xFF));
 }
 
-// Returns a random real in [min,max).
-double	random_double_in(double min, double max)
+uint32_t	translate_colors(double r, double g, double b)
 {
-	return (min + (max - min) * random_double());
+	uint8_t	ir;
+	uint8_t	ig;
+	uint8_t	ib;
+
+	ir = (uint8_t)(256 * clamp(r, 0.0, 0.999));
+	ig = (uint8_t)(256 * clamp(g, 0.0, 0.999));
+	ib = (uint8_t)(256 * clamp(b, 0.0, 0.999));
+	return (to_rgba(ir, ig, ib));
 }
 
 double	clamp_min(double x, double min)
@@ -38,13 +46,11 @@ double	clamp_max(double x, double max)
 	return x;
 }
 
-// clamps the value x to the range [min,max]
+/*
+	Clamps the value x to the range [min,max]
+*/
 double	clamp(double x, double min, double max)
 {
-	// if (clamp_min(x, min) != x)
-	// 	return (min);
-	// if (clamp_max(x, max) != x)
-	// 	return (max);
 	x = clamp_min(x, min);
 	x = clamp_max(x, max);
 	return x;
