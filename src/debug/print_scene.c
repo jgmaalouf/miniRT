@@ -8,7 +8,8 @@ void	print_scene(t_scene scene)
 {
 	printf("A\t%.1f\t\t\t\t\t\t\t%.1f,%.1f,%.1f\n\n", scene.amb_light.ratio, scene.amb_light.rgb.e[0], scene.amb_light.rgb.e[1], scene.amb_light.rgb.e[2]);
 	printf("C\t%.1f,%.1f,%.1f\t\t%.1f,%.1f,%.1f\t%.1f\n\n", scene.camera.pos.e[0], scene.camera.pos.e[1], scene.camera.pos.e[2], scene.camera.orient.e[0], scene.camera.orient.e[1], scene.camera.orient.e[2], scene.camera.fov);
-	printf("L\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t\t%.1f,%.1f,%.1f\n\n", scene.light.pos.e[0], scene.light.pos.e[1], scene.light.pos.e[2], scene.light.ratio, scene.light.rgb.e[0], scene.light.rgb.e[1], scene.light.rgb.e[2]);
+	for (int i = 0; i < get_count(g_light, &scene); i++)
+		printf("L\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t\t%.1f,%.1f,%.1f\n\n", scene.light[i].pos.e[0], scene.light[i].pos.e[1], scene.light[i].pos.e[2], scene.light[i].ratio, scene.light[i].rgb.e[0], scene.light[i].rgb.e[1], scene.light[i].rgb.e[2]);
 	for (int i = 0; i < get_count(g_plane, &scene); i++)
 		printf("pl\t%.1f,%.1f,%.1f\t\t%.1f,%.1f,%.1f\t\t\t%.1f,%.1f,%.1f\n\n", scene.hittable.planes[i].pos.e[0], scene.hittable.planes[i].pos.e[1], scene.hittable.planes[i].pos.e[2], scene.hittable.planes[i].orient.e[0], scene.hittable.planes[i].orient.e[1], scene.hittable.planes[i].orient.e[2], scene.hittable.planes[i].rgb.e[0], scene.hittable.planes[i].rgb.e[1], scene.hittable.planes[i].rgb.e[2]);
 	for (int i = 0; i < get_count(g_sphere, &scene); i++)

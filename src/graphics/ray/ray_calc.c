@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/30 22:11:04 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 01:37:23 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "color.h"
 #include "hittable.h"
 #include "utils.h"
+#include "elem_count.h"
+#include "parse.h"
 
 #include "debug.h" // print_vec3
 #include <stdio.h> // printf
@@ -61,7 +63,7 @@ double	shadow_hit(t_ray shadow_ray, t_hittable objects, t_hit_record hitpoint, t
 	Finally, we determine if the point is in the shadow by setting the visible boolean. Effectively turning the 
 	color off or on when we multiply the point with the boolean.
 */
-t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
+t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint, size_t i)
 {
 	t_vec3			light_vec;
 	t_vec3			light_dir;
@@ -70,12 +72,12 @@ t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
 	double			attenuation;
 	t_color			light_color;
 
-	light_vec = vec3_subtr(scene->light.pos, hitpoint.p);
-	light_dir = vec3_scale_mult(vec3_unit(light_vec), scene->light.ratio);
+	light_vec = vec3_subtr(scene->light[i].pos, hitpoint.p);
+	light_dir = vec3_scale_mult(vec3_unit(light_vec), scene->light[i].ratio);
 	shadow_ray = ray_constr(hitpoint.p, light_dir);
 	visiblity = shadow_hit(shadow_ray, scene->hittable, hitpoint, light_vec);
 	attenuation = clamp_min(vec3_dot(light_dir, hitpoint.normal), 0.0);
-	light_color = vec3_scale_mult(scene->light.energy, attenuation);
+	light_color = vec3_scale_mult(scene->light[i].energy, attenuation);
 	return (vec3_scale_mult(light_color, visiblity));
 }
 
@@ -86,13 +88,21 @@ t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
 */
 t_color	shade(const t_hit_record hitpoint, const t_scene *scene)
 {
-	t_color			light_color;
+	t_color	light_color;
+	size_t	light_count;
+	size_t	i;
 
-	light_color = (t_color){0};
-	if (scene->light.ratio != 0)
-		light_color = get_light_shade(scene, hitpoint);
-	light_color = vec3_add(scene->amb_light.energy, light_color);
+	light_color = scene->amb_light.energy;
+	light_count = get_count(g_light, scene);
+	i = 0;
+	while (i < light_count)
+	{
+		if (scene->light[i].ratio != 0)
+			light_color = vec3_add(get_light_shade(scene, hitpoint, i), light_color);
+		i++;
+	}
 	// light_color = vec3_clamp(vec3_add(scene->amb_light.energy, light_color), 0.0, 1.0);
+	// return (hitpoint.color);
 	return (vec3_mult(hitpoint.color, light_color));
 }
 
@@ -111,8 +121,10 @@ t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 	color = (t_color){0};
 	if (world_hit(r, &hit_rec, scene->hittable))
 	{
-		color = ambient_occlusion(scene, hit_rec, depth);
-		color = vec3_mult(shade(hit_rec, scene), color);
+		// return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1.0, 1.0, 1.0)), 0.5));
+		// color = ambient_occlusion(scene, hit_rec, depth);
+		color = shade(hit_rec, scene);
+		// color = vec3_mult(shade(hit_rec, scene), color);
 	}
 	return (color);
 }

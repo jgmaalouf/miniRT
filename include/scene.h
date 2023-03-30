@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 22:10:19 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 01:31:01 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define SPP 1
 # define MAX_DEPTH 1
-# define THREADS 40
+# define THREADS 1
 
 typedef struct s_camera
 {
@@ -101,7 +101,7 @@ typedef struct s_scene
 	t_image		image;
 	t_camera	camera;
 	t_amb_light	amb_light;
-	t_light		light;
+	t_light		*light;
 	t_hittable	hittable;
 	t_worker	*workers;
 	bool		error;

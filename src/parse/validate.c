@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/26 08:34:15 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 00:57:52 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ bool	validate_element_count(t_scene *scene)
 	i = 0;
 	while (i < 3)
 	{
-		if (get_count(element[i].bitmask, scene) > 1)
+		if (i != 2 && get_count(element[i].bitmask, scene) > 1)
 		{
 			invalid_element_amount(MORE, element[i].name);
 			valid = false;

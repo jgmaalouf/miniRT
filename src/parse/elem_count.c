@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:02 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:05:21 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 01:15:17 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_elem_count	*elem_count(void)
 	return (&count);
 }
 
-int	get_count(uint8_t elem_type, t_scene *scene)
+int	get_count(uint8_t elem_type, const t_scene *scene)
 {
 	t_elem_count	*count;
 

@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 21:45:37 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 01:35:28 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	*render_routine(void *param)
 	size_t		x;
 	size_t		y;
 	
-	pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
-	pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+	// pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+	// pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
 	worker = param;
 	y = worker->start;
 	while (y <= worker->end)

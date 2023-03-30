@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_alloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 07:11:20 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/26 07:21:47 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 01:05:43 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void	scene_elements_allocate(t_scene *scene)
 		free(scene->hittable.planes);
 		panic_exit("bad alloc");
 	}
+	scene->light = malloc(
+			(get_count(g_light, scene) + 1) * sizeof(t_light));
+	if (scene->light == NULL)
+	{
+		free(scene->hittable.cylinders);
+		free(scene->hittable.spheres);
+		free(scene->hittable.planes);
+		panic_exit("bad alloc");
+	}
 }
 
 void	free_scene_elements(t_scene *scene)
@@ -45,4 +54,5 @@ void	free_scene_elements(t_scene *scene)
 	free(scene->hittable.spheres);
 	free(scene->hittable.planes);
 	free(scene->hittable.cylinders);
+	free(scene->light);
 }

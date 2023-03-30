@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_scene_hittable.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:43 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 01:20:11 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 01:11:06 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	fill_cylinder(char *str, t_scene *scene)
 {
-	static int	count;
+	static size_t	count;
 
 	fill_triple_val(&str, &scene->hittable.cylinders[count].pos);
 	if (vec3_length(scene->hittable.cylinders[count].pos)
@@ -34,7 +34,7 @@ void	fill_cylinder(char *str, t_scene *scene)
 
 void	fill_plane(char *str, t_scene *scene)
 {
-	static int	count;
+	static size_t	count;
 
 	fill_triple_val(&str, &scene->hittable.planes[count].pos);
 	fill_triple_val(&str, &scene->hittable.planes[count].orient);
@@ -46,7 +46,7 @@ void	fill_plane(char *str, t_scene *scene)
 
 void	fill_sphere(char *str, t_scene *scene)
 {
-	static int	count;
+	static size_t	count;
 
 	fill_triple_val(&str, &scene->hittable.spheres[count].pos);
 	fill_single_val(&str, &scene->hittable.spheres[count].diameter);
