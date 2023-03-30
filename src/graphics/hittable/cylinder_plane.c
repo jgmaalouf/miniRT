@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_plane.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:56:18 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/30 01:02:47 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 01:14:50 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ insert:
 				return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1.0, 1.0, 1.0)), 0.5));
 */
 
-bool	hit_cylinder_plane_record(const t_ray r, const double t_max, const t_cylinder cy, t_hit_record *temp_rec)
+bool	hit_cylinder_plane_record_1(const t_ray r, const double t_max, const t_cylinder cy, t_hit_record *temp_rec)
 {
 	t_plane	help_pl;
 	t_vec3	half_height;
@@ -46,6 +46,16 @@ bool	hit_cylinder_plane_record(const t_ray r, const double t_max, const t_cylind
 			return (true);
 		}
 	}
+	return (false);
+}
+
+bool	hit_cylinder_plane_record_2(const t_ray r, const double t_max, const t_cylinder cy, t_hit_record *temp_rec)
+{
+	t_plane	help_pl;
+	t_vec3	half_height;
+
+	help_pl.orient = cy.orient;
+	half_height = vec3_scale_mult(cy.orient, cy.height / 2.0);
 	help_pl.pos = vec3_subtr(cy.pos, half_height);
 	if (hit_plane(r, t_max, help_pl, &temp_rec->t))
 	{

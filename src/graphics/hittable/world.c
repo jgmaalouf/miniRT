@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:57:13 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/30 19:10:10 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 01:29:05 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,21 @@ bool	world_hit(const t_ray r, t_hit_record *rec, const t_hittable objects)
 	{
 		if (hit_cylinder_record(r, closest_so_far, objects.cylinders[i], &temp_rec))
 		{
-			*rec = temp_rec;
 			hit_anything = true;
 			closest_so_far = temp_rec.t;
+			*rec = temp_rec;
 		}
-		if (hit_cylinder_plane_record(r, closest_so_far, objects.cylinders[i], &temp_rec))
+		if (hit_cylinder_plane_record_1(r, closest_so_far, objects.cylinders[i], &temp_rec))
 		{
-			*rec = temp_rec;
 			hit_anything = true;
 			closest_so_far = temp_rec.t;
+			*rec = temp_rec;
+		}
+		if (hit_cylinder_plane_record_2(r, closest_so_far, objects.cylinders[i], &temp_rec))
+		{
+			hit_anything = true;
+			closest_so_far = temp_rec.t;
+			*rec = temp_rec;
 		}
 		i++;
 	}
