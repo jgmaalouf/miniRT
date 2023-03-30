@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 21:53:41 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:10:19 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ typedef struct s_worker
 }				t_worker;
 
 t_scene	parse(char *file);
+void	scene_elements_transform(t_scene *scene);
 
 #endif
