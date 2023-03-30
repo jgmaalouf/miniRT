@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_calculation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 21:05:00 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/28 18:32:23 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 03:06:16 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-double	**matrix_matrix_mult(double **mtrx1, double **mtrx2, double **result_m)
+void	matrix_matrix_mult(double mtrx1[4][4], double mtrx2[4][4], double result_m[4][4])
 {
 	int		row;
 	int		col;
@@ -32,10 +32,9 @@ double	**matrix_matrix_mult(double **mtrx1, double **mtrx2, double **result_m)
 		}
 		row++;
 	}
-	return (result_m);
 }
 
-double	*matrix_vector_mult(double **matrix, double *vector, double *result_v)
+void	matrix_vector_mult(double matrix[4][4], double vector[4], double result_v[4])
 {
 	int		row;
 	int		col;
@@ -51,7 +50,6 @@ double	*matrix_vector_mult(double **matrix, double *vector, double *result_v)
 		}
 		row++;
 	}
-	return (result_v);
 }
 
 // int main()

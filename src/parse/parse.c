@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 21:25:58 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 02:19:35 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_scene	parse(char *file)
 	if (scene.error == false)
 	{
 		scene_populate(&scene, file);
-		// scene_elements_transform(&scene);
+		scene_elements_transform(&scene);
 		scene_image_init(&scene.image, scene.camera);
 		srand(time(NULL));
 	}
