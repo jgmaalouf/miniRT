@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:57:13 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/30 01:27:33 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 19:10:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 #include "vector.h"
 
 #include <stdbool.h>
+#include <stdlib.h> // size_t
 
 bool	world_hit(const t_ray r, t_hit_record *rec, const t_hittable objects)
 {
 	t_hit_record	temp_rec;
 	bool			hit_anything;
 	double			closest_so_far;
-	int				i;
+	size_t			i;
 
 	temp_rec = (t_hit_record){0};
 	hit_anything = false;

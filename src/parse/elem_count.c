@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elem_count.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:02 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 19:05:21 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:12:13 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_elem_count	*elem_count(void)
 	return (&count);
 }
 
-int	get_count(uint8_t elem_type, t_scene *scene)
+size_t	get_count(uint8_t elem_type, t_scene *scene)
 {
 	t_elem_count	*count;
 
