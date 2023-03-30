@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/11 20:52:19 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:30:25 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "scene.h"
 
-void	display(t_scene *scene);
+void	display(t_scene scene);
 
 #endif

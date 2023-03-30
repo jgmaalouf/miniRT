@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/28 19:42:36 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:41:38 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ t_scene	parse(char *file)
 		scene_populate(&scene, file);
 		scene_image_init(&scene.image);
 		srand(time(NULL));
+		scene.workers = ft_calloc(THREADS + 1, sizeof(t_worker));
+		if (scene.workers == NULL)
+			panic_exit("bad alloc");
 	}
 	return (scene);
 }

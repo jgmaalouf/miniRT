@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/27 00:54:37 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 21:53:41 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include "MLX42.h"
 
 # include <stdbool.h>
+# include <pthread.h>
 
 # define SPP 1
 # define MAX_DEPTH 1
+# define THREADS 40
 
 typedef struct s_camera
 {
@@ -92,6 +94,8 @@ typedef struct s_image
 	t_point3	lower_left_corner;
 }				t_image;
 
+typedef struct s_worker	t_worker;
+
 typedef struct s_scene
 {
 	t_image		image;
@@ -99,8 +103,17 @@ typedef struct s_scene
 	t_amb_light	amb_light;
 	t_light		light;
 	t_hittable	hittable;
+	t_worker	*workers;
 	bool		error;
 }				t_scene;
+
+typedef struct s_worker
+{
+	pthread_t	thread;
+	size_t		start;
+	size_t		end;
+	t_scene		scene;
+}				t_worker;
 
 t_scene	parse(char *file);
 
