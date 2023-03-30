@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/27 00:43:19 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/29 19:25:47 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCL	= -I include -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(LIBFT)/libft
 CFLAGS	= -Wall -Wextra -Werror -O3 $(INCL)
 LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42 
 
-VPATH	= src/ src/debug/ src/graphics/ src/graphics/color/ src/graphics/hittable/ src/graphics/ray/ src/math/ src/parse src/utils/ include/
+VPATH	= src/ src/debug/ src/graphics/ src/graphics/color/ src/graphics/hittable/ src/graphics/ray/ src/math/ src/parse src/parse/transformation/ src/utils/ include/
 
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
@@ -27,11 +27,12 @@ LIBFT	= ./lib/the_library
 OS		= $(shell uname)
 
 ifeq ($(OS), Darwin)
-LDFLAGS	+= -L $(LIBMLX)/glfw_lib/ -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+CFLAGS += -fsanitize=address,undefined
+LDFLAGS	+= -L $(LIBMLX)/glfw_lib/ -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -fsanitize=address,undefined
 endif
 
 ifeq ($(OS), Linux)
-LDFLAGS	+= -ldl -pthread -lm -lglfw
+LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd
 endif
 
 SRCS	= main.c \
@@ -39,6 +40,7 @@ SRCS	= main.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
 			world.c sphere.c plane.c cylinder.c cylinder_plane.c \
 			ray.c ray_calc.c utils2.c \
+			matrix_calculation.c matrix.c transform_environment.c \
 			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \
 			errors.c memory_alloc.c panic.c utils.c \
 			print_scene.c

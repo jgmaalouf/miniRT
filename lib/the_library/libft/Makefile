@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:01:23 by amorvai           #+#    #+#              #
-#    Updated: 2023/03/06 14:30:34 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/29 19:18:25 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		:= cc
-CFLAGS	:= -Wall -Werror -Wextra
+CFLAGS	:= -O3 -Wall -Werror -Wextra -fsanitize=address,undefined
 OBJ_DIR	:= obj/
 
 NAME	:= libft.a
