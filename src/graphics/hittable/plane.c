@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 14:58:42 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 17:51:03 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ bool	hit_plane_record(const t_ray r, const t_plane pl, double t_max,
 		temp_rec->normal = pl.orient;
 		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 		temp_rec->color = vec3_scale_div(pl.rgb, 255);
+		return (true);
+	}
+	return (false);
+}
+
+bool	plane_in_range(const t_ray r, const double radius,
+						const t_plane help_pl, t_hit_record *temp_rec)
+{
+	temp_rec->p = ray_at(r, temp_rec->t);
+	if (vec3_length(vec3_subtr(temp_rec->p, help_pl.pos)) <= radius)
+	{
+		temp_rec->normal = vec3_unit(help_pl.orient);
+		set_face_normal(r, &temp_rec->normal, &temp_rec->front_face);
 		return (true);
 	}
 	return (false);

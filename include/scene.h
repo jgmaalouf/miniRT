@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 00:48:16 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:45:01 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "MLX42.h"
 
 # include <stdbool.h> // bool
-# include <stdint.h> // uint8_t
+# include <stdint.h> // uint16_t
 # include <stdlib.h> // size_t
 
 # define SPP 1
@@ -28,23 +28,26 @@
 //	Definition der Elemente
 // _____________________________________________________________________________
 
-# define TOK_COORD 0b1000000
-# define TOK_ORIENT 0b100000
-# define TOK_FOV 0b10000
-# define TOK_RATIO 0b1000
-# define TOK_DIAMETER 0b100
-# define TOK_HEIGHT 0b10
+# define TOK_COORD 0b10000000
+# define TOK_ORIENT 0b1000000
+# define TOK_FOV 0b100000
+# define TOK_RATIO 0b10000
+# define TOK_DIAMETER 0b1000
+# define TOK_HEIGHT 0b100
+# define TOK_ANGLE 0b10
 # define TOK_RGB 0b1
 
 // As these are static const they are not considered "global" by the norm
 
-static const uint8_t	g_amb_light = TOK_RATIO | TOK_RGB;
-static const uint8_t	g_camera = TOK_COORD | TOK_ORIENT | TOK_FOV;
-static const uint8_t	g_light = TOK_COORD | TOK_RATIO | TOK_RGB;
-static const uint8_t	g_sphere = TOK_COORD | TOK_DIAMETER | TOK_RGB;
-static const uint8_t	g_plane = TOK_COORD | TOK_ORIENT | TOK_RGB;
-static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
+static const uint16_t	g_amb_light = TOK_RATIO | TOK_RGB;
+static const uint16_t	g_camera = TOK_COORD | TOK_ORIENT | TOK_FOV;
+static const uint16_t	g_light = TOK_COORD | TOK_RATIO | TOK_RGB;
+static const uint16_t	g_sphere = TOK_COORD | TOK_DIAMETER | TOK_RGB;
+static const uint16_t	g_plane = TOK_COORD | TOK_ORIENT | TOK_RGB;
+static const uint16_t	g_cylinder = TOK_COORD | TOK_ORIENT
 	| TOK_DIAMETER | TOK_HEIGHT | TOK_RGB;
+static const uint16_t	g_cone = TOK_COORD | TOK_ORIENT
+	| TOK_DIAMETER | TOK_HEIGHT | TOK_ANGLE | TOK_RGB;
 
 static const struct s_element
 {
@@ -59,7 +62,8 @@ element[] = {
 	{"L",	1,	g_light,		"light"},
 	{"sp",	2,	g_sphere,		"sphere"},
 	{"pl",	2,	g_plane,		"plane"},
-	{"cy",	2,	g_cylinder,		"cylinder"}
+	{"cy",	2,	g_cylinder,		"cylinder"},
+	{"co",	2,	g_cone,			"cone"}
 };
 
 typedef struct s_camera
@@ -107,6 +111,16 @@ typedef struct s_cylinder
 	t_color		rgb;
 }				t_cylinder;
 
+typedef struct s_cone
+{
+	t_point3	pos;
+	t_vec3		orient;
+	double		diameter;
+	double		height;
+	double		angle;
+	t_color		rgb;
+}				t_cone;
+
 typedef struct s_hittable
 {
 	size_t		sp_count;
@@ -117,6 +131,9 @@ typedef struct s_hittable
 
 	size_t		cy_count;
 	t_cylinder	*cylinders;
+
+	size_t		co_count;
+	t_cone		*cones;
 }				t_hittable;
 
 typedef struct s_image

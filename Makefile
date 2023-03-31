@@ -6,7 +6,7 @@
 #    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/31 00:47:19 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/31 19:03:47 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRCS	= main.c \
 			display.c color.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
 			matrix.c \
-			world.c sphere.c plane.c cylinder.c cylinder_plane.c \
+			world_hit.c world_hit_elements.c \
+			sphere.c plane.c cylinder.c cylinder_plane.c cone.c cone_plane.c \
 			ray.c ray_calc.c utils2.c \
 			transform.c transform_scene.c transform_vector.c \
 			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \

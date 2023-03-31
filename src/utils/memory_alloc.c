@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_alloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 07:11:20 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/26 07:21:47 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:27:12 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 #include "errors.h"
 
 #include <stdlib.h>
+
+static void	scene_elements_allocate2(t_scene *scene)
+{
+	scene->hittable.cones = malloc(
+			(get_count(g_cone, scene) + 1) * sizeof(t_cone));
+	if (scene->hittable.cones == NULL)
+	{
+		free(scene->hittable.cylinders);
+		free(scene->hittable.spheres);
+		free(scene->hittable.planes);
+		panic_exit("bad alloc");
+	}
+}
 
 void	scene_elements_allocate(t_scene *scene)
 {
@@ -38,6 +51,7 @@ void	scene_elements_allocate(t_scene *scene)
 		free(scene->hittable.planes);
 		panic_exit("bad alloc");
 	}
+	scene_elements_allocate2(scene);
 }
 
 void	free_scene_elements(t_scene *scene)
@@ -45,4 +59,5 @@ void	free_scene_elements(t_scene *scene)
 	free(scene->hittable.spheres);
 	free(scene->hittable.planes);
 	free(scene->hittable.cylinders);
+	free(scene->hittable.cones);
 }

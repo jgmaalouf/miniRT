@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 16:56:55 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:47:20 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ p[] = {
 "\tThe %s diameter is invalid!\n"},
 {TOK_HEIGHT,	validate_single_val,	0,		DBL_MAX,
 "\tThe %s height is invalid!\n"},
+{TOK_ANGLE,		validate_single_val,	0,		89,
+"\tThe %s angle is invalid!\n"},
 {TOK_RGB,		validate_triple_val,	0,		255,
 "\tThe RGB value for %s is invalid!\n"}
 };
@@ -73,6 +75,7 @@ void	fill_light(char *str, t_scene *scene);
 void	fill_sphere(char *str, t_scene *scene);
 void	fill_plane(char *str, t_scene *scene);
 void	fill_cylinder(char *str, t_scene *scene);
+void	fill_cone(char *str, t_scene *scene);
 
 typedef void			(*t_filler)(char *str, t_scene *scene);
 
@@ -82,7 +85,8 @@ static const t_filler	g_element_fillers[] = {
 	fill_light,
 	fill_sphere,
 	fill_plane,
-	fill_cylinder
+	fill_cylinder,
+	fill_cone
 };
 
 // _____________________________________________________________________________

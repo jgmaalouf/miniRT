@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:45:38 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 00:53:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:16:45 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,19 @@ void	transform_hittable_cylinder(t_scene *scene, double w_to_c[4][4])
 	{
 		transform_point(&scene->hittable.cylinders[i].pos, w_to_c);
 		transform_vector(&scene->hittable.cylinders[i].orient, w_to_c);
+		i++;
+	}
+}
+
+void	transform_hittable_cone(t_scene *scene, double w_to_c[4][4])
+{
+	size_t	i;
+
+	i = 0;
+	while (i < scene->hittable.co_count)
+	{
+		transform_point(&scene->hittable.cones[i].pos, w_to_c);
+		transform_vector(&scene->hittable.cones[i].orient, w_to_c);
 		i++;
 	}
 }

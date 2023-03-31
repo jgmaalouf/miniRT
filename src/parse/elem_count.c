@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:02 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 19:12:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:09:36 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ size_t	get_count(uint8_t elem_type, t_scene *scene)
 		return (scene->hittable.pl_count);
 	if (elem_type == g_cylinder)
 		return (scene->hittable.cy_count);
+	if (elem_type == g_cone)
+		return (scene->hittable.co_count);
 	return (-1);
 }
 
@@ -57,4 +59,6 @@ void	incr_count(uint8_t elem_type, t_scene *scene)
 		scene->hittable.pl_count++;
 	else if (elem_type == g_cylinder)
 		scene->hittable.cy_count++;
+	else if (elem_type == g_cone)
+		scene->hittable.co_count++;
 }
