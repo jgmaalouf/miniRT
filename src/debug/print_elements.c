@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_scene.c                                      :+:      :+:    :+:   */
+/*   print_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 17:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 20:22:01 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 20:36:07 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "elem_count.h"
 #include "debug.h"
 #include "parse.h"
 #include "scene.h"
+
+#include <stdio.h>
 
 static void	print_amb_and_cam_and_light(t_scene scene)
 {
@@ -115,13 +116,14 @@ static void	print_cone(t_scene scene)
 	i = 0;
 	while (i < get_count(g_cone, &scene))
 	{
-		printf("cy\t%.1f,%.1f,%.1f\t\t%.1f,%.1f,%.1f\t%.1f\t%.1f\t%.1f\t%.1f,%.1f,%.1f\n\n",
+		printf("cy\t%.1f,%.1f,%.1f\t\t%.1f,%.1f,%.1f\t",
 			scene.hittable.cones[i].pos.e[0],
 			scene.hittable.cones[i].pos.e[1],
 			scene.hittable.cones[i].pos.e[2],
 			scene.hittable.cones[i].orient.e[0],
 			scene.hittable.cones[i].orient.e[1],
-			scene.hittable.cones[i].orient.e[2],
+			scene.hittable.cones[i].orient.e[2]);
+		printf("%.1f\t%.1f\t%.1f\t%.1f,%.1f,%.1f\n\n",
 			scene.hittable.cones[i].diameter,
 			scene.hittable.cones[i].height,
 			scene.hittable.cones[i].angle,
@@ -130,13 +132,4 @@ static void	print_cone(t_scene scene)
 			scene.hittable.cones[i].rgb.e[2]);
 		i++;
 	}
-}
-
-void	print_scene(t_scene scene)
-{
-	print_amb_and_cam_and_light(scene);
-	print_sphere(scene);
-	print_plane(scene);
-	print_cylinder(scene);
-	print_cone(scene);
 }
