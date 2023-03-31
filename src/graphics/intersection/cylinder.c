@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 06:57:00 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 18:35:42 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:04:06 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <math.h>
 #include <stdbool.h>
+#include <stdio.h> // printf
 
 double	solve_ray_t(const t_ray r, const t_cylinder cy, const double t_cy, const double t_max)
 {

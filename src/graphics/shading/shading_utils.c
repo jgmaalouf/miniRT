@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/13 12:36:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 19:16:34 by jmaalouf         ###   ########.fr       */
+/*   Created: 2023/03/10 19:50:52 by amorvai           #+#    #+#             */
+/*   Updated: 2023/03/31 13:13:33 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 uint32_t	to_rgba(uint8_t red, uint8_t green, uint8_t blue)
 {
-	return ((uint32_t)(red << 24 | green << 16 | blue << 8 | 0xFF));
+	return ((uint32_t)((uint32_t)red << 24 | green << 16 | blue << 8 | 0xFF));
 }
 
 double	clamp(double x, double min, double max)

@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 23:56:18 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 18:35:10 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:58:29 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <math.h>
 #include <stdbool.h>
+#include <stdio.h> // printf
 
 /* to see normal-colors of the sides of any hittable
 

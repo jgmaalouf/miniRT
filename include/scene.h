@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 15:57:10 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:55:38 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,51 @@
 # include "vector.h"
 # include "MLX42.h"
 
-# include <stdbool.h>
+# include <stdbool.h> // bool
+# include <stdint.h> // uint8_t
+# include <stdlib.h> // size_t
+
+# define SPP 1
+# define MAX_DEPTH 1
+
+// _____________________________________________________________________________
+//
+//	Definition der Elemente
+// _____________________________________________________________________________
+
+# define TOK_COORD 0b1000000
+# define TOK_ORIENT 0b100000
+# define TOK_FOV 0b10000
+# define TOK_RATIO 0b1000
+# define TOK_DIAMETER 0b100
+# define TOK_HEIGHT 0b10
+# define TOK_RGB 0b1
+
+// As these are static const they are not considered "global" by the norm
+
+static const uint8_t	g_amb_light = TOK_RATIO | TOK_RGB;
+static const uint8_t	g_camera = TOK_COORD | TOK_ORIENT | TOK_FOV;
+static const uint8_t	g_light = TOK_COORD | TOK_RATIO | TOK_RGB;
+static const uint8_t	g_sphere = TOK_COORD | TOK_DIAMETER | TOK_RGB;
+static const uint8_t	g_plane = TOK_COORD | TOK_ORIENT | TOK_RGB;
+static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
+	| TOK_DIAMETER | TOK_HEIGHT | TOK_RGB;
+
+static const struct s_element
+{
+	char		*id_str;
+	size_t		id_len;
+	u_int8_t	bitmask;
+	char		*name;
+}
+element[] = {
+	{"A",	1,	g_amb_light,	"ambient light"},
+	{"C",	1,	g_camera,		"camera"},
+	{"L",	1,	g_light,		"light"},
+	{"sp",	2,	g_sphere,		"sphere"},
+	{"pl",	2,	g_plane,		"plane"},
+	{"cy",	2,	g_cylinder,		"cylinder"}
+};
 
 typedef struct s_camera
 {
@@ -65,13 +109,13 @@ typedef struct s_cylinder
 
 typedef struct s_hittable
 {
-	int			sp_count;
+	size_t		sp_count;
 	t_sphere	*spheres;
 
-	int			pl_count;
+	size_t		pl_count;
 	t_plane		*planes;
 
-	int			cy_count;
+	size_t		cy_count;
 	t_cylinder	*cylinders;
 }				t_hittable;
 
@@ -94,5 +138,6 @@ typedef struct s_scene
 }				t_scene;
 
 t_scene	parse(char *file);
+void	transform(t_scene *scene);
 
 #endif

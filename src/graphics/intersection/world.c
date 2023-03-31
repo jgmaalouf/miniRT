@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:57:13 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 18:36:12 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:03:50 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	world_hit(const t_ray r, t_hit_record *rec, const t_hittable objects)
 	t_hit_record	temp_rec;
 	bool			hit_anything;
 	double			closest_so_far;
-	int				i;
+	size_t			i;
 
 	temp_rec = (t_hit_record){0};
 	hit_anything = false;

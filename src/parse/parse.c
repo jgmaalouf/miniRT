@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 13:08:59 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:02:32 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ t_scene	parse(char *file)
 	{
 		scene_populate(&scene, file);
 		scene_image_init(&scene.image);
+		transform(&scene);
 	}
 	return (scene);
 }
