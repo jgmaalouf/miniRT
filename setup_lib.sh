@@ -3,6 +3,20 @@
 OS_MAC="$(uname)"
 OS_ARCH="$(uname -r)"
 
+compile_mlx()
+{
+	echo "Compiling MLX42"
+	cd lib/MLX42
+	if command -v cmake &> /dev/null; then
+		cmake -B build
+		cmake --build build -j4
+	else
+		../../cmake-3.26.2-macos10.10-universal/CMake.app/Contents/bin/cmake -B build
+		../../cmake-3.26.2-macos10.10-universal/CMake.app/Contents/bin/cmake --build build -j4
+		rm -rf ../../cmake-3.26.2-macos10.10-universal
+	fi
+}
+
 if [[ -d ./lib/MLX42 ]]; then
 	echo -e "\033[1;33m./lib/MLX42/ Exists\033[0m";
 else
@@ -26,8 +40,19 @@ else
 			sudo pacman -S glfw-x11
 		fi
 	fi
-	cd lib/MLX42
-	cmake -B build
-	cmake --build build -j4;
+	echo "Checking for CMake"
+	if command -v cmake &> /dev/null; then
+		echo "CMake is already installed"
+	else
+		echo "Installing CMake"
+		if [[ $OS_MAC == 'Darwin' ]]; then
+			curl -LO https://github.com/Kitware/CMake/releases/download/v3.26.2/cmake-3.26.2-macos10.10-universal.tar.gz
+			tar -xzf cmake-3.26.2-macos10.10-universal.tar.gz
+			rm cmake-3.26.2-macos10.10-universal.tar.gz
+		elif [[ $OS_ARCH == *'arch'* ]]; then
+			sudo pacman -S cmake
+		fi
+	fi
+	compile_mlx
 }
 fi

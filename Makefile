@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/31 13:17:45 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/31 14:36:08 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,6 @@ fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT) fclean
 
-re: clean all
+re: fclean all
 
 .PHONY: all, clean, fclean, re, libmlx, libft
