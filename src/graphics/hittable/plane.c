@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 09:56:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 22:08:53 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 14:58:42 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <stdio.h> // printf
 
-bool	hit_plane(const t_ray r, double t_max, const t_plane pl, double *t)
+bool	hit_plane(const t_ray r, const t_plane pl, double t_max, double *t)
 {
 	double	dir_xnorm;
 	double	pos_min_orig__xnorm;
@@ -32,10 +32,10 @@ bool	hit_plane(const t_ray r, double t_max, const t_plane pl, double *t)
 	return (true);
 }
 
-bool	hit_plane_record(const t_ray r, double t_max, const t_plane pl,
+bool	hit_plane_record(const t_ray r, const t_plane pl, double t_max,
 							t_hit_record *temp_rec)
 {
-	if (hit_plane(r, t_max, pl, &temp_rec->t))
+	if (hit_plane(r, pl, t_max, &temp_rec->t))
 	{
 		temp_rec->p = ray_at(r, temp_rec->t);
 		temp_rec->normal = pl.orient;

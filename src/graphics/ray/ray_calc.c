@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/30 15:41:33 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 15:17:08 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,13 @@ t_color	ray_color(const t_ray r, t_scene *scene)
 	hit_rec = (t_hit_record){0};
 	color = (t_color){0};
 	if (world_hit(r, &hit_rec, scene->hittable))
-		return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1.0, 1.0, 1.0)), 0.5));
-		// color = shade(hit_rec, scene);
+		color = shade(hit_rec, scene);
 	return (color);
 }
+/* to see NORMAL-COLORS of the sides of any hittable
+after:		if (world_hit())
+insert:			return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1.0, 1.0, 1.0)), 0.5));
+*/
 
 /*
 	Converts the pixel into something that the camera can shoot rays through in 3 steps.
