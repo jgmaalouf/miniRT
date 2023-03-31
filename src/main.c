@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:08 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/26 08:27:25 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:30:56 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "graphics.h"
 #include "errors.h"
 #include "memory_alloc.h"
-#include "debug.h"
 
 #include <stdlib.h>
 
@@ -30,7 +29,6 @@ int	main(int argc, char *argv[])
 	scene = parse(argv[1]);
 	if (scene.error == true)
 		return (EXIT_FAILURE);
-	print_scene(scene);
 	display(&scene);
 	free_scene_elements(&scene);
 	return (EXIT_SUCCESS);

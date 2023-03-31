@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 15:01:42 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 17:23:55 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,19 @@ typedef struct s_hit_record
 }				t_hit_record;
 
 bool	world_hit(const t_ray r, t_hit_record *rec, const t_hittable objects);
-void	set_face_normal(const t_ray r, t_vec3 *outward_normal, bool *front_face);
+void	set_face_normal(const t_ray r,
+			t_vec3 *outward_normal, bool *front_face);
 
 bool	world_hit_sphere(const t_ray r, const t_hittable objects,
-							t_hit_record *rec, double *closest_so_far);
+			t_hit_record *rec, double *closest_so_far);
 bool	world_hit_plane(const t_ray r, const t_hittable objects,
-							t_hit_record *rec, double *closest_so_far);
+			t_hit_record *rec, double *closest_so_far);
 bool	world_hit_cylinder(const t_ray r, const t_hittable objects,
-							t_hit_record *rec, double *closest_so_far);
+			t_hit_record *rec, double *closest_so_far);
 
-typedef bool	(*t_world_hittable)(const t_ray r, const t_hittable objects,
-							t_hit_record *rec, double *closest_so_far);
+typedef bool					(*t_world_hittable)(const t_ray r,
+			const t_hittable objects, t_hit_record *rec,
+			double *closest_so_far);
 
 static const t_world_hittable	g_world_hittable[] = {
 	world_hit_sphere,
@@ -60,15 +62,15 @@ static const t_world_hittable	g_world_hittable[] = {
 };
 
 bool	hit_sphere_record(const t_ray r, const t_sphere sp, double t_max,
-							t_hit_record *temp_rec);
+			t_hit_record *temp_rec);
 
 bool	hit_plane_record(const t_ray r, const t_plane pl, double t_max,
-							t_hit_record *temp_rec);
+			t_hit_record *temp_rec);
 bool	hit_plane(const t_ray r, const t_plane pl, double t_max, double *t);
 
 bool	hit_cylinder_record(const t_ray r, const t_cylinder cy, double t_max,
-							t_hit_record *temp_rec);
+			t_hit_record *temp_rec);
 bool	hit_cylinder_plane_record(const t_ray r, const t_cylinder cy,
-							const double t_max, t_hit_record *temp_rec);
+			const double t_max, t_hit_record *temp_rec);
 
 #endif
