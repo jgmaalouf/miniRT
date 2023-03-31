@@ -6,7 +6,7 @@
 #    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/31 20:17:04 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/31 20:31:23 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ endif
 
 SRCS	= main.c \
 			display.c \
-			print_scene.c print_vec3.c \
+			print_elements.c print.c \
 			world_hit_elements.c world_hit.c \
 			sphere.c plane.c cylinder.c cylinder_plane.c cone.c cone_plane.c \
 			light.c pixel_color.c ray.c shading_utils.c \
