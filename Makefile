@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/31 14:36:08 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/31 15:31:46 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCS	= main.c \
 			matrix.c vector_advanced.c vector_basic.c vector_length.c \
 			transform_scene.c transform_vector.c transform.c \
 			elem_count.c fill_scene_hittable.c fill_scene.c parse.c validate.c \
-			errors.c memory_alloc.c panic.c utils.c
+			errors.c memory_alloc.c panic.c scene_saver.c utils.c
 
 HEADERS	= elem_count.h errors.h graphics.h intersection.h matrix.h \
 			memory_alloc.h parse.h ray.h scene.h transform.h utils.h vector.h

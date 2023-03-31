@@ -6,11 +6,12 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 13:02:32 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:09:16 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
+#include "scene_saver.h"
 #include "scene.h"
 #include "parse.h"
 #include "errors.h"
@@ -89,7 +90,7 @@ static void	scene_image_init(t_image *img)
 	img->height = 720.0;
 	img->ratio = img->width / img->height;
 }
-
+#include <stdio.h>
 t_scene	parse(char *file)
 {
 	t_scene	scene;
@@ -100,6 +101,7 @@ t_scene	parse(char *file)
 	{
 		scene_populate(&scene, file);
 		scene_image_init(&scene.image);
+		saved_scene_handler(&scene);
 		transform(&scene);
 	}
 	return (scene);
