@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/28 20:18:44 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/30 20:43:29 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fill_camera(char *str, t_scene *scene)
 {
 	fill_triple_val(&str, &scene->camera.pos);
 	fill_triple_val(&str, &scene->camera.orient);
-	// scene->camera.orient = vec3_unit(scene->camera.orient);
+	scene->camera.orient = vec3_unit(scene->camera.orient);
 	fill_single_val(&str, &scene->camera.fov);
 }
 

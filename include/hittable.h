@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hittable.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/27 00:12:49 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 01:19:19 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ bool	hit_plane_record(const t_ray r, double t_max, const t_plane pl,
 							t_hit_record *temp_rec);
 bool	hit_cylinder_record(const t_ray r, double t_max, const t_cylinder cy,
 							t_hit_record *temp_rec);
-bool	hit_cylinder_plane_record(const t_ray r, const double t_max,
+bool	hit_cylinder_plane_record_1(const t_ray r, const double t_max,
+							const t_cylinder cy, t_hit_record *temp_rec);
+bool	hit_cylinder_plane_record_2(const t_ray r, const double t_max,
 							const t_cylinder cy, t_hit_record *temp_rec);
 
 #endif
