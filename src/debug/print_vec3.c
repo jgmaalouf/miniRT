@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_alloc.h                                     :+:      :+:    :+:   */
+/*   print_vec3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/26 07:19:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 18:02:58 by jmaalouf         ###   ########.fr       */
+/*   Created: 2023/03/31 18:00:27 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/31 18:02:25 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MEMORY_ALLOC_H
-# define MEMORY_ALLOC_H
+#include "vector.h"
+#include <stdio.h>
 
-# include "scene.h"
-
-void	scene_elements_allocate(t_scene *scene);
-void	free_scene_elements(t_scene *scene);
-
-#endif
+void	print_vec3(char *name, t_vec3 vec)
+{
+	printf("vector [%s]:\t[%f][%f][%f]\n", name, vec.e[0], vec.e[1], vec.e[2]);
+}

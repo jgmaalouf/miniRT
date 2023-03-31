@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/31 16:39:53 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/03/31 18:02:12 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ INCL	= -I include -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(LIBFT)/libft
 CFLAGS	= -Wall -Wextra -Werror -Ofast $(INCL)
 LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42
 
-VPATH	= src/ src/graphics/ src/graphics/hittable/ src/graphics/shading/ src/math/ src/parse src/parse/transformation/ src/utils/ include/
+VPATH	= src/ src/debug/ src/graphics/ src/graphics/hittable/ src/graphics/shading/ src/math/ src/parse src/parse/transformation/ src/utils/ include/
 
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
@@ -37,6 +37,7 @@ endif
 
 SRCS	= main.c \
 			display.c \
+			print_scene.c print_vec3.c \
 			cylinder_plane.c cylinder.c plane.c sphere.c world.c \
 			light.c pixel_color.c ray.c shading_utils.c \
 			matrix.c vector_advanced.c vector_basic.c vector_length.c \
@@ -44,7 +45,7 @@ SRCS	= main.c \
 			elem_count.c fill_scene_hittable.c fill_scene.c parse.c validate.c \
 			errors.c memory_alloc.c panic.c utils.c
 
-HEADERS	= elem_count.h errors.h graphics.h hittable.h matrix.h \
+HEADERS	= debug.h elem_count.h errors.h graphics.h hittable.h matrix.h \
 			memory_alloc.h parse.h ray.h scene.h transform.h utils.h vector.h
 
 ODIR	= obj
