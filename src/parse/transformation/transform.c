@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 18:15:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 10:36:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 13:32:35 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ static double	get_x_rotation(t_vec3 cam_orient)
 	double	cos_angle;
 
 	cam_default = vec3_constr(0, 0, -1);
-	dot_product = cam_default.e[1] * cam_orient.e[1] + cam_default.e[2] * cam_orient.e[2];
+	dot_product = cam_default.e[1] * cam_orient.e[1]
+		+ cam_default.e[2] * cam_orient.e[2];
 	discriminant = (cam_default.e[1] * cam_default.e[1]
 			+ cam_default.e[2] * cam_default.e[2])
-			* (cam_orient.e[1] * cam_orient.e[1]
+		* (cam_orient.e[1] * cam_orient.e[1]
 			+ cam_orient.e[2] * cam_orient.e[2]);
 	if (discriminant == 0.0)
 		return (0);
@@ -50,10 +51,11 @@ static double	get_y_rotation(t_vec3 cam_orient)
 	double	dot_product;
 
 	cam_default = vec3_constr(0, 0, -1);
-	dot_product = cam_default.e[0] * cam_orient.e[0] + cam_default.e[2] * cam_orient.e[2];
+	dot_product = cam_default.e[0] * cam_orient.e[0]
+		+ cam_default.e[2] * cam_orient.e[2];
 	discriminant = (cam_default.e[0] * cam_default.e[0]
 			+ cam_default.e[2] * cam_default.e[2])
-			* (cam_orient.e[0] * cam_orient.e[0]
+		* (cam_orient.e[0] * cam_orient.e[0]
 			+ cam_orient.e[2] * cam_orient.e[2]);
 	if (discriminant == 0.0)
 		return (0);
@@ -83,7 +85,7 @@ static void	apply_world_to_camera_matrix(t_scene *scene, double w_to_c[4][4])
 	size_t	num_hittable;
 	size_t	i;
 
-	num_hittable = sizeof(element) / sizeof(element[0]) - 2; 
+	num_hittable = sizeof(element) / sizeof(element[0]) - 2;
 	i = 0;
 	while (i < num_hittable)
 	{
