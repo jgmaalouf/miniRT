@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 18:51:50 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 16:49:02 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:19:55 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,32 @@ static const t_world_hittable	g_world_hittable[] = {
 	world_hit_cylinder
 };
 
+bool	world_hit_sphere(const t_ray r, const t_hittable objects,
+							t_hit_record *rec, double *closest_so_far);
+bool	world_hit_plane(const t_ray r, const t_hittable objects,
+							t_hit_record *rec, double *closest_so_far);
+bool	world_hit_cylinder(const t_ray r, const t_hittable objects,
+							t_hit_record *rec, double *closest_so_far);
+
+typedef bool	(*t_world_hittable)(const t_ray r, const t_hittable objects,
+							t_hit_record *rec, double *closest_so_far);
+
+static const t_world_hittable	g_world_hittable[] = {
+	world_hit_sphere,
+	world_hit_plane,
+	world_hit_cylinder
+};
+
 bool	hit_sphere_record(const t_ray r, const t_sphere sp, double t_max,
-			t_hit_record *temp_rec);
+							t_hit_record *temp_rec);
 
 bool	hit_plane_record(const t_ray r, const t_plane pl, double t_max,
-			t_hit_record *temp_rec);
+							t_hit_record *temp_rec);
 bool	hit_plane(const t_ray r, const t_plane pl, double t_max, double *t);
 
 bool	hit_cylinder_record(const t_ray r, const t_cylinder cy, double t_max,
-			t_hit_record *temp_rec);
+							t_hit_record *temp_rec);
 bool	hit_cylinder_plane_record(const t_ray r, const t_cylinder cy,
-			const double t_max, t_hit_record *temp_rec);
+							const double t_max, t_hit_record *temp_rec);
 
 #endif
