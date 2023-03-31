@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 18:15:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 00:55:55 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 10:36:43 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static double	get_x_rotation(t_vec3 cam_orient)
 	if (discriminant == 0.0)
 		return (0);
 	cos_angle = dot_product / sqrt(discriminant);
+	if (cam_orient.e[2] > 0)
+		cos_angle = -cos_angle;
 	if (cam_orient.e[1] < 0)
 		return (-acos(cos_angle));
 	return (acos(cos_angle));
@@ -56,7 +58,7 @@ static double	get_y_rotation(t_vec3 cam_orient)
 	if (discriminant == 0.0)
 		return (0);
 	cos_angle = dot_product / sqrt(discriminant);
-	if (cam_orient.e[0] <= 0)
+	if (cam_orient.e[0] < 0)
 		return (acos(cos_angle));
 	return (-acos(cos_angle));
 }
@@ -68,11 +70,11 @@ static void	get_world_to_camera_matrix(t_camera camera, double c_to_w[4][4])
 	double	y_rot_m[4][4];
 
 	init_translation_m(camera.pos, c_to_w);
-	init_x_rotation_m(get_x_rotation(camera.orient), x_rot_m);
-	matrix_matrix_mult(c_to_w, x_rot_m, temp);
-	ft_memcpy(c_to_w, temp, 4 * 4 * sizeof(double));
 	init_y_rotation_m(get_y_rotation(camera.orient), y_rot_m);
 	matrix_matrix_mult(c_to_w, y_rot_m, temp);
+	ft_memcpy(c_to_w, temp, 4 * 4 * sizeof(double));
+	init_x_rotation_m(get_x_rotation(camera.orient), x_rot_m);
+	matrix_matrix_mult(c_to_w, x_rot_m, temp);
 	ft_memcpy(c_to_w, temp, 4 * 4 * sizeof(double));
 }
 
