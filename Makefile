@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/29 19:25:47 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/31 19:03:47 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,13 @@ LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd
 endif
 
 SRCS	= main.c \
-			color.c display.c \
+			display.c color.c \
 			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
-			world.c sphere.c plane.c cylinder.c cylinder_plane.c \
+			matrix.c \
+			world_hit.c world_hit_elements.c \
+			sphere.c plane.c cylinder.c cylinder_plane.c cone.c cone_plane.c \
 			ray.c ray_calc.c utils2.c \
-			matrix_calculation.c matrix.c transform_environment.c \
+			transform.c transform_scene.c transform_vector.c \
 			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \
 			errors.c memory_alloc.c panic.c utils.c \
 			print_scene.c

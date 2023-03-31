@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_alloc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 07:11:20 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 01:05:43 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:35:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,29 @@
 #include "errors.h"
 
 #include <stdlib.h>
+
+static void	scene_elements_allocate2(t_scene *scene)
+{
+	scene->hittable.cones = malloc(
+			(get_count(g_cone, scene) + 1) * sizeof(t_cone));
+	if (scene->hittable.cones == NULL)
+	{
+		free(scene->hittable.cylinders);
+		free(scene->hittable.spheres);
+		free(scene->hittable.planes);
+		panic_exit("bad alloc");
+	}
+	scene->light = malloc(
+			(get_count(g_light, scene) + 1) * sizeof(t_light));
+	if (scene->light == NULL)
+	{
+		free(scene->hittable.cones);
+		free(scene->hittable.cylinders);
+		free(scene->hittable.spheres);
+		free(scene->hittable.planes);
+		panic_exit("bad alloc");
+	}
+}
 
 void	scene_elements_allocate(t_scene *scene)
 {
@@ -38,15 +61,7 @@ void	scene_elements_allocate(t_scene *scene)
 		free(scene->hittable.planes);
 		panic_exit("bad alloc");
 	}
-	scene->light = malloc(
-			(get_count(g_light, scene) + 1) * sizeof(t_light));
-	if (scene->light == NULL)
-	{
-		free(scene->hittable.cylinders);
-		free(scene->hittable.spheres);
-		free(scene->hittable.planes);
-		panic_exit("bad alloc");
-	}
+	scene_elements_allocate2(scene);
 }
 
 void	free_scene_elements(t_scene *scene)
@@ -54,5 +69,6 @@ void	free_scene_elements(t_scene *scene)
 	free(scene->hittable.spheres);
 	free(scene->hittable.planes);
 	free(scene->hittable.cylinders);
+	free(scene->hittable.cones);
 	free(scene->light);
 }

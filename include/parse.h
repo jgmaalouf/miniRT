@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:10 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/26 06:41:44 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:47:20 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,46 +17,9 @@
 # include <stdint.h> // uint8_t
 # include <stdlib.h> // size_t
 # include <float.h> // DBL_MAX
+
 # include "scene.h"
-
-// _____________________________________________________________________________
-//
-//	Definition der Elemente
-// _____________________________________________________________________________
-
-# define TOK_COORD 0b1000000
-# define TOK_ORIENT 0b100000
-# define TOK_FOV 0b10000
-# define TOK_RATIO 0b1000
-# define TOK_DIAMETER 0b100
-# define TOK_HEIGHT 0b10
-# define TOK_RGB 0b1
-
-// As these are static const they are not considered "global" by the norm
-
-static const uint8_t	g_amb_light = TOK_RATIO | TOK_RGB;
-static const uint8_t	g_camera = TOK_COORD | TOK_ORIENT | TOK_FOV;
-static const uint8_t	g_light = TOK_COORD | TOK_RATIO | TOK_RGB;
-static const uint8_t	g_sphere = TOK_COORD | TOK_DIAMETER | TOK_RGB;
-static const uint8_t	g_plane = TOK_COORD | TOK_ORIENT | TOK_RGB;
-static const uint8_t	g_cylinder = TOK_COORD | TOK_ORIENT
-	| TOK_DIAMETER | TOK_HEIGHT | TOK_RGB;
-
-static const struct s_element
-{
-	char		*id_str;
-	size_t		id_len;
-	u_int8_t	bitmask;
-	char		*name;
-}
-element[] = {
-	{"A",	1,	g_amb_light,	"ambient light"},
-	{"C",	1,	g_camera,		"camera"},
-	{"L",	1,	g_light,		"light"},
-	{"sp",	2,	g_sphere,		"sphere"},
-	{"pl",	2,	g_plane,		"plane"},
-	{"cy",	2,	g_cylinder,		"cylinder"}
-};
+# include "vector.h"
 
 // _____________________________________________________________________________
 //
@@ -93,6 +56,8 @@ p[] = {
 "\tThe %s diameter is invalid!\n"},
 {TOK_HEIGHT,	validate_single_val,	0,		DBL_MAX,
 "\tThe %s height is invalid!\n"},
+{TOK_ANGLE,		validate_single_val,	0,		89,
+"\tThe %s angle is invalid!\n"},
 {TOK_RGB,		validate_triple_val,	0,		255,
 "\tThe RGB value for %s is invalid!\n"}
 };
@@ -110,6 +75,7 @@ void	fill_light(char *str, t_scene *scene);
 void	fill_sphere(char *str, t_scene *scene);
 void	fill_plane(char *str, t_scene *scene);
 void	fill_cylinder(char *str, t_scene *scene);
+void	fill_cone(char *str, t_scene *scene);
 
 typedef void			(*t_filler)(char *str, t_scene *scene);
 
@@ -119,7 +85,8 @@ static const t_filler	g_element_fillers[] = {
 	fill_light,
 	fill_sphere,
 	fill_plane,
-	fill_cylinder
+	fill_cylinder,
+	fill_cone
 };
 
 // _____________________________________________________________________________

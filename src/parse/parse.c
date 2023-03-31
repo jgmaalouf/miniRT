@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:38 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 22:17:48 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:34:43 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ t_scene	parse(char *file)
 	if (scene.error == false)
 	{
 		scene_populate(&scene, file);
-		// scene_elements_transform(&scene);
 		scene_image_init(&scene.image);
+		transform(&scene);
 		srand(time(NULL));
 		scene.workers = ft_calloc(THREADS + 1, sizeof(t_worker));
 		if (scene.workers == NULL)

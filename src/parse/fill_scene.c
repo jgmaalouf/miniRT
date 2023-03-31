@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:40 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 01:26:36 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:31:03 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	fill_camera(char *str, t_scene *scene)
 {
 	fill_triple_val(&str, &scene->camera.pos);
 	fill_triple_val(&str, &scene->camera.orient);
-	// scene->camera.orient = vec3_unit(scene->camera.orient);
+	scene->camera.orient = vec3_unit(scene->camera.orient);
 	fill_single_val(&str, &scene->camera.fov);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 01:37:23 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:27:46 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,10 @@ t_color	ray_color(const t_ray r, t_scene *scene, int depth)
 	}
 	return (color);
 }
+/* to see NORMAL-COLORS of the sides of any hittable
+after:		if (world_hit())
+insert:			return (vec3_scale_mult(vec3_add(hit_rec.normal, vec3_constr(1.0, 1.0, 1.0)), 0.5));
+*/
 
 /*
 	Converts the pixel into something that the camera can shoot rays through in 3 steps.

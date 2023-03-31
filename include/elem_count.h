@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elem_count.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:00 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 01:15:26 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:23:25 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 typedef struct s_elem_count
 {
-	int	cam_count;
-	int	a_li_count;
-	int	li_count;
+	size_t	cam_count;
+	size_t	a_li_count;
+	size_t	li_count;
 }				t_elem_count;
 
 t_elem_count	*elem_count(void);
-int				get_count(uint8_t elem_type, const t_scene *scene);
+size_t			get_count(uint8_t elem_type, const t_scene *scene);
 void			incr_count(uint8_t elem_type, t_scene *scene);
 
 #endif
