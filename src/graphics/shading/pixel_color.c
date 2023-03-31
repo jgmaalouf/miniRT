@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/29 19:16:02 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:40:35 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "vector.h"
 #include "ray.h"
 #include "graphics.h"
-#include "intersection.h"
+#include "hittable.h"
 #include "utils.h"
 
 /*

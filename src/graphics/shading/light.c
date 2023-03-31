@@ -6,13 +6,13 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:21:04 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 19:13:37 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:40:35 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 #include "vector.h"
-#include "intersection.h"
+#include "hittable.h"
 #include "utils.h"
 
 /*

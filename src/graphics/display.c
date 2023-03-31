@@ -6,17 +6,23 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 16:30:21 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:36:01 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
 #include "errors.h"
 #include "scene.h"
-#include "scene_saver.h"
 #include "graphics.h"
 
-#include <stdio.h>
+void	key_hook(mlx_key_data_t keydata, void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(mlx);
+}
 
 void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 {
@@ -33,56 +39,6 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 			x++;
 		}
 		y++;
-	}
-}
-
-void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	mlx_t	*mlx;
-	t_scene	*scene;
-
-	mlx = param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(mlx);
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-	{
-		scene = saved_scene_handler(NULL);
-		scene->camera.pos.e[2] /= 0.1;
-		saved_scene_handler(scene);
-		transform(scene);
-		scene_render(scene, scene->image.img);
-	}
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-	{
-		scene = saved_scene_handler(NULL);
-		scene->camera.pos.e[2] *= 1.1;
-		saved_scene_handler(scene);
-		transform(scene);
-		scene_render(scene, scene->image.img);
-	}
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-	{
-		scene = saved_scene_handler(NULL);
-		scene->camera.pos.e[0] *= 0.9;
-		saved_scene_handler(scene);
-		transform(scene);
-		scene_render(scene, scene->image.img);
-	}
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-	{
-		scene = saved_scene_handler(NULL);
-		scene->camera.pos.e[0] *= 1.1;
-		saved_scene_handler(scene);
-		transform(scene);
-		scene_render(scene, scene->image.img);
-	}
-	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
-	{
-		scene = saved_scene_handler(NULL);
-		scene->camera.orient.e[1] *= 0.9;
-		saved_scene_handler(scene);
-		transform(scene);
-		scene_render(scene, scene->image.img);
 	}
 }
 
@@ -110,9 +66,6 @@ void	display(t_scene *scene)
 	if (!scene->image.img
 		|| (mlx_image_to_window(mlx, scene->image.img, 0, 0) < 0))
 		panic_exit("mlx image failure");
-	t_scene *saved = saved_scene_handler(NULL);
-	saved->image.img = scene->image.img;
-	saved_scene_handler(saved);
 	scene_render(scene, scene->image.img);
 	mlx_resize_hook(mlx, &resize_scene, scene);
 	mlx_key_hook(mlx, &key_hook, mlx);

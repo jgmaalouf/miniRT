@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 18:15:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 15:13:06 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:47:23 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	get_world_to_camera_matrix(t_camera camera, double w_to_c[4][4])
 	double	x_rot_m[4][4];
 	double	y_rot_m[4][4];
 
-	init_translation_m(camera.pos, w_to_c); // this 
+	init_translation_m(camera.pos, w_to_c);
 	init_y_rotation_m(get_y_rotation(camera.orient), y_rot_m);
 	matrix_matrix_mult(w_to_c, y_rot_m, temp);
 	ft_memcpy(w_to_c, temp, 4 * 4 * sizeof(double));
@@ -99,5 +99,5 @@ void	transform(t_scene *scene)
 	double	w_to_c[4][4];
 
 	get_world_to_camera_matrix(scene->camera, w_to_c);
-	apply_world_to_camera_matrix(scene, w_to_c); // this
+	apply_world_to_camera_matrix(scene, w_to_c);
 }

@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:05 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/29 18:58:04 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:40:09 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "scene.h"
 # include "ray.h"
-# include "intersection.h"
+# include "hittable.h"
 
 void		display(t_scene *scene);
 uint32_t	pixel_color(t_scene *scene, int x, int y);
