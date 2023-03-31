@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 18:15:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 10:36:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 16:47:23 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ static double	get_x_rotation(t_vec3 cam_orient)
 	double	cos_angle;
 
 	cam_default = vec3_constr(0, 0, -1);
-	dot_product = cam_default.e[1] * cam_orient.e[1] + cam_default.e[2] * cam_orient.e[2];
+	dot_product = cam_default.e[1] * cam_orient.e[1]
+		+ cam_default.e[2] * cam_orient.e[2];
 	discriminant = (cam_default.e[1] * cam_default.e[1]
 			+ cam_default.e[2] * cam_default.e[2])
-			* (cam_orient.e[1] * cam_orient.e[1]
+		* (cam_orient.e[1] * cam_orient.e[1]
 			+ cam_orient.e[2] * cam_orient.e[2]);
 	if (discriminant == 0.0)
 		return (0);
@@ -50,10 +51,11 @@ static double	get_y_rotation(t_vec3 cam_orient)
 	double	dot_product;
 
 	cam_default = vec3_constr(0, 0, -1);
-	dot_product = cam_default.e[0] * cam_orient.e[0] + cam_default.e[2] * cam_orient.e[2];
+	dot_product = cam_default.e[0] * cam_orient.e[0]
+		+ cam_default.e[2] * cam_orient.e[2];
 	discriminant = (cam_default.e[0] * cam_default.e[0]
 			+ cam_default.e[2] * cam_default.e[2])
-			* (cam_orient.e[0] * cam_orient.e[0]
+		* (cam_orient.e[0] * cam_orient.e[0]
 			+ cam_orient.e[2] * cam_orient.e[2]);
 	if (discriminant == 0.0)
 		return (0);
@@ -63,19 +65,19 @@ static double	get_y_rotation(t_vec3 cam_orient)
 	return (-acos(cos_angle));
 }
 
-static void	get_world_to_camera_matrix(t_camera camera, double c_to_w[4][4])
+static void	get_world_to_camera_matrix(t_camera camera, double w_to_c[4][4])
 {
 	double	temp[4][4];
 	double	x_rot_m[4][4];
 	double	y_rot_m[4][4];
 
-	init_translation_m(camera.pos, c_to_w);
+	init_translation_m(camera.pos, w_to_c);
 	init_y_rotation_m(get_y_rotation(camera.orient), y_rot_m);
-	matrix_matrix_mult(c_to_w, y_rot_m, temp);
-	ft_memcpy(c_to_w, temp, 4 * 4 * sizeof(double));
+	matrix_matrix_mult(w_to_c, y_rot_m, temp);
+	ft_memcpy(w_to_c, temp, 4 * 4 * sizeof(double));
 	init_x_rotation_m(get_x_rotation(camera.orient), x_rot_m);
-	matrix_matrix_mult(c_to_w, x_rot_m, temp);
-	ft_memcpy(c_to_w, temp, 4 * 4 * sizeof(double));
+	matrix_matrix_mult(w_to_c, x_rot_m, temp);
+	ft_memcpy(w_to_c, temp, 4 * 4 * sizeof(double));
 }
 
 static void	apply_world_to_camera_matrix(t_scene *scene, double w_to_c[4][4])
@@ -83,7 +85,7 @@ static void	apply_world_to_camera_matrix(t_scene *scene, double w_to_c[4][4])
 	size_t	num_hittable;
 	size_t	i;
 
-	num_hittable = sizeof(element) / sizeof(element[0]) - 2; 
+	num_hittable = sizeof(element) / sizeof(element[0]) - 2;
 	i = 0;
 	while (i < num_hittable)
 	{

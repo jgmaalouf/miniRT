@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   print_vec3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/10 19:52:47 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/10 19:53:54 by amorvai          ###   ########.fr       */
+/*   Created: 2023/03/31 18:00:27 by jmaalouf          #+#    #+#             */
+/*   Updated: 2023/03/31 18:02:25 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "vector.h"
+#include <stdio.h>
 
-# include <stdint.h>
-
-uint32_t	translate_colors(double r, double g, double b);
-
-#endif
+void	print_vec3(char *name, t_vec3 vec)
+{
+	printf("vector [%s]:\t[%f][%f][%f]\n", name, vec.e[0], vec.e[1], vec.e[2]);
+}

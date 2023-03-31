@@ -6,7 +6,7 @@
 #    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/03/31 19:03:47 by amorvai          ###   ########.fr        #
+#    Updated: 2023/03/31 20:17:04 by amorvai          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,10 @@ RESET	= \033[0m
 
 NAME	= miniRT
 INCL	= -I include -I $(LIBMLX)/include/MLX42 -I $(LIBFT) -I $(LIBFT)/libft
-CFLAGS	= -Wall -Wextra -Werror -O3 $(INCL)
-LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42 
+CFLAGS	= -Wall -Wextra -Werror -Ofast $(INCL)
+LDFLAGS = -L $(LIBFT)/ -l_extended -L $(LIBMLX)/build/ -lmlx42
 
-VPATH	= src/ src/debug/ src/graphics/ src/graphics/color/ src/graphics/hittable/ src/graphics/ray/ src/math/ src/parse src/parse/transformation/ src/utils/ include/
+VPATH	= src/ src/debug/ src/graphics/ src/graphics/hittable/ src/graphics/shading/ src/math/ src/parse src/parse/transformation/ src/utils/ include/
 
 LIBMLX	= ./lib/MLX42
 LIBFT	= ./lib/the_library
@@ -36,19 +36,18 @@ LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd
 endif
 
 SRCS	= main.c \
-			display.c color.c \
-			vector_basic.c vector_advanced.c vector_length.c vector_random.c \
-			matrix.c \
-			world_hit.c world_hit_elements.c \
+			display.c \
+			print_scene.c print_vec3.c \
+			world_hit_elements.c world_hit.c \
 			sphere.c plane.c cylinder.c cylinder_plane.c cone.c cone_plane.c \
-			ray.c ray_calc.c utils2.c \
-			transform.c transform_scene.c transform_vector.c \
-			parse.c elem_count.c fill_scene.c fill_scene_hittable.c validate.c \
-			errors.c memory_alloc.c panic.c utils.c \
-			print_scene.c
+			light.c pixel_color.c ray.c shading_utils.c \
+			matrix.c vector_advanced.c vector_basic.c vector_length.c \
+			transform_scene.c transform_vector.c transform.c \
+			elem_count.c fill_scene_hittable.c fill_scene.c parse.c validate.c \
+			errors.c memory_alloc.c panic.c utils.c
 
-HEADERS	= color.h debug.h elem_count.h errors.h graphics.h hittable.h parse.h \
-			ray.h scene.h utils.h vector.h
+HEADERS	= debug.h elem_count.h errors.h graphics.h hittable.h matrix.h \
+			memory_alloc.h parse.h ray.h scene.h transform.h utils.h vector.h
 
 ODIR	= obj
 OBJS	= $(addprefix $(ODIR)/,$(patsubst %.c, %.o, $(SRCS)))
@@ -82,6 +81,6 @@ fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT) fclean
 
-re: clean all
+re: fclean all
 
 .PHONY: all, clean, fclean, re, libmlx, libft

@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 19:07:28 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 16:24:24 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 20:15:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	transform_hittable_plane(t_scene *scene, double w_to_c[4][4]);
 void	transform_hittable_cylinder(t_scene *scene, double w_to_c[4][4]);
 void	transform_hittable_cone(t_scene *scene, double w_to_c[4][4]);
 
-typedef void	(*t_transform)(t_scene *scene, double w_to_c[4][4]);
+typedef void				(*t_transform)(t_scene *scene,
+		double w_to_c[4][4]);
 
 static const t_transform	g_hittable_transform[] = {
 	transform_light,

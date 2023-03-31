@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 01:35:28 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 20:24:07 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42.h"
 #include "errors.h"
 #include "scene.h"
-#include "ray.h"
+#include "graphics.h"
 
-#include <stdio.h> // printf
+#include <stdio.h>
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -89,6 +89,16 @@ void	scene_render(t_scene *scene)
 	}
 }
 
+void resize_scene(int32_t width, int32_t height, void *param)
+{
+	t_scene *scene = (t_scene *)param;
+	mlx_resize_image(scene->image.img, width, height);
+	scene->image.height = height;
+	scene->image.width = width;
+	scene->image.ratio = scene->image.width / scene->image.height;
+	scene_render(scene);
+}
+
 // void resize_scene(int32_t width, int32_t height, void *param)
 // {
 // 	// TODO: When resizing kill off the threads first and then relaunch them
@@ -101,24 +111,25 @@ void	scene_render(t_scene *scene)
 // 	scene_render(scene);
 // }
 
-void	display(t_scene scene)
+void	display(t_scene *scene)
 {
-	mlx_t		*mlx;
+	mlx_t	*mlx;
 
-	mlx = mlx_init(scene.image.width, scene.image.height, "miniRT", true);
+	mlx = mlx_init(scene->image.width, scene->image.height, "miniRT", true);
 	if (!mlx)
 		panic_exit("mlx init failure");
-	scene.image.img = mlx_new_image(mlx, scene.image.width, scene.image.height);
-	if (!scene.image.img || (mlx_image_to_window(mlx, scene.image.img, 0, 0) < 0))
+	scene->image.img = mlx_new_image(mlx,
+			scene->image.width, scene->image.height);
+	if (!scene->image.img
+		|| (mlx_image_to_window(mlx, scene->image.img, 0, 0) < 0))
 		panic_exit("mlx image failure");
-	scene_render(&scene);
-	// mlx_resize_hook(mlx, &resize_scene, scene);
+	scene_render(scene);
+	mlx_resize_hook(mlx, &resize_scene, scene);
 	mlx_key_hook(mlx, &key_hook, mlx);
 	mlx_loop(mlx);
-	mlx_delete_image(mlx, scene.image.img);
+	mlx_delete_image(mlx, scene->image.img);
 	mlx_terminate(mlx);
-	
 	size_t i = 0;
-	while(pthread_join(scene.workers[i].thread, NULL) == 0)
+	while(pthread_join(scene->workers[i].thread, NULL) == 0)
 		i++;
 }

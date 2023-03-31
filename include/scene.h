@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 19:24:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/31 20:14:56 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,6 @@ typedef struct s_image
 	double		width;
 	double		height;
 	double		ratio;
-	double		viewport_width;
-	double		viewport_height;
-	double		focal_len;
-	t_point3	hori;
-	t_point3	vert;
-	t_point3	lower_left_corner;
 }				t_image;
 
 typedef struct s_worker	t_worker;

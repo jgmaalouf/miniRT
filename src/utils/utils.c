@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 19:06:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/25 20:20:09 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:45:30 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "vector.h"
-#include "debug.h"
 
 void	skip_spaces(char **str)
 {
