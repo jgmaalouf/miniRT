@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 16:40:35 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:37:56 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ static t_ray	get_next_ray(t_scene *scene, double x, double y)
 	t_vec3	ray_dir;
 
 	pixel_to_world(scene, &x, &y);
-	ray_dir = vec3_unit(vec3_subtr(vec3_constr(x, y, -1), scene->camera.pos));
-	ray = ray_constr(scene->camera.pos, ray_dir);
+	ray_dir = vec3_unit(vec3_subtr(vec3_constr(x, y, -1), vec3_constr(0, 0, 0)));
+	ray = ray_constr(vec3_constr(0, 0, 0), ray_dir);
 	return (ray);
 }
 
