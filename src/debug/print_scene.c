@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 17:40:45 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 18:00:34 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:33:38 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void	print_amb_and_cam_and_light(t_scene scene)
 	while (i < get_count(g_light, &scene))
 	{
 		printf("L\t%.1f,%.1f,%.1f\t\t\t\t%.1f\t\t%.1f,%.1f,%.1f\n\n",
-			scene.light.pos.e[0], scene.light.pos.e[1],
-			scene.light.pos.e[2], scene.light.ratio,
-			scene.light.rgb.e[0], scene.light.rgb.e[1],
-			scene.light.rgb.e[2]);
+			scene.light[i].pos.e[0], scene.light[i].pos.e[1],
+			scene.light[i].pos.e[2], scene.light[i].ratio,
+			scene.light[i].rgb.e[0], scene.light[i].rgb.e[1],
+			scene.light[i].rgb.e[2]);
 		i++;
 	}
 }

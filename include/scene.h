@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 12:55:38 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:21:31 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ typedef struct s_scene
 	t_image		image;
 	t_camera	camera;
 	t_amb_light	amb_light;
-	t_light		light;
+	t_light		*light;
 	t_hittable	hittable;
 	bool		error;
 }				t_scene;

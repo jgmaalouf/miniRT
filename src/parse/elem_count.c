@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   elem_count.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:41:02 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 19:12:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/04/01 15:39:24 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "elem_count.h"
 #include "parse.h"
+
+// TODO: IMPLEMENT FUNCTION POINTERS HERE INSTEAD OF IF ELSE
 
 t_elem_count	*elem_count(void)
 {
@@ -20,7 +22,7 @@ t_elem_count	*elem_count(void)
 	return (&count);
 }
 
-size_t	get_count(uint8_t elem_type, t_scene *scene)
+size_t	get_count(uint8_t elem_type, const t_scene *scene)
 {
 	t_elem_count	*count;
 

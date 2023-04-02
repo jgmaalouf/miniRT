@@ -3,21 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   transform_scene.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:45:38 by amorvai           #+#    #+#             */
-/*   Updated: 2023/03/31 00:53:13 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/04/01 15:41:25 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
 #include "transform.h"
+#include "elem_count.h"
 
 #include <stdlib.h>
 
 void	transform_light(t_scene *scene, double w_to_c[4][4])
 {
-	transform_point(&scene->light.pos, w_to_c);
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = get_count(g_light, scene);
+	while (i < count)
+	{
+		transform_point(&scene->light[i].pos, w_to_c);
+		i++;
+	}
 }
 
 void	transform_hittable_sphere(t_scene *scene, double w_to_c[4][4])

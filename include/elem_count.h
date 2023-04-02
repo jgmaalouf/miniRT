@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elem_count.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:00 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/30 18:55:08 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/04/01 15:39:39 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_elem_count
 }				t_elem_count;
 
 t_elem_count	*elem_count(void);
-size_t			get_count(uint8_t elem_type, t_scene *scene);
+size_t			get_count(uint8_t elem_type, const t_scene *scene);
 void			incr_count(uint8_t elem_type, t_scene *scene);
 
 #endif

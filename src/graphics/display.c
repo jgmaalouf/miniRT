@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:31 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 16:36:01 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:46:45 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "scene.h"
 #include "graphics.h"
 
+#include <stdio.h>
+
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	mlx_t	*mlx;
@@ -22,6 +24,12 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	mlx = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
+}
+
+void	print_loading_screen(int line, int total)
+{
+	fflush(stdout);
+	printf("Rendering: %i%%\r", (int)((line / (double)total) * 101.0));
 }
 
 void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
@@ -39,6 +47,7 @@ void	scene_render(t_scene *scene, mlx_image_t *mlx_img)
 			x++;
 		}
 		y++;
+		print_loading_screen(y, scene->image.height);
 	}
 }
 

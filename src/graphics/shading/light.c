@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 18:21:04 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/03/31 16:40:35 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/01 15:15:38 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ double	shadow_hit(t_ray shadow_ray, t_hittable objects,
 	the visible boolean. Effectively turning the color off or on when
 	we multiply the point with the boolean.
 */
-t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
+t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint, size_t i)
 {
 	t_vec3			light_vec;
 	t_ray			shadow_ray;
@@ -56,11 +56,10 @@ t_color	get_light_shade(const t_scene *scene, const t_hit_record hitpoint)
 	double			attenuation;
 	t_color			light_color;
 
-	light_vec = vec3_subtr(scene->light.pos, hitpoint.p);
+	light_vec = vec3_subtr(scene->light[i].pos, hitpoint.p);
 	shadow_ray = ray_constr(hitpoint.p, vec3_unit(light_vec));
 	visiblity = shadow_hit(shadow_ray, scene->hittable, hitpoint, light_vec);
-	attenuation = fmax(vec3_dot(vec3_unit(light_vec), hitpoint.normal), 0.0);
-	light_color = vec3_scale_mult(scene->light.energy, attenuation);
+	attenuation = fmax(0.0, vec3_dot(vec3_unit(light_vec), hitpoint.normal));
+	light_color = vec3_scale_mult(scene->light[i].energy, attenuation);
 	return (vec3_scale_mult(light_color, visiblity));
-	return (light_color);
 }
