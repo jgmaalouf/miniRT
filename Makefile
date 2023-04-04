@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/04/02 17:18:53 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/04/04 22:16:59 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LDFLAGS	+= -L $(LIBMLX)/glfw_lib/ -lglfw3 -framework Cocoa -framework OpenGL -fr
 endif
 
 ifeq ($(OS), Linux)
-LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd
+LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd -fsanitize=address,undefined
 endif
 
 SRCS	= main.c \

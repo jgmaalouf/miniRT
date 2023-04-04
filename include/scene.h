@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/04/02 17:21:31 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:45:47 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 # include <stdbool.h> // bool
 # include <stdint.h> // uint8_t
 # include <stdlib.h> // size_t
+# include <pthread.h>
 
-# define SPP 1
-# define MAX_DEPTH 1
+# define SPP 20
+# define MAX_DEPTH 40
+# define THREADS 200
 
 // _____________________________________________________________________________
 //
@@ -136,6 +138,14 @@ typedef struct s_scene
 	t_hittable	hittable;
 	bool		error;
 }				t_scene;
+
+typedef struct s_worker
+{
+	size_t		id;
+	pthread_t	thread;
+	t_scene		*scene;
+}				t_worker;
+
 
 t_scene	parse(char *file);
 void	transform(t_scene *scene);

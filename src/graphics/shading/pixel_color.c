@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 07:21:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/04/02 17:35:35 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:16:29 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_color	ambient_occlusion(t_scene *scene, const t_hit_record hit_rec, int depth)
 
 	illum = vec3_scale_mult(ray_color(ray_constr(hit_rec.p, random_dir(hit_rec)), scene, depth - 1), 0.5);
 	if (illum.e[0] == 0 && illum.e[1] == 0 && illum.e[2] == 0)
-		illum = (t_vec3){1, 1, 1};
+		illum = (t_vec3){{1, 1, 1}};
 	return (illum);
 }
 
@@ -117,8 +117,8 @@ static t_ray	get_next_ray(t_scene *scene, double x, double y)
 	t_vec3	ray_dir;
 
 	pixel_to_world(scene, &x, &y);
-	ray_dir = vec3_unit(vec3_subtr(vec3_constr(x, y, -1), (t_vec3){0, 0, 0}));
-	ray = ray_constr((t_vec3){0, 0, 0}, ray_dir);
+	ray_dir = vec3_unit(vec3_subtr(vec3_constr(x, y, -1), (t_vec3){{0, 0, 0}}));
+	ray = ray_constr((t_vec3){{0, 0, 0}}, ray_dir);
 	return (ray);
 }
 
