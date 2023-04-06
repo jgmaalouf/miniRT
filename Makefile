@@ -6,7 +6,7 @@
 #    By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 16:59:04 by jmaalouf          #+#    #+#              #
-#    Updated: 2023/04/04 22:16:59 by jmaalouf         ###   ########.fr        #
+#    Updated: 2023/04/06 11:34:51 by jmaalouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LDFLAGS	+= -ldl -pthread -lm -lglfw -lbsd -fsanitize=address,undefined
 endif
 
 SRCS	= main.c \
-			display.c \
+			display.c worker.c \
 			print_scene.c print_vec3.c \
 			cylinder_plane.c cylinder.c plane.c sphere.c world.c \
 			light.c pixel_color.c ray.c shading_utils.c \

@@ -6,7 +6,7 @@
 /*   By: jmaalouf <jmaalouf@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:40:12 by jmaalouf          #+#    #+#             */
-/*   Updated: 2023/04/04 22:45:47 by jmaalouf         ###   ########.fr       */
+/*   Updated: 2023/04/05 10:48:02 by jmaalouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <stdlib.h> // size_t
 # include <pthread.h>
 
-# define SPP 20
+# define SPP 5
 # define MAX_DEPTH 40
-# define THREADS 200
+# define THREADS 20
 
 // _____________________________________________________________________________
 //
@@ -124,6 +124,7 @@ typedef struct s_hittable
 typedef struct s_image
 {
 	mlx_image_t	*img;
+	mlx_t		*mlx;
 	double		width;
 	double		height;
 	double		ratio;
